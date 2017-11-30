@@ -1,13 +1,13 @@
 (ns glurps.core
   (:gen-class))
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
-
 (defn parse-url [url]
   (println url))
+
+(def html (slurp "https://news.ycombinator.com/"))
+
+html
+
 
 (defn -main [& args]
   (def array-args (into [] args))

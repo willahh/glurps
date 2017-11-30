@@ -1,10 +1,9 @@
 # glurps
+web crawler
+WIP (learning clojure)
 
-FIXME: description
 
 ## Installation
-
-Download from http://example.com/FIXME.
 
 
 ## Usage
@@ -16,10 +15,7 @@ lein run -url https://news.ycombinator.com/
 
 
 ## Examples
-java -jar target/uberjar/glurps-0.1.0-SNAPSHOT-standalone.jar -url https://news.ycombinator.com/
-
-
-### Bugs
+java -jar glurps-0.1.0-SNAPSHOT-standalone.jar -url https://news.ycombinator.com/
 
 
 ## License
