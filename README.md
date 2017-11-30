@@ -6,31 +6,25 @@ FIXME: description
 
 Download from http://example.com/FIXME.
 
+
 ## Usage
+lein run -url https://news.ycombinator.com/
 
-FIXME: explanation
-
-    $ java -jar glurps-0.1.0-standalone.jar [args]
 
 ## Options
+- url
 
-FIXME: listing of options this app accepts.
 
 ## Examples
+java -jar target/uberjar/glurps-0.1.0-SNAPSHOT-standalone.jar -url https://news.ycombinator.com/
 
-...
 
 ### Bugs
 
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
 
 ## License
 
-Copyright © 2017 FIXME
+Copyright © 2017 William Ravel
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
