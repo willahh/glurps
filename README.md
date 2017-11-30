@@ -1,5 +1,5 @@
 # glurps
-web crawler
+Web crawler
 WIP (learning clojure)
 
 
