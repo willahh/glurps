@@ -47,7 +47,7 @@ breaks"
           :title (a :title)
           :image b
           :url url
-          :description (glurps.sheet/get-description url)})
+          :description (glurps.sheet/get-field-description url)})
        (map (fn [row]
               {:author (get-sorties-week-author row)
                :title (get-sorties-week-title row)})
@@ -79,16 +79,3 @@ breaks"
 
 
 (apply -main "a" "b")
-
-
-
-
-
-
-
-
-
-
-
-
-
