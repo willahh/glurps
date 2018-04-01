@@ -36,25 +36,3 @@
   (page/html5 (get-head)
               [:body {:class "bg-light"}
                [:div.container (get-page-header) hiccup-html]]))
-
-(defn get-item-view [row]
-  [:div {:class "col-md-4 mb-4"}
-   [:div {:class "card" :style "height: 100%"}
-    [:img.card-img-top ]
-    [:div.card-body
-     [:h5.card-title (row :title)]
-     [:div.card-text
-      [:div (row :description)
-       [:p.date (row :date)]
-       [:p.director (row :director)]
-       [:p.genre (row :genre)]]]
-     [:a {:class "btn btn-primary"} "Go"]]]])
-
-(defn get-item-list-view [rows]
-  (map #(get-item-view %) rows))
-
-(defn get-root-html []
-  (get-html [:div.row
-             (get-item-list-view (glurps.admin.home/get-sorties-week-rows-debug))]))
-
-

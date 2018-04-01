@@ -130,3 +130,8 @@
     :id "261687",
     :image
     "http://fr.web.img6.acsta.net/c_215_290/pictures/18/02/20/16/48/0323277.jpg"}])
+
+(defn find-by-id [id]
+  (filter (fn [row]
+            (== (compare (row :id) id) 0))
+          (get-sorties-week-rows-debug)))

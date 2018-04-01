@@ -1,11 +1,15 @@
 (ns glurps.client.routes
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
-            [glurps.client.views.main]))
+            [glurps.client.views.home :as home]
+            [glurps.client.views.sheet :as sheet]))
 
 (defroutes app-routes
   (GET "/"
        []
-       (glurps.client.views.main/get-root-html)))
+       (home/get-html))
+  (GET "/sheet/:id"
+       [id]
+       (sheet/get-html id)))
 
 (def app app-routes)
