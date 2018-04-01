@@ -1,10 +1,10 @@
 (ns glurps.client.views.main
   (:require [hiccup.page :as page]
-            [hiccup.core :as core]
-            [glurps.admin.home]))
+            [hiccup.core :as core]))
 
 (def main-nav-rows [{:label "Home" :href "/"}
-                    {:label "Week" :href "/week"}])
+                    {:label "Week" :href "/week"}
+                    {:label "Database manager" :href "http://localhost/projects/clojure/glurps/resources/databases/?sqlite=&username=root&db=wlhtml.db"}])
 
 (defn get-head []
   [:head

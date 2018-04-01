@@ -1,0 +1,3 @@
+{:root-url "http://www.allocine.fr"
+ :database-manager-url "http://localhost/projects/clojure/glurps/resources/databases/?sqlite=&username=root&db=wlhtml.db"
+ }

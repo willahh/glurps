@@ -1,6 +1,6 @@
 (ns glurps.client.views.home
-  (:require [glurps.admin.home]
-            [glurps.client.views.main :as main]))
+  (:require [glurps.client.views.main :as main]
+            [glurps.process.scrapper-allocine.home :as scrapper-home]))
 
 (defn get-item-view [row]
   [:div {:class "col-md-4 mb-4"}
@@ -20,4 +20,4 @@
 
 (defn get-html []
   (main/get-html [:div.row
-                  (get-item-list-view (glurps.admin.home/get-sorties-week-rows-debug))]))
+                  (get-item-list-view (scrapper-home/get-sorties-week-rows-debug))]))

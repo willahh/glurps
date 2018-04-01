@@ -1,6 +1,6 @@
 (ns glurps.client.views.sheet
-  (:require [glurps.admin.home]
-            [glurps.client.views.main :as main]))
+  (:require [glurps.client.views.main :as main]
+            [glurps.process.scrapper-allocine.home :as scrapper-home]))
 
 (defn get-item-view [row]
   [:div {:class "col-md-4 mb-4"}
@@ -16,18 +16,18 @@
      [:a {:class "btn btn-primary"} "Go"]]]])
 
 (defn get-view [row]
-  [:div.row
+  [:div
    [:h1 (row :title)]
-   [:div "Date de sortie" (row :date)]
-   [:div "De" (row :director)]
+   [:div "Date de sortie " (row :date)]
+   [:div "De " (row :director)]
    ;; [:div "Avec" (row :actors)]
-   [:div "Genres" (row :genre)]
-   [:div "Description" (row :description)]
-   [:div "Note presse" ((row :note) :presse)]
-   [:div "Note spectateur" ((row :note) :spectator)]])
+   [:div "Genres " (row :genre)]
+   [:div "Description " (row :description)]
+   [:div "Note presse " ((row :note) :presse)]
+   [:div "Note spectateur " ((row :note) :spectator)]])
 
 (defn get-html [id]
-  (let [row (first (glurps.admin.home/find-by-id id))]
+  (let [row (first (scrapper-home/find-by-id id))]
     (main/get-html [:div (get-view row)])))
 
 

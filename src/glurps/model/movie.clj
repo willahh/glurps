@@ -1,0 +1,2 @@
+(ns glurps.model.movie)
+
