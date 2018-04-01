@@ -9,7 +9,10 @@
                  [enlive "1.1.6"]
                  [org.clojure/core.cache "0.7.1"]
                  [compojure "1.6.0"]
-                 [ring "1.6.3"]]
+                 [ring "1.6.3"]
+                 [org.clojure/java.jdbc "0.7.5"]
+                 ;; [org.xerial/sqlite-jdbc "3.7.2"]
+                 [sqlitejdbc "0.5.6"]]
   :main ^:skip-aot glurps.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}}

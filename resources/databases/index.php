@@ -9,7 +9,7 @@ function adminer_object() {
         }
         function databases($flush = true) {
             if (isset($_GET['sqlite']))
-                return ["wlhtml.db"];
+                return ["allocine.db"];
             return get_databases($flush);
         }
     }
