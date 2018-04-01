@@ -27,15 +27,19 @@ breaks"
     (fetch-url id-or-html)))
 
 (defn get-field-from-resource [id-or-html selector]
-  (let [resource (get-html-from-id-or-html id-or-html)]
-    (first ((first (html/select resource selector)) :content))))
+  (let [html (get-html-from-id-or-html id-or-html)]
+    (first ((first (html/select html selector)) :content))))
 
 (defn get-field-description [id-or-html]
-  (get-field-from-resource id-or-html [:div.synopsis-txt]))
+  (let [html (get-html-from-id-or-html id-or-html)]
+    (first ((first (html/select html [:div.titlebar-title])) :content))))
+
+(defn get-field-title [id-or-html]
+  (get-field-from-resource id-or-html [:div.titlebar-title]))
 
 (defn get-field-id [id-or-html]
-  (let [resource (get-html-from-id-or-html id-or-html)]
-    (let [movie-id-str (((first (html/select resource [:span#js-title-actions])) :attrs) :data-entity-id)]
+  (let [html (get-html-from-id-or-html id-or-html)]
+    (let [movie-id-str (((first (html/select html [:span#js-title-actions])) :attrs) :data-entity-id)]
       (clojure.string/replace movie-id-str #"Movie_" ""))))
 
 (defn get-field-date ([id-or-html]
@@ -45,23 +49,23 @@ breaks"
   (get-field-from-resource id-or-html [:div.meta-body-item :a :span]))
 
 (defn get-field-actors [id-or-html]
-  (let [resource (get-html-from-id-or-html id-or-html)]
-    (map #(first (% :content))        
-         (html/select id-or-html [:div.meta :a.meta-title-link (html/attr? :itemprop)]))))
+  (let [html (get-html-from-id-or-html id-or-html)]
+    (into [] (map #(first (% :content))        
+                  (html/select html [:div.meta :a.meta-title-link (html/attr? :itemprop)])))))
 
 (defn get-field-genre [id-or-html]
-  (let [resource (get-html-from-id-or-html id-or-html)]
-    (map #(first (% :content))        
-         (html/select id-or-html [:div.meta :div.meta-body-item (html/attr-has :itemprop "genre")]))))
+  (let [html (get-html-from-id-or-html id-or-html)]
+    (into [] (map #(first (% :content))        
+                  (html/select html [:div.meta :div.meta-body-item (html/attr-has :itemprop "genre")])))))
 
 (defn get-field-image [id-or-html]
-  (let [resource (get-html-from-id-or-html id-or-html)]
-    (((first (html/select id-or-html [:div.card-movie-overview :img.thumbnail-img])) :attrs) :src)))
+  (let [html (get-html-from-id-or-html id-or-html)]
+    (((first (html/select html [:div.card-movie-overview :img.thumbnail-img])) :attrs) :src)))
 
 (defn get-field-note-presse [id-or-html]
-  (let [resource (get-html-from-id-or-html id-or-html)]
+  (let [html (get-html-from-id-or-html id-or-html)]
     (let [note (clojure.string/replace (first
-                                        ((first (html/select id-or-html
+                                        ((first (html/select html
                                                              [:span.stareval-note])) :content))
                                        #"\n +"
                                        "")
@@ -69,9 +73,9 @@ breaks"
       (/ note-double 5))))
 
 (defn get-field-note-spectator [id-or-html]
-  (let [resource (get-html-from-id-or-html id-or-html)]
+  (let [html (get-html-from-id-or-html id-or-html)]
     (let [note (clojure.string/replace (first
-                                        ((second (html/select id-or-html
+                                        ((second (html/select html
                                                               [:span.stareval-note])) :content))
                                        #"\n +"
                                        "")
@@ -81,6 +85,7 @@ breaks"
 (defn get-fields-from-id [id-or-html]
   (let [html (get-html-from-id-or-html id-or-html)]
     {:id (get-field-id html)
+     :title (get-field-title html)
      :description (get-field-description html)
      :date (get-field-date html)
      :director (get-field-director html)
@@ -95,12 +100,11 @@ breaks"
 ;; (def id-or-html "229831")
 
 (get-fields-from-id id-or-html)
-
 (get-field-id id-or-html)
+(get-field-title id-or-html)
 (get-field-description id-or-html)
 (get-field-date id-or-html)
 (get-field-director id-or-html)
-
 (get-field-actors id-or-html)
 (get-field-genre id-or-html)
 (get-field-image id-or-html)
@@ -116,3 +120,4 @@ breaks"
 ;;                                        id-or-html
 ;;                                        [:div.meta :div.meta-body-item
 ;;                                         (html/attr-has :itemprop "genre")])))
+
