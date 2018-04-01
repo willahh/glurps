@@ -10,143 +10,109 @@ breaks"
   (clojure.string/replace
    (clojure.string/replace (clojure.string/replace str #"^ +" "")
                            #" +$" "") #"\n" ""))
+
+(defn get-url-from-id [id]
+  (str root-url "/film/fichefilm_gen_cfilm=" id ".html"))
+
 (defn str-double-to-double [str]
   (read-string (clojure.string/replace "4,2" #"," ".")))
 
-(defn fetch-url [sheet-url]
-  "sheet-url : /film/fichefilm_gen_cfilm=229831.html"
-  (html/html-resource (java.net.URL. sheet-url)))
+(defn fetch-url [id]
+  (let [url (get-url-from-id id)]
+    (html/html-resource (java.net.URL. url))))
 
-(defn get-field-from-resource [resource-or-url selector]
-  (let [resource (if (instance? clojure.lang.LazySeq resource-or-url)
-                   resource-or-url
-                   (fetch-url (str root-url resource-or-url)))]
+(defn get-html-from-id-or-html [id-or-html]
+  (if (instance? clojure.lang.LazySeq id-or-html)
+    id-or-html
+    (fetch-url id-or-html)))
+
+(defn get-field-from-resource [id-or-html selector]
+  (let [resource (get-html-from-id-or-html id-or-html)]
     (first ((first (html/select resource selector)) :content))))
 
-(defn get-field-description [resource-or-url]
-  (get-field-from-resource resource-or-url [:div.synopsis-txt]))
+(defn get-field-description [id-or-html]
+  (get-field-from-resource id-or-html [:div.synopsis-txt]))
 
-(defn get-field-id [resource-or-url]
-  (let [resource (if (instance? clojure.lang.LazySeq resource-or-url)
-                   resource-or-url
-                   (fetch-url (str root-url resource-or-url)))]
-    (let [movie-id-str (((first (html/select resource-or-url [:span#js-title-actions])) :attrs) :data-entity-id)]
+(defn get-field-id [id-or-html]
+  (let [resource (get-html-from-id-or-html id-or-html)]
+    (let [movie-id-str (((first (html/select resource [:span#js-title-actions])) :attrs) :data-entity-id)]
       (clojure.string/replace movie-id-str #"Movie_" ""))))
 
-(defn get-field-date ([resource-or-url]
-                      (get-field-from-resource resource-or-url [:div.meta-body :span.date])))
+(defn get-field-date ([id-or-html]
+                      (get-field-from-resource id-or-html [:div.meta-body :span.date])))
 
-(defn get-field-director [resource-or-url]
-  (get-field-from-resource resource-or-url [:div.meta-body-item :a :span]))
+(defn get-field-director [id-or-html]
+  (get-field-from-resource id-or-html [:div.meta-body-item :a :span]))
 
-(defn get-field-actors [resource-or-url]
-  (let [resource (if (instance? clojure.lang.LazySeq resource-or-url)
-                   resource-or-url
-                   (fetch-url (str root-url resource-or-url)))]
+(defn get-field-actors [id-or-html]
+  (let [resource (get-html-from-id-or-html id-or-html)]
     (map #(first (% :content))        
-         (html/select resource-or-url [:div.meta :a.meta-title-link (html/attr? :itemprop)]))))
+         (html/select id-or-html [:div.meta :a.meta-title-link (html/attr? :itemprop)]))))
 
-(defn get-field-genre [resource-or-url]
-  (let [resource (if (instance? clojure.lang.LazySeq resource-or-url)
-                   resource-or-url
-                   (fetch-url (str root-url resource-or-url)))]
+(defn get-field-genre [id-or-html]
+  (let [resource (get-html-from-id-or-html id-or-html)]
     (map #(first (% :content))        
-         (html/select resource-or-url [:div.meta :div.meta-body-item (html/attr-has :itemprop "genre")]))))
+         (html/select id-or-html [:div.meta :div.meta-body-item (html/attr-has :itemprop "genre")]))))
 
-(defn get-field-image [resource-or-url]
-  (let [resource (if (instance? clojure.lang.LazySeq resource-or-url)
-                   resource-or-url
-                   (fetch-url (str root-url resource-or-url)))]
-    (((first (html/select resource-or-url [:div.card-movie-overview :img.thumbnail-img])) :attrs) :src)))
+(defn get-field-image [id-or-html]
+  (let [resource (get-html-from-id-or-html id-or-html)]
+    (((first (html/select id-or-html [:div.card-movie-overview :img.thumbnail-img])) :attrs) :src)))
 
-(defn get-field-note-presse [resource-or-url]
-  (let [resource (if (instance? clojure.lang.LazySeq resource-or-url)
-                   resource-or-url
-                   (fetch-url (str root-url resource-or-url)))]
+(defn get-field-note-presse [id-or-html]
+  (let [resource (get-html-from-id-or-html id-or-html)]
     (let [note (clojure.string/replace (first
-                                        ((first (html/select resource-or-url
+                                        ((first (html/select id-or-html
                                                              [:span.stareval-note])) :content))
                                        #"\n +"
                                        "")
           note-double (str-double-to-double note)]
       (/ note-double 5))))
 
-(defn get-field-note-spectator [resource-or-url]
-  (let [resource (if (instance? clojure.lang.LazySeq resource-or-url)
-                   resource-or-url
-                   (fetch-url (str root-url resource-or-url)))]
+(defn get-field-note-spectator [id-or-html]
+  (let [resource (get-html-from-id-or-html id-or-html)]
     (let [note (clojure.string/replace (first
-                                        ((second (html/select resource-or-url
+                                        ((second (html/select id-or-html
                                                               [:span.stareval-note])) :content))
                                        #"\n +"
                                        "")
           note-double (str-double-to-double note)]
       (/ note-double 5))))
 
-;; (defmacro get-field-macro [resource-or-url & body]
-;;   `(let [resource# ~(if (instance? clojure.lang.LazySeq ~resource-or-url)
-;;                       resource-or-url
-;;                       (fetch-url (str root-url resource-or-url)))]
+(defn get-fields-from-id [id-or-html]
+  (let [html (get-html-from-id-or-html id-or-html)]
+    {:id (get-field-id html)
+     :description (get-field-description html)
+     :date (get-field-date html)
+     :director (get-field-director html)
+     :actors (get-field-actors html)
+     :genre (get-field-genre html)
+     :image (get-field-image html)
+     :note {:presse (get-field-note-presse html)
+            :spectator (get-field-note-spectator html)}}))
+
+;; -------- Test
+(def id-or-html (fetch-url "229831"))
+;; (def id-or-html "229831")
+
+(get-fields-from-id id-or-html)
+
+(get-field-id id-or-html)
+(get-field-description id-or-html)
+(get-field-date id-or-html)
+(get-field-director id-or-html)
+
+(get-field-actors id-or-html)
+(get-field-genre id-or-html)
+(get-field-image id-or-html)
+
+;; (defmacro get-field-macro [id-or-html & body]
+;;   `(let [resource# ~(if (instance? clojure.lang.LazySeq ~id-or-html)
+;;                       id-or-html
+;;                       (fetch-url (str root-url id-or-html)))]
 ;;      body))
 
-;; (get-field-macro resource-or-url (map #(first (% :content))
+;; (get-field-macro id-or-html (map #(first (% :content))
 ;;                                       (html/select
-;;                                        resource-or-url
+;;                                        id-or-html
 ;;                                        [:div.meta :div.meta-body-item
 ;;                                         (html/attr-has :itemprop "genre")])))
-
-(defn get-fields [resource-or-url]
-  {:id (get-field-id resource-or-url)
-   :description (get-field-description resource-or-url)
-   :date (get-field-date resource-or-url)
-   :director (get-field-director resource-or-url)
-   :actors (get-field-actors resource-or-url)
-   :genre (get-field-genre resource-or-url)
-   :image (get-field-image resource-or-url)
-   :note {:presse (get-field-note-presse resource-or-url)
-          :spectator (get-field-note-spectator resource-or-url)}})
-
-
-;; TEST
-(def resource-or-url (fetch-url (str root-url "/film/fichefilm_gen_cfilm=229831.html")))
-(get-field-description resource-or-url)
-(get-field-date resource-or-url)
-(get-field-director resource-or-url)
-(get-field-actors resource-or-url)
-(get-fields resource-or-url)
-
-
-
-
-;; (let [a "ok"]
-;;   (println "ok")
-;;   (future (Thread/sleep 500) (println "-- done"))
-;;   (println "ok"))
-
-
-
-
-;; (def C (-> {:a 1 :b 2}
-;;            (cache/fifo-cache-factory :threshold 2)
-;;            (cache/ttl-cache-factory  :ttl 5000)))
-
-;; (assoc C :d 138)
-
-
-
-
-
-
-;; (let [f (future (reduce * (range 1 50)))]
-;;   (.get f 1 java.util.concurrent.TimeUnit/MILLISECONDS))
-
-
-
-;; (defn timeout [timeout-ms callback]
-;;   (let [fut (future (callback))
-;;         ret (deref fut timeout-ms ::timed-out)]
-;;     (when (= ret ::timed-out)
-;;       (future-cancel fut))
-;;     ret))
-
-;; (timeout 100 #(Thread/sleep 1000))

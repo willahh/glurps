@@ -60,6 +60,10 @@ breaks"
 
 
 
+;; (def id-or-html (fetch-url "229831"))
+;; ;; (def id-or-html "229831")
+
+;; (get-fields id-or-html)
 
 
 
@@ -69,13 +73,12 @@ breaks"
 
 
 
+;; (defn -main [& args]
+;;   (def array-args (into [] args))
 
-(defn -main [& args]
-  (def array-args (into [] args))
-  
-  (let [[type url] array-args]
-    (if (= type "-url")
-      (parse-url url))))
+;;   (let [[type url] array-args]
+;;     (if (= type "-url")
+;;       (parse-url url))))
 
 
-(apply -main "a" "b")
+;; (apply -main "a" "b")
