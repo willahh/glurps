@@ -1,8 +1,7 @@
-(ns glurps.sheet
+(ns glurps.admin.sheet
   (:require [net.cgrand.enlive-html :as html]
-            [clojure.core.cache :as cache]))
-
-(def root-url "http://www.allocine.fr")
+            [clojure.core.cache :as cache]
+            [glurps.admin.utils]))
 
 (defn clean-string [str]
   "Removes excess spaces at the beginning and end of the chain, as well as line
@@ -12,7 +11,7 @@ breaks"
                            #" +$" "") #"\n" ""))
 
 (defn get-url-from-id [id]
-  (str root-url "/film/fichefilm_gen_cfilm=" id ".html"))
+  (str glurps.admin.utils/root-url "/film/fichefilm_gen_cfilm=" id ".html"))
 
 (defn str-double-to-double [str]
   (read-string (clojure.string/replace "4,2" #"," ".")))
@@ -112,7 +111,7 @@ breaks"
 ;; (defmacro get-field-macro [id-or-html & body]
 ;;   `(let [resource# ~(if (instance? clojure.lang.LazySeq ~id-or-html)
 ;;                       id-or-html
-;;                       (fetch-url (str root-url id-or-html)))]
+;;                       (fetch-url (str glurps.admin.utils/root-url id-or-html)))]
 ;;      body))
 
 ;; (get-field-macro id-or-html (map #(first (% :content))

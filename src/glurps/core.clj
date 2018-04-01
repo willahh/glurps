@@ -1,7 +1,6 @@
 (ns glurps.core
-  (:require [glurps.sheet]
-            [glurps.home]))
-
+  (:require [glurps.admin.sheet]
+            [glurps.admin.home]))
 
 
 ;; (glurps.home/get-sorties-week-sheets)

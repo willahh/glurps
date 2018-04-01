@@ -1,15 +1,14 @@
-(ns glurps.home
+(ns glurps.admin.home
   (:require [net.cgrand.enlive-html :as html]
             [clojure.core.cache :as cache]
             [clojure.string :as str]
+            [glurps.admin.utils]
             [glurps.sheet]))
-
-(def root-url "http://www.allocine.fr")
 
 (defn extract-id-from-sheet-url [url]
   (first (rest (re-find #"=([0-9]+).html" url))))
 
-(def html-home (html/html-resource (java.net.URL. root-url)))
+(def html-home (html/html-resource (java.net.URL. glurps.admin.utils/root-url)))
 
 (defn get-sorties-week-id-list []
   (map #(extract-id-from-sheet-url ((% :attrs) :href))
