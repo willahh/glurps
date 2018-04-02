@@ -13,3 +13,8 @@
 (defn find-by-alloid [alloid]
   (jdbc/query db-allocine/db-spec (str "SELECT * FROM \"" table-name "\" WHERE \"alloid\" = '" alloid "'")))
 
+
+;; Test
+(find-by-alloid "246009")
+(insert {:alloid "ok"
+         :title "ok"})

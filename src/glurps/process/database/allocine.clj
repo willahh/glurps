@@ -8,6 +8,6 @@
               :subname db-name})
 
 (defn insert [table cols row]
-  (let [rows (map (fn [col]
-                    (row (keyword col))) cols)]
+  (let [rows (into [] (map (fn [col]
+                             (row (keyword col))) cols))]
     (jdbc/insert! db-spec table cols rows)))

@@ -3,8 +3,8 @@
             [clojure.java.jdbc :as jdbc]))
 
 (def table-name "actor")
-(def cols ["id" "alloid" "name" "job" "nationality" "age" "birth-date" "biography" "filmography" "picture"])
-(def cols-to-insert (filter #(not= % "id") cols))
+(def cols ["id" "alloid" "name" "job" "nationality" "age" "birthdate" "biography" "filmography" "picture"])
+(def cols-to-insert (into [] (filter #(not= % "id") cols)))
 
 (defn insert [row]
   "row is a map of database column name as key and database value as value"
@@ -21,16 +21,7 @@
               (if-let [actor-row (first (get-by-name actor))]
                 actor-row)))))
 
-
-
-
-;; (insert {:id ""
-;;          :alloid "20"
-;;          :picture "ok"
-;;          :filmography ""
-;;          :biography ""
-;;          :birth-date ""
-;;          :age ""
-;;          :nationality ""
-;;          :job ""
-;;          :name ""})
+;; ;; Test
+;; (find-actor-by-name-list ["Acteur a"])
+;; (insert {:alloid "ok"
+;;          :name "ok"})
