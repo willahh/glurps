@@ -101,19 +101,19 @@ breaks"
 
 
 
-;; Tests
-(def id-or-html (fetch-url "18940"))
-(def id-or-html (fetch-url "803806"))
-;; (def id-or-html "229831")
+;; ;; Tests
+;; (def id-or-html (fetch-url "18940"))
+;; (def id-or-html (fetch-url "803806"))
+;; ;; (def id-or-html "229831")
 
-(get-field-name id-or-html)
-(get-field-job id-or-html)
-(get-field-age id-or-html)
-(get-field-birthdate id-or-html)
-(get-field-biography id-or-html)
-(get-field-nationality id-or-html)
-(get-field-filmography id-or-html)
-(get-field-picture id-or-html)
-(get-row-from-id id-or-html)
-(get-row-from-id "35365")
-(get-row-from-id "803806")
+;; (get-field-name id-or-html)
+;; (get-field-job id-or-html)
+;; (get-field-age id-or-html)
+;; (get-field-birthdate id-or-html)
+;; (get-field-biography id-or-html)
+;; (get-field-nationality id-or-html)
+;; (get-field-filmography id-or-html)
+;; (get-field-picture id-or-html)
+;; (get-row-from-id id-or-html)
+;; (get-row-from-id "35365")
+;; (get-row-from-id "803806")

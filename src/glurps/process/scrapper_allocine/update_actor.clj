@@ -15,5 +15,5 @@
                          :filmography (:filmography row-data)
                          :picture (:picture row-data)})))
 
-(let [actor-id (scrapper-actor-search/get-actor-id-by-actor-name "Olivia Cooke")]
-  (insert-actor actor-id))
+;; (let [actor-id (scrapper-actor-search/get-actor-id-by-actor-name "Olivia Cooke")]
+;;   (insert-actor actor-id))
