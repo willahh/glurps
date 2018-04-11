@@ -13,10 +13,12 @@
                  [org.clojure/java.jdbc "0.7.5"]
                  [sqlitejdbc "0.5.6"]
                  [org.clojure/test.check "0.9.0"]
-                 [org.clojure/test.generative "0.5.2"]]
+                 [org.clojure/test.generative "0.5.2"]
+                 [prone "1.5.1"]]
   :main ^:skip-aot glurps.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
-             :dev {:dependencies [[org.clojure/test.check "0.9.0"]]}}
+             :dev {:ring {:stacktrace-middleware prone.middleware/wrap-exceptions}
+                   :dependencies [[org.clojure/test.check "0.9.0"]]}}
   :plugins [[lein-ring "0.9.7"]]
   :ring {:handler glurps.client.routes/app})

@@ -21,3 +21,8 @@
 (defn get-html []
   (main/get-html [:div.row
                   (get-item-list-view (scrapper-home/get-sorties-week-rows-debug))]))
+
+
+(defn get-week-html []
+  (main/get-html [:div.row
+                  [:div "week"]]))

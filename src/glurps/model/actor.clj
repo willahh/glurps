@@ -20,8 +20,3 @@
             (for [actor actors]
               (if-let [actor-row (first (get-by-name actor))]
                 actor-row)))))
-
-;; ;; Test
-;; (find-actor-by-name-list ["Acteur a"])
-;; (insert {:alloid "ok"
-;;          :name "ok"})
