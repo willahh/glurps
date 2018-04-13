@@ -4,9 +4,10 @@
 (defn parse-url [url]
   (println url))
 
-(def html (slurp "https://news.ycombinator.com/"))
+;; (def html (slurp "https://news.ycombinator.com/"))
+(def html (slurp "static/page.html"))
 
-html
+
 
 
 (defn -main [& args]
