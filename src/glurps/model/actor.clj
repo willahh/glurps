@@ -13,6 +13,9 @@
 (defn get-by-name [name]
   (jdbc/query db-allocine/db-spec (str "SELECT * FROM \"" table-name "\" WHERE \"name\" = '" name "'")))
 
+(defn get-list [offset limit]
+  (jdbc/query db-allocine/db-spec (str "SELECT * FROM \"actor\" LIMIT " limit " OFFSET " offset)))
+
 (defn find-actor-by-name-list [actor-name-list]
   "Find rows of actor by a list of actor name"
   (filter #(some? %)
@@ -20,3 +23,7 @@
             (for [actor actors]
               (if-let [actor-row (first (get-by-name actor))]
                 actor-row)))))
+
+
+
+(get-list 1 2)

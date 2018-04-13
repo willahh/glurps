@@ -4,8 +4,10 @@
             [glurps.config :as config]))
 
 (def main-nav-rows [{:label "Home" :href "/"}
-                    {:label "Week" :href "/week"}
-                    {:label "Database manager" :href (config/get :database-manager-url)}])
+                    {:label "Week" :info "Get last week movies" :href "/week"}
+                    {:label "Glurps" :href "/glurps" :info "Glurps some data from Allocine"}
+                    {:label "Database manager" :href (config/get :database-manager-url)}
+                    {:label "logs" :href "/logs"}])
 
 (defn get-head []
   [:head
@@ -20,7 +22,7 @@
   [:ul {:class "navbar-nav mr-auto"}
    (map (fn [row]
           [:li {:class "nav-item active"}
-           [:a.nav-link {:href (row :href)} (row :label)]]) main-nav-rows)])
+           [:a.nav-link {:href (row :href) :title (row :info)} (row :label)]]) main-nav-rows)])
 
 (defn get-page-header []
   [:nav {:class "navbar navbar-expand-lg navbar-light bg-light"}
