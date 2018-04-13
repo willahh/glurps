@@ -9,6 +9,10 @@ WIP (learning clojure)
 ## Usage
 lein run -url https://news.ycombinator.com/
 
+## Running
+To start a web server for the application, run:
+
+    lein ring server
 
 ## Options
 - url
