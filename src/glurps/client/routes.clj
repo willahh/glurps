@@ -3,7 +3,8 @@
             [compojure.route :as route]
             [glurps.client.views.home :as home]
             [glurps.client.views.sheet :as sheet]
-            [glurps.client.views.week :as week]))
+            [glurps.client.views.week :as week]
+            [glurps.client.views.logs :as logs]))
 
 (defroutes app-routes
   (GET "/"
@@ -14,6 +15,9 @@
        (week/get-html))
   (GET "/sheet/:id"
        [id]
-       (sheet/get-html id)))
+       (sheet/get-html id))
+  (GET "/logs"
+       []
+       (logs/get-html)))
 
 (def app app-routes)

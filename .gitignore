@@ -11,3 +11,4 @@ pom.xml.asc
 .hg/
 /resources/databases/adminer.php
 /node_modules
+*.log

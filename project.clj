@@ -15,7 +15,8 @@
                  [org.clojure/test.check "0.9.0"]
                  [org.clojure/test.generative "0.5.2"]
                  [prone "1.5.1"]
-                 [clj-http "3.8.0"]]
+                 [clj-http "3.8.0"]
+                 [thunknyc/richelieu "0.4.0"]]
   :main ^:skip-aot glurps.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
