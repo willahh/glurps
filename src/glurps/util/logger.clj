@@ -23,7 +23,7 @@
     "\n"))
 
 
-(defn log [level & args]
+(defn- log [level & args]
   (spit logger-file-path (apply arguments-to-line level args) :append true))
 
 (defn info [& args]

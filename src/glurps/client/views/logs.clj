@@ -12,7 +12,7 @@
   "Memoize (cached) version of get-logger-lines" (memoize get-logger-lines))
 
 (defn get-html []
-  (logger/log "get-html 1")
+  (logger/info "get-html 1")
   (main/get-html [:div
                   [:h2 "Logs"]
                   [:div.row

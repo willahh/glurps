@@ -10,7 +10,7 @@
 
 (defn insert [row & args]
   "row is a map of database column name as key and database value as value"
-  (logger/log "model.actor/insert" (identity args))
+  (logger/info "model.actor/insert" (identity args))
   (db-allocine/insert (keyword table-name) cols-to-insert row))
 
 (defn get-by-name [name]

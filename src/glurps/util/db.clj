@@ -6,5 +6,5 @@
 (defmacro query [db-spec sql-params]
   "Do a query with jdbc, add a log with the request"
   `(let [query# ~sql-params]
-     (logger/log query#)
+     (logger/info (str "[db] " query#))
      (jdbc/query ~db-spec query#)))
