@@ -1,23 +1,24 @@
 (ns glurps.model.actor
-  (:require [glurps.process.database.allocine :as db-allocine]
-            [clojure.java.jdbc :as jdbc]
-            [glurps.process.logger.logger :as logger]))
+  (:require [clojure.java.jdbc :as jdbc]
+            [glurps.util.db :as db]
+            [glurps.util.db-allocine :as db-allocine]
+            [glurps.util.logger :as logger]))
 
 (def table-name "actor")
 (def cols ["id" "alloid" "name" "job" "nationality" "age" "birthdate" "biography" "filmography" "picture"])
 (def cols-to-insert (into [] (filter #(not= % "id") cols)))
 
-(defn insert [row]
+(defn insert [row & args]
   "row is a map of database column name as key and database value as value"
-  (logger/log "model.actor/insert" row)
+  (logger/log "model.actor/insert" (identity args))
   (db-allocine/insert (keyword table-name) cols-to-insert row))
 
 (defn get-by-name [name]
-  (jdbc/query db-allocine/db-spec (str "SELECT * FROM \"" table-name "\" WHERE \"name\" = '" name "'")))
+  (db/query db-allocine/db-spec (str "SELECT * FROM \"" table-name "\" WHERE \"name\" = '" name "'")))
 
-(defn get-list [offset limit]
-  (logger/log "model.actor/get-list" offset limit)
-  (jdbc/query db-allocine/db-spec (str "SELECT * FROM \"actor\" LIMIT " limit " OFFSET " offset)))
+(defn get-list [offset limit & args]
+  (db/query db-allocine/db-spec
+            (str "SELECT * FROM \"actor\" LIMIT " limit " OFFSET " offset)))
 
 (defn find-actor-by-name-list [actor-name-list]
   "Find rows of actor by a list of actor name"
@@ -26,7 +27,3 @@
             (for [actor actors]
               (if-let [actor-row (first (get-by-name actor))]
                 actor-row)))))
-
-
-
-(get-list 1 2)

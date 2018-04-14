@@ -1,4 +1,4 @@
-(ns glurps.process.logger.logger
+(ns glurps.util.logger
   (:require [clojure.string :as string]))
 
 ;; TODO implements clojure.java.io stream

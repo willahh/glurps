@@ -1,7 +1,1 @@
-(ns glurps.core
-  (:require [glurps.client.client]))
-
-
-
-
-
+(ns glurps.core)

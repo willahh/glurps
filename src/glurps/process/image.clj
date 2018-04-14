@@ -1,7 +1,6 @@
 (ns glurps.process.image
   (:require [clj-http.client :as client]))
 
-
 (defn get-dir []
   "upload/")
 

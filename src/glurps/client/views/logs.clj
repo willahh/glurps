@@ -1,8 +1,7 @@
 (ns glurps.client.views.logs
   (:require [glurps.config :as config]
             [glurps.client.views.main :as main]
-            [glurps.process.logger.logger :as logger]))
-
+            [glurps.util.logger :as logger]))
 
 (def filepath "resources/log.log")
 

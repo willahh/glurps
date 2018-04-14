@@ -1,4 +1,4 @@
-(ns glurps.process.database.allocine
+(ns glurps.util.db-allocine
   (:require [glurps.config :as config]
             [clojure.java.jdbc :as jdbc]))
 
