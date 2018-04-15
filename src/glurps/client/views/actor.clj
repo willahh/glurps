@@ -14,9 +14,6 @@
                     (anti-forgery-field)
                     [:table
                      [:tr
-                      [:td {:class "label"} "alloid"]
-                      [:td {:class "value"} [:input {:name "alloid"}]]]
-                     [:tr
                       [:td {:class "label"} "name"]
                       [:td {:class "value"} [:input {:name "name"}]]]
                      [:tr 

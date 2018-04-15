@@ -2,7 +2,7 @@
   (:require [clojure.java.jdbc :as jdbc]
             [wlh.db :as db]
             [glurps.util.db-allocine :as db-allocine]
-            [glurps.util.logger :as logger]))
+            [wlh.logger :as logger]))
 
 (def table-name "actor")
 (def cols ["id" "alloid" "name" "job" "nationality" "age" "birthdate" "biography" "filmography" "picture"])

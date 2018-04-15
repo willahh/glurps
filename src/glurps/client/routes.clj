@@ -9,7 +9,9 @@
             [glurps.client.views.sheet :as sheet]
             [glurps.client.views.week :as week]
             [glurps.client.views.logs :as logs]
-            [glurps.client.views.actor :as actor]))
+            [glurps.client.views.actor :as actor]
+            [glurps.admin.index :as admin-index]
+            [glurps.admin.actor.index :as admin-actor-index]))
 
 (defroutes app-routes
   (GET "/"
@@ -28,8 +30,13 @@
         [params] (prn-str params))
   (GET "/logs"
        []
-       (logs/get-html)))
-;; (def app app-routes)
+       (logs/get-html))
+  (GET "/admin"
+       []
+       (admin-index/get-html))
+  (GET "/admin/actor"
+       []
+       (admin-actor-index/get-html)))
 
 (def app
   (wrap-defaults app-routes site-defaults))

@@ -8,9 +8,11 @@
 ** TODO Email service
 * TODO Locales file
 * TODO Get POST form works
+* TODO Page admin/log : Add filter from level or type
 * TODO Logger
 ** TODO Use cache - future is good but should not be called on every calls,
    Check for the use of channels with core.async
+** TODO Generate one file per day
 * TODO Events panel
 * TODO Export to xml
 * TODO Import to xml
