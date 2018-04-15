@@ -1,6 +1,6 @@
 (ns glurps.admin.actor.show
   (:require [glurps.config :as config]
-            [glurps.module.crud.show :as show]
+            [glurps.helper.crud.show :as show]
             [glurps.model.actor :as model-actor]))
 
 

@@ -1,6 +1,8 @@
 (ns glurps.admin.actor.index
-  (:require [glurps.admin.main :as main]
-            [glurps.module.crud.list :as list]
+  (:require [glurps.config :as config]
+            [glurps.admin.main :as main]
+            [glurps.helper.field.image :as image]
+            [glurps.helper.crud.list :as list]
             [glurps.model.actor-dao :as actor-dao]
             [glurps.model.actor-dto :as actor-dto]))
 
@@ -13,11 +15,20 @@
              "birthdate"
              "picture"])
 
+(defn field-display-picture [record]
+  (let [image-name (str "actor_" (record :id) ".jpg")
+        url (str (config/get :upload-filepath) image-name)]
+    (image/get-html image-name url)))
+
+(def field-display-map
+  "A map of key field-name, value display-function"
+  {:picture field-display-picture})
 
 (defn get-html []
   (main/get-html [:div
                   [:div "Actor list "]
-                  (list/get-html {:field-id "id"
+                  (list/get-html {:field-display-map field-display-map
+                                  :field-id "id"
                                   :show-url "/admin/actor/show/{id}"
                                   :insert-url "/admin/actor/insert/{id}"
                                   :update-url "/admin/actor/update/{id}"

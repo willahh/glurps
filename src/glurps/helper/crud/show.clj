@@ -1,4 +1,4 @@
-(ns glurps.module.crud.show)
+(ns glurps.helper.crud.show)
 
 (defn get-html [columns record]
   [:table {:class "table showTable" :style "border: 1px solid #000; width: auto;"}
@@ -7,4 +7,3 @@
       [:tr
        [:td {:width 50} column]
        [:td ((keyword column) record)]])]])
-
