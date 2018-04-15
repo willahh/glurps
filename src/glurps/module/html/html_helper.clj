@@ -11,21 +11,25 @@
           (= mode "insert")
           "<input>")))
 
-(defn get-action-link [record action id]
+(defn get-action-link [{:keys [show-url
+                               insert-url
+                               update-url
+                               delete-url] :as spec}
+                       record action id]
   (cond (= action "show")
-        (clojure.string/join ["?mode=show&id=" id])
+        (clojure.string/replace show-url #"\{id\}" (str id))
 
         (= action "insert")
-        (clojure.string/join ["?mode=insert"])
-
+        (clojure.string/replace insert-url #"\{id\}" (str id))
+        
         (= action "update")
-        (clojure.string/join ["?mode=update&id=" id])
+        (clojure.string/replace update-url #"\{id\}" (str id))
 
         (= action "delete")
-        (clojure.string/join ["?mode=delete&id=" id])))
+        (clojure.string/replace delete-url #"\{id\}" (str id))))
 
-(defn get-action-html [record id]
+(defn get-action-html [spec record id]
   [:div {:class "action"}
-   [:a {:href (get-action-link record "show" id) :class "btn"} "Show"]
-   [:a {:href (get-action-link record "update" id) :class "btn"} "Edit"]
-   [:a {:href (get-action-link record "delete" id) :class "btn"} "Delete"]])
+   [:a {:href (get-action-link spec record "show" id) :class "btn"} "Show"]
+   [:a {:href (get-action-link spec record "update" id) :class "btn"} "Edit"]
+   [:a {:href (get-action-link spec record "delete" id) :class "btn"} "Delete"]])
