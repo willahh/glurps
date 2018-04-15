@@ -1,7 +1,7 @@
 (ns glurps.module.actor.actor-view
   (:require [glurps.config :as config]
             [glurps.model.actor :as model-actor]
-            [glurps.helper.field.image :as image]))
+            [glurps.helper.field.image :as field-image]))
 
 (defn get-item-html [actor-record]
   [:div {:class "col-md-6 mb-6"}
@@ -14,7 +14,7 @@
 
       (let [image-name (str "actor_" (actor-record :id) ".jpg")
             url (actor-record :picture)]
-        (image/get-html image-name url))
+        (field-image/get-html actor-record))
       
       ;; [:div (row :description)
       ;;  [:p.date (row :date)]

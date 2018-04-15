@@ -2,11 +2,10 @@
   (:require [glurps.helper.html.html :as html-helper]
             [glurps.helper.field.field :as field]))
 
-(defn get-html [{:keys [presentation
-                        field-id
+(defn get-html [{:keys [field-id
                         show-url
                         update-url
-                        delete-url] :as spec} columns records]
+                        delete-url] :as spec} columns records & view-layout]
   [:table {:class "table listTable" :style "border: 1px solid #000"}
    [:thead
     [:tr
@@ -20,7 +19,7 @@
        [:td "<input type=\"checkbox\">"]
        (for [column columns]
          [:td
-          (field/get-field-html column record presentation)
+          (field/get-field-html column record (first view-layout))
           ])
        [:td
         (html-helper/get-action-html
