@@ -32,6 +32,8 @@
 
     @image-out))
 
-(defn get-html [image-name url]
-  [:img {:src (get-image image-name url)
-         :style "max-width: 100px; max-height: 100px;"}])
+(defn get-html [record]
+  (let [image-name (str "actor_" (record :id) ".jpg")
+        url (str (config/get :upload-filepath) image-name)]
+    [:img {:src (get-image image-name url)
+           :style "max-width: 100px; max-height: 100px;"}]))

@@ -1,16 +1,8 @@
 (ns glurps.helper.crud.list
-  (:require [glurps.helper.html.html :as html-helper]))
+  (:require [glurps.helper.html.html :as html-helper]
+            [glurps.helper.field.field :as field]))
 
-
-
-(defn get-field-display [field-name record & field-display-map]
-  (let [field-display-function
-        ((first field-display-map) (keyword field-name))]
-    (if field-display-function
-      (field-display-function record)
-      ((keyword field-name) record))))
-
-(defn get-html [{:keys [field-display-map
+(defn get-html [{:keys [presentation
                         field-id
                         show-url
                         update-url
@@ -28,7 +20,7 @@
        [:td "<input type=\"checkbox\">"]
        (for [column columns]
          [:td
-          (get-field-display column record field-display-map)
+          (field/get-field-html column record presentation)
           ])
        [:td
         (html-helper/get-action-html

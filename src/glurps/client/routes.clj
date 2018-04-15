@@ -11,7 +11,8 @@
             [glurps.client.views.logs :as logs]
             [glurps.client.views.actor :as actor]
             [glurps.admin.index :as admin-index]
-            [glurps.admin.actor.index :as admin-actor-index]))
+            [glurps.admin.actor.index :as admin-actor-index]
+            [glurps.admin.actor.show :as admin-actor-show]))
 
 (defroutes app-routes
   (GET "/"
@@ -36,7 +37,10 @@
        (admin-index/get-html))
   (GET "/admin/actor"
        []
-       (admin-actor-index/get-html)))
+       (admin-actor-index/get-html))
+  (GET "/admin/actor/show/:id"
+       [id]
+       (admin-actor-show/get-html id)))
 
 (def app
   (wrap-defaults app-routes site-defaults))

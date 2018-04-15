@@ -1,12 +1,11 @@
 (ns glurps.admin.actor.index
   (:require [glurps.config :as config]
             [glurps.admin.main :as main]
-            [glurps.helper.field.image :as image]
+            [glurps.helper.field.image :as field-image]
             [glurps.helper.crud.list :as list]
             [glurps.model.actor-dao :as actor-dao]
             [glurps.model.actor-dto :as actor-dto]))
 
-;; (def fields (actor-dto/get-fields))
 (def fields ["id"
              "name"
              "job"
@@ -15,19 +14,25 @@
              "birthdate"
              "picture"])
 
-(defn field-display-picture [record]
-  (let [image-name (str "actor_" (record :id) ".jpg")
-        url (str (config/get :upload-filepath) image-name)]
-    (image/get-html image-name url)))
+(def html-presentation
+  "A map of key field-name, value presentation-function"
+  {:picture field-image/get-html})
 
-(def field-display-map
-  "A map of key field-name, value display-function"
-  {:picture field-display-picture})
+(def layout
+  "Optional layout configuration"
+  {:fields ["id"
+            "name"
+            "job"
+            "nationality"
+            "age"
+            "birthdate"
+            "picture"]
+   :field-html-display [{:picture field-image/get-html}]})
 
 (defn get-html []
   (main/get-html [:div
                   [:div "Actor list "]
-                  (list/get-html {:field-display-map field-display-map
+                  (list/get-html {:presentation html-presentation
                                   :field-id "id"
                                   :show-url "/admin/actor/show/{id}"
                                   :insert-url "/admin/actor/insert/{id}"

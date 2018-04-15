@@ -23,6 +23,9 @@
 (defn get-by-name [name]
   (db/query db-allocine/db-spec (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"name\" = '" name "'")))
 
+(defn get-by-id [id]
+  (first (db/query db-allocine/db-spec (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"id\" = '" id "'"))))
+
 (defn get-list [offset limit & args]
   (db/query db-allocine/db-spec
             (str "SELECT * FROM \"actor\" LIMIT " limit " OFFSET " offset)))
