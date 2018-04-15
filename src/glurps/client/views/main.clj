@@ -5,6 +5,7 @@
 
 (def main-nav-rows [{:label "Home" :href "/"}
                     {:label "Week" :info "Get last week movies" :href "/week"}
+                    {:label "Actors" :info "Show actors" :href "/actor"}
                     {:label "Glurps" :href "/glurps" :info "Glurps some data from Allocine"}
                     {:label "Database manager" :href (config/get :database-manager-url)}
                     {:label "logs" :href "/logs"}])

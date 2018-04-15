@@ -1,5 +1,5 @@
 (ns glurps.model.movie
-  (:require [glurps.util.db :as db]
+  (:require [wlh.db :as db]
             [glurps.util.db-allocine :as db-allocine]))
 
 (def table-name "movie")

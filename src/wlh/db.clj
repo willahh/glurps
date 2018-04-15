@@ -1,7 +1,6 @@
 (ns wlh.db
   (:require [clojure.java.jdbc :as jdbc]
-            [glurps.util.logger :as logger]
-            [glurps.util.db-allocine :as db-allocine]))
+            [wlh.logger :as logger]))
 
 (defmacro query [db-spec sql-params]
   "Do a query with jdbc, log the request"

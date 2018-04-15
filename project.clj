@@ -15,12 +15,14 @@
                  [org.clojure/test.check "0.9.0"]
                  [org.clojure/test.generative "0.5.2"]
                  [prone "1.5.1"]
-                 [clj-http "3.8.0"]
-                 [thunknyc/richelieu "0.4.0"]]
+                 [clj-http "3.8.0"]                 
+                 [ring/ring-defaults "0.3.1"]]
   :main ^:skip-aot glurps.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
              :dev {:ring {:stacktrace-middleware prone.middleware/wrap-exceptions}
                    :dependencies [[org.clojure/test.check "0.9.0"]]}}
   :plugins [[lein-ring "0.9.7"]]
-  :ring {:handler glurps.client.routes/app})
+  :ring {:handler glurps.client.routes/app
+         :init glurps.client.routes/init})
+
