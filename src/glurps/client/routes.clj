@@ -1,10 +1,8 @@
 (ns glurps.client.routes
   (:use compojure.core)
   (:require [compojure.core :refer :all]
-            [compojure.middleware :as middleware]
-            [compojure.handler :as handler]
             [compojure.route :as route]
-            [ring.middleware.defaults :refer [wrap-defaults api-defaults site-defaults]]
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [glurps.client.views.home :as home]
             [glurps.client.views.sheet :as sheet]
             [glurps.client.views.week :as week]
@@ -14,6 +12,12 @@
             [glurps.admin.actor.index :as admin-actor-index]
             [glurps.admin.actor.show :as admin-actor-show]
             [glurps.admin.actor.update :as admin-actor-update]))
+
+(use 'ring.middleware.resource
+     'ring.middleware.content-type
+     'ring.middleware.not-modified
+     'ring.middleware.params
+     'ring.middleware.keyword-params)
 
 (defroutes app-routes
   (GET "/"
@@ -44,108 +48,18 @@
        (admin-actor-show/get-html id))
   (GET "/admin/actor/update/:id"
        [id]
-       (admin-actor-update/get-html id)))
-
-(def app
-  (wrap-defaults app-routes site-defaults))
+       (admin-actor-update/get-html id))
+  (POST "/admin/actor/update/:id"
+        {params :params}
+        (admin-actor-update/handle-update params)))
 
 (defn init []
   (println "Application is starting"))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-;; (middleware/wrap-canonical-redirect)
-
-
-;; (def app
-;;   (-> (handler/api app-routes)
-;;       (middleware/wrap-json-body)
-;;       (middleware/wrap-json-response)))
-
-
-;; (def app
-;;   (-> (handler/api app-routes)
-;;       (middleware/wrap-canonical-redirect)))
-
-
-
-
-
-
-
-
-
-;; (ring.middleware.defaults/api-defaults )
-
-;; (def app (api-defaults app-routes))
-
-;; (def app (wrap-defaults api-defaults app-routes))
-
-;; (def app
-;;   (-> (handler/site app-routes)
-;;       (wrap-defaults)
-;;       (api-defaults)))
-
-
-
-
-;; (defn with-header [handler header value]
-;;   (fn [request]
-;;     (let [response (handler request)]
-;;       (assoc-in response [:headers header] value))))
-
-;; (def app
-;;   (-> app-routes
-;;       (with-header "X-Lang" "Clojure")
-;;       (with-header "X-Framework" "Compojure")))
-
-
-
-;; (def app
-;;   (-> app-routes
-;;       (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))
-
-
-;; (def app (wrap-routes app-routes))
-
-;; (def app
-;;   (-> (handler/site app-routes)
-;;       (wrap-json-body)
-;;       (wrap-json-response)))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-;; (defn wrap-version [handler]
-;;   (fn [request]
-;;     (handler (assoc request :app-version "1.0.1"))))
-
-;; (def app (wrap-version app-routes))
-
-
-
-;; (def app
-;;   (-> app-routes
-;;       wrap-json-params))
+(def app
+  (-> app-routes
+      (wrap-resource "public")
+      (wrap-keyword-params)
+      (wrap-params)
+      (wrap-content-type)
+      (wrap-not-modified)))
