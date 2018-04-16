@@ -1,6 +1,6 @@
 (ns glurps.model.movie
-  (:require [glurps.process.database.allocine :as db-allocine]
-            [clojure.java.jdbc :as jdbc]))
+  (:require [wlh.db :as db]
+            [glurps.util.db-allocine :as db-allocine]))
 
 (def table-name "movie")
 (def cols ["id" "alloid" "title" "description" "date" "director" "actors" "genre" "image" "notepress" "notespectator"])
@@ -11,10 +11,4 @@
   (db-allocine/insert (keyword table-name) cols-to-insert row))
 
 (defn find-by-alloid [alloid]
-  (jdbc/query db-allocine/db-spec (str "SELECT * FROM \"" table-name "\" WHERE \"alloid\" = '" alloid "'")))
-
-
-;; ;; Test
-;; (find-by-alloid "246009")
-;; (insert {:alloid "ok"
-;;          :title "ok"})
+  (db/query db-allocine/db-spec (str "SELECT * FROM \"" table-name "\" WHERE \"alloid\" = '" alloid "'")))
