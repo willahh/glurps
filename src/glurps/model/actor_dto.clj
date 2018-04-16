@@ -24,3 +24,7 @@
 
 (defn get-fields []
   (into [] (map #(str %) fields)))
+
+(defn make-actor
+  [{:keys [id alloid name job nationality age birthdate biography filmography picture]}]
+  (->Actor id alloid name job nationality age birthdate biography filmography picture))

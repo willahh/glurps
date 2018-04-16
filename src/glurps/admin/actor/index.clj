@@ -26,5 +26,5 @@
                                        :update-url "/admin/actor/update/{id}"
                                        :delete-url "/admin/actor/delete/{id}"}
                                       (view-layout :fields)
-                                      (actor-dao/get-list 2 3)
+                                      (actor-dao/get-list 1 50)
                                       view-layout)]))
