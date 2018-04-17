@@ -25,30 +25,6 @@
 (defn get-fields []
   (into [] (map #(str %) fields)))
 
-(defn valid-birthdate? [value]
-  (and (= (type value) java.lang.String)
-       (some? value)
-       (not-empty value)))
-
-
-(defn valid-filmography? [value]
-  (and (= (type value) java.lang.String)
-       (some? value)
-       (not-empty value)))
-
-(defn valid-picture? [value]
-  (and (= (type value) java.lang.String)
-       (some? value)
-       (not-empty value)))
-
 (defn make-actor
   [{:keys [id alloid name job nationality age birthdate biography filmography picture]}]
-  {:pre [(integer? alloid)
-         (string? name)
-         (string? job)
-         (string? nationality)
-         (int? age)
-         (valid-birthdate? birthdate)
-         (valid-filmography? filmography)
-         (valid-picture? picture)]}
   (->Actor id alloid name job nationality age birthdate biography filmography picture))

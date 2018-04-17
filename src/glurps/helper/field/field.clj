@@ -17,7 +17,7 @@
         (first (filter #(= (:name %) field-name) (layout :fields)))
         type (field-conf :type)]
     (cond (= type "string")
-          (string/get-update-html record)
+          (string/get-update-html field-name record)
 
           (= type "integer")
-          (integer/get-update-html record))))
+          (integer/get-update-html field-name record))))
