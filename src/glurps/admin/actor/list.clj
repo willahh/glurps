@@ -1,4 +1,4 @@
-(ns glurps.admin.actor.index
+(ns glurps.admin.actor.list
   (:require [glurps.config :as config]
             [glurps.admin.main :as main]
             [glurps.helper.field.image :as field-image]

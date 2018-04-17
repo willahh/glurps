@@ -8,8 +8,8 @@
             [glurps.client.views.week :as week]
             [glurps.client.views.logs :as logs]
             [glurps.client.views.actor :as actor]
-            [glurps.admin.index :as admin-index]
-            [glurps.admin.actor.index :as admin-actor-index]
+            [glurps.admin.index :as admin-list]
+            [glurps.admin.actor.list :as admin-actor-list]
             [glurps.admin.actor.show :as admin-actor-show]
             [glurps.admin.actor.update :as admin-actor-update]
             [glurps.admin.actor.delete :as admin-actor-delete]))
@@ -40,10 +40,10 @@
        (logs/get-html))
   (GET "/admin"
        []
-       (admin-index/get-html))
+       (admin-list/get-html))
   (GET "/admin/actor"
        []
-       (admin-actor-index/get-html))
+       (admin-actor-list/get-html))
   (GET "/admin/actor/show/:id"
        [id]
        (admin-actor-show/get-html id))

@@ -37,3 +37,11 @@
         url (str (config/get :upload-filepath) image-name)]
     [:img {:src (get-image image-name url)
            :style "max-width: 100px; max-height: 100px;"}]))
+
+(defn get-update-html [field-name record & field-conf]
+  (let [image-name (str "actor_" (record :id) ".jpg")
+        url (str (config/get :upload-filepath) image-name)]
+    [:div
+     [:div [:img {:src (get-image image-name url)
+                  :style "max-width: 100px; max-height: 100px;"}]]
+     [:div [:input {:name field-name :id field-name :value (record (keyword field-name))}]]]))

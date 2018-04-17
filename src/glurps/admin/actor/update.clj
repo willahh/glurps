@@ -2,7 +2,7 @@
   (:require [wlh.validation :as validation]
             [glurps.config :as config]
             [glurps.admin.main :as main]
-            [glurps.admin.actor.index :as list]
+            [glurps.admin.actor.list :as list]
             [glurps.helper.field.image :as field-image]
             [glurps.helper.crud.update :as crud-update]
             [glurps.model.actor-dao :as actor-dao]
@@ -26,14 +26,13 @@
 (def view-layout
   "View layout configuration"
   {:fields [
-            ;; {:name "id" :type "integer"}
             {:name "alloid" :type "integer"}
             {:name "name" :type "string" :validator string?}
             {:name "job" :type "string" :validator string?}
             {:name "nationality" :type "string" :validator string?}
             {:name "age" :type "integer" :validator integer?}
             {:name "birthdate" :type "string" :validator valid-birthdate?}
-            {:name "picture" :type "string" :validator valid-picture?}]})
+            {:name "picture" :type "picture" :validator valid-picture?}]})
 
 (defn get-html [id]
   (main/get-html
