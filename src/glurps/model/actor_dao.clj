@@ -3,11 +3,11 @@
             [clojure.java.jdbc :as jdbc]
             [wlh.db :as db]
             [glurps.util.db-allocine :as db-allocine]
-            [wlh.logger :as logger]))
+            [wlh.logger :as logger]
+            [clojure.java.jdbc :as jdbc]))
 
 (def schema {:table-name "actor"
-             :cols (actor/get-fields)
-             :cols-to-insert (into [] (filter #(not= % "id") (actor/get-fields)))})
+             :cols (actor/get-fields)})
 
 (defn insert [actor-record]
   (db/insert2 db-allocine/db-spec
@@ -15,10 +15,11 @@
               (schema :cols)
               (into {} actor-record)))
 
-;; (defn insert [row & args]
-;;   "Row is a map of database column name as key and database value as value"
-;;   (logger/info "model.actor/insert" (identity args))
-;;   (db-allocine/insert (keyword (schema :table-name)) (schema :cols-to-insert) row))
+(defn update [set-map where-clause]
+  (db/update db-allocine/db-spec (schema :table-name) set-map where-clause))
+
+(defn delete [id]
+  (db/delete db-allocine/db-spec (schema :table-name) id))
 
 (defn get-by-name [name]
   (db/query db-allocine/db-spec (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"name\" = '" name "'")))

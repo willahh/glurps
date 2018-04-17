@@ -11,7 +11,8 @@
             [glurps.admin.index :as admin-index]
             [glurps.admin.actor.index :as admin-actor-index]
             [glurps.admin.actor.show :as admin-actor-show]
-            [glurps.admin.actor.update :as admin-actor-update]))
+            [glurps.admin.actor.update :as admin-actor-update]
+            [glurps.admin.actor.delete :as admin-actor-delete]))
 
 (use 'ring.middleware.resource
      'ring.middleware.content-type
@@ -51,7 +52,10 @@
        (admin-actor-update/get-html id))
   (POST "/admin/actor/update/:id"
         {params :params}
-        (admin-actor-update/handle-update params)))
+        (admin-actor-update/handle-update params))
+  (GET "/admin/actor/delete/:id" 
+       [id]
+       (admin-actor-delete/handle-delete id)))
 
 (defn init []
   (println "Application is starting"))
