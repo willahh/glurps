@@ -3,4 +3,5 @@
             [wlh.logger :as logger]))
 
 (defn get-update-html [field-name record & field-conf]
-  [:input {:name field-name :id field-name :value (record (keyword field-name))}])
+  (let [value (when record (record (keyword field-name)))]
+    [:input {:name field-name :id field-name :value value}]))

@@ -2,10 +2,7 @@
   (:require [glurps.process.html.html :as html-helper]
             [glurps.process.field.field :as field]))
 
-(defn get-html [{:keys [field-id
-                        show-url
-                        update-url
-                        delete-url] :as spec} columns records & view-layout]
+(defn get-html [field-id urls columns records & view-layout]
   [:table {:class "table listTable" :style "border: 1px solid #000"}
    [:thead
     [:tr
@@ -22,7 +19,5 @@
           (field/get-field-html column record (first view-layout))
           ])
        [:td
-        (html-helper/get-action-html
-         spec
-         record
-         (record (keyword field-id)))]])]])
+        (html-helper/get-action-html field-id urls (record (keyword field-id)))
+        ]])]])

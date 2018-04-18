@@ -41,6 +41,11 @@
       (crud-update/get-html actor-record
                             view-layout))]))
 
+(defn get-html-insert [id]
+  (main/get-html
+   [:div (pr-str id)
+    (crud-update/get-html nil view-layout)]))
+
 (defn try-insert [raw-data]
   "Try to insert raw-data into database. Do a validation before."
   (try 
