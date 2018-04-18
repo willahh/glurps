@@ -31,6 +31,14 @@
   (db/query db-allocine/db-spec
             (str "SELECT * FROM \"actor\" LIMIT " limit " OFFSET " offset)))
 
+(defn get-list-active [offset limit & args]
+  (db/query db-allocine/db-spec
+            (str "SELECT * FROM \"actor\" WHERE \"active\" = '1' LIMIT " limit " OFFSET " offset)))
+
+(defn get-list-disable [offset limit & args]
+  (db/query db-allocine/db-spec
+            (str "SELECT * FROM \"actor\" WHERE \"active\" = '0' LIMIT " limit " OFFSET " offset)))
+
 (defn find-actor-by-name-list [actor-name-list]
   "Find rows of actor by a list of actor name"
   (filter #(some? %)

@@ -28,7 +28,7 @@
                   (crud-list/get-html field-id
                                       urls
                                       (view-layout :fields)
-                                      (actor-dao/get-list 1 50)
+                                      (actor-dao/get-list-active 0 50)
                                       view-layout)
                   [:div {:class "option"}
                    [:select
