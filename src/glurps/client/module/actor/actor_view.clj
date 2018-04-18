@@ -1,6 +1,5 @@
 (ns glurps.client.module.actor.actor-view
   (:require [glurps.config :as config]
-            [glurps.model.actor :as model-actor]
             [glurps.process.field.image :as field-image]))
 
 (defn get-item-html [actor-record]

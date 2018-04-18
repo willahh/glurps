@@ -1,4 +1,4 @@
-(ns glurps.model.movie
+(ns glurps.model.movie.movie
   (:require [wlh.db :as db]
             [glurps.process.db.db-allocine :as db-allocine]))
 

@@ -5,8 +5,8 @@
             [glurps.admin.actor.list :as list]
             [glurps.process.field.image :as field-image]
             [glurps.process.crud.update :as crud-update]
-            [glurps.model.actor-dao :as actor-dao]
-            [glurps.model.actor-dto :as actor-dto]))
+            [glurps.model.actor.actor-dao :as actor-dao]
+            [glurps.model.actor.actor-model :as actor-model]))
 
 (defn valid-birthdate? [value]
   (and (= (type value) java.lang.String)
@@ -45,14 +45,14 @@
   "Try to insert raw-data into database. Do a validation before."
   (try 
     (do (validation/check-fields (view-layout :fields) raw-data)
-        (let [actor-record (actor-dto/make-actor raw-data)]
+        (let [actor-record (actor-model/make-actor raw-data)]
           (actor-dao/insert actor-record)))
     (catch Exception e e)))
 
 (defn try-update [id raw-data]
   "Try to update raw-data into database. Do a validation before."
   (do (validation/check-fields (view-layout :fields) raw-data)
-      (let [actor-record (actor-dto/make-actor raw-data)]
+      (let [actor-record (actor-model/make-actor raw-data)]
         (actor-dao/update (into {} (filter second actor-record))
                           [(str "id = " id)]))))
 

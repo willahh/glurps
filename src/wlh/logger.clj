@@ -1,8 +1,6 @@
 (ns wlh.logger
   (:require [clojure.string :as string]))
 
-;; TODO implements clojure.java.io stream
-
 (def logger-file-path "resources/log.log")
 (defn- arguments-to-line [level & args]
   (str

@@ -2,7 +2,7 @@
   (:require [glurps.config :as config]
             [glurps.client.views.main :as main]
             [glurps.client.module.actor.actor-view :as actor-view]
-            [glurps.model.actor-dao :as actor-dao]
+            [glurps.model.actor.actor-dao :as actor-dao]
             [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
 

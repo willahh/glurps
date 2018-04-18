@@ -1,5 +1,5 @@
-(ns glurps.model.actor-dao
-  (:require [glurps.model.actor-dto :as actor]
+(ns glurps.model.actor.actor-dao
+  (:require [glurps.model.actor.actor-model :as actor]
             [clojure.java.jdbc :as jdbc]
             [wlh.db :as db]
             [glurps.process.db.db-allocine :as db-allocine]

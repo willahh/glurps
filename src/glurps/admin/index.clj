@@ -1,6 +1,5 @@
 (ns glurps.admin.index
-  (:require [glurps.admin.main :as main]
-            [glurps.model.actor :as model-actor]))
+  (:require [glurps.admin.main :as main]))
 
 (defn get-html []
   (main/get-html [:div

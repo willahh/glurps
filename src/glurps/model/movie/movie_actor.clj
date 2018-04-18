@@ -1,4 +1,4 @@
-(ns glurps.model.movie-actor
+(ns glurps.model.movie.movie-actor
   (:require [glurps.process.db.db-allocine :as db-allocine]
             [clojure.java.jdbc :as jdbc]))
 

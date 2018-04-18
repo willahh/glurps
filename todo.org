@@ -19,4 +19,5 @@
 * TODO Export to json
 * TODO Import to json
 * TODO Database connnector -> mysql or graphdb
-  
+* TODO Logger 
+   Implements clojure.java.io stream

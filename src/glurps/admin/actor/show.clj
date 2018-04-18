@@ -3,8 +3,7 @@
             [glurps.admin.main :as main]
             [glurps.process.field.image :as field-image]
             [glurps.process.crud.show :as crud-show]
-            [glurps.model.actor-dao :as actor-dao]
-            [glurps.model.actor-dto :as actor-dto]))
+            [glurps.model.actor.actor-dao :as actor-dao]))
 
 (def view-layout
   "Optional view layout configuration"
