@@ -1,9 +1,9 @@
 (ns glurps.client.views.home
   (:require [glurps.client.views.main :as main]
-            [glurps.module.movie.movie-view :as movie-view]
+            [glurps.client.module.movie.movie-view :as movie-view]
             [glurps.model.actor :as model-actor]
             [glurps.process.scrapper-allocine.home :as scrapper-home]
-            [glurps.module.actor.actor-view :as actor-view]))
+            [glurps.client.module.actor.actor-view :as actor-view]))
 
 (defn- get-item-list-view [rows]
   [:div.row

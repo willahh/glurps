@@ -1,4 +1,4 @@
-(ns glurps.helper.html.html)
+(ns glurps.process.html.html)
 
 (defn get-field-html [column mode record]
   (let [value ((keyword column) (first record))]

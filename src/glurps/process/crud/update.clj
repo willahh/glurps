@@ -1,5 +1,5 @@
-(ns glurps.helper.crud.update
-  (:require [glurps.helper.field.field :as field]))
+(ns glurps.process.crud.update
+  (:require [glurps.process.field.field :as field]))
 
 (defn get-html [record view-layout]
   (let [columns (into [] (map #(:name %) (view-layout :fields)))]

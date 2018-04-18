@@ -1,4 +1,4 @@
-(ns glurps.helper.field.string
+(ns glurps.process.field.string
   (:require [glurps.config :as config]
             [wlh.logger :as logger]))
 

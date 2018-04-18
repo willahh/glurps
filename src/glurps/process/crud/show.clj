@@ -1,5 +1,5 @@
-(ns glurps.helper.crud.show
-  (:require [glurps.helper.field.field :as field]))
+(ns glurps.process.crud.show
+  (:require [glurps.process.field.field :as field]))
 
 (defn get-html [columns record & view-layout]
   [:table {:class "table showTable" :style "border: 1px solid #000; width: auto;"}

@@ -1,7 +1,7 @@
-(ns glurps.module.actor.actor-view
+(ns glurps.client.module.actor.actor-view
   (:require [glurps.config :as config]
             [glurps.model.actor :as model-actor]
-            [glurps.helper.field.image :as field-image]))
+            [glurps.process.field.image :as field-image]))
 
 (defn get-item-html [actor-record]
   [:div {:class "col-md-6 mb-6"}

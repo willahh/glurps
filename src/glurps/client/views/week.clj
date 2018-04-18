@@ -1,7 +1,7 @@
 (ns glurps.client.views.week
   (:require [glurps.client.views.main :as main]
             [glurps.model.actor :as model-actor]
-            [glurps.module.actor.actor-view :as actor-view]))
+            [glurps.client.module.actor.actor-view :as actor-view]))
 
 (defn get-html []
   (main/get-html [:div.row

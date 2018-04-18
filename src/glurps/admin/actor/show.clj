@@ -1,8 +1,8 @@
 (ns glurps.admin.actor.show
   (:require [glurps.config :as config]
             [glurps.admin.main :as main]
-            [glurps.helper.field.image :as field-image]
-            [glurps.helper.crud.show :as crud-show]
+            [glurps.process.field.image :as field-image]
+            [glurps.process.crud.show :as crud-show]
             [glurps.model.actor-dao :as actor-dao]
             [glurps.model.actor-dto :as actor-dto]))
 

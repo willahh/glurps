@@ -2,8 +2,8 @@
   (:require [wlh.validation :as validation]
             [glurps.config :as config]
             [glurps.admin.main :as main]
-            [glurps.helper.field.image :as field-image]
-            [glurps.helper.crud.update :as crud-update]
+            [glurps.process.field.image :as field-image]
+            [glurps.process.crud.update :as crud-update]
             [glurps.model.actor-dao :as actor-dao]
             [glurps.model.actor-dto :as actor-dto]))
 

@@ -1,6 +1,6 @@
-(ns glurps.helper.crud.list
-  (:require [glurps.helper.html.html :as html-helper]
-            [glurps.helper.field.field :as field]))
+(ns glurps.process.crud.list
+  (:require [glurps.process.html.html :as html-helper]
+            [glurps.process.field.field :as field]))
 
 (defn get-html [{:keys [field-id
                         show-url

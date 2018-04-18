@@ -2,7 +2,7 @@
   (:require [glurps.model.actor-dto :as actor]
             [clojure.java.jdbc :as jdbc]
             [wlh.db :as db]
-            [glurps.util.db-allocine :as db-allocine]
+            [glurps.process.db.db-allocine :as db-allocine]
             [wlh.logger :as logger]
             [clojure.java.jdbc :as jdbc]))
 

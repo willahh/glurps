@@ -1,4 +1,4 @@
-(ns glurps.helper.field.image
+(ns glurps.process.field.image
   (:require [glurps.config :as config]
             [wlh.logger :as logger]
             [clj-http.client :as client]))

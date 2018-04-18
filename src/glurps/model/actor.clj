@@ -1,7 +1,7 @@
 (ns glurps.model.actor
   (:require [clojure.java.jdbc :as jdbc]
             [wlh.db :as db]
-            [glurps.util.db-allocine :as db-allocine]
+            [glurps.process.db.db-allocine :as db-allocine]
             [wlh.logger :as logger]))
 
 (def table-name "actor")
