@@ -5,7 +5,6 @@
             [glurps.model.actor.actor-dao :as actor-dao]
             [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
-
 (defn get-html []
   (main/get-html [:div.row
                   [:div

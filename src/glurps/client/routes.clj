@@ -2,18 +2,13 @@
   (:use compojure.core)
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
+            [compojure.core :as compojure]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [glurps.client.views.home :as home]
             [glurps.client.views.sheet :as sheet]
             [glurps.client.views.week :as week]
             [glurps.client.views.logs :as logs]
-            [glurps.client.views.actor :as actor]
-            [glurps.admin.index :as admin-list]
-            [glurps.admin.actor.list :as admin-actor-list]
-            [glurps.admin.actor.show :as admin-actor-show]
-            [glurps.admin.actor.update :as admin-actor-update]
-            [glurps.admin.actor.delete :as admin-actor-delete]
-            [glurps.admin.actor.trash :as admin-actor-trash]))
+            [glurps.client.views.actor :as actor]))
 
 (use 'ring.middleware.resource
      'ring.middleware.content-type
@@ -41,34 +36,13 @@
        (logs/get-html))
   (GET "/admin"
        []
-       (admin-list/get-html))
-  (GET "/admin/actor"
-       []
-       (admin-actor-list/get-html))
-  (GET "/admin/actor/show/:id"
-       [id]
-       (admin-actor-show/get-html id))
-  (GET "/admin/actor/update/:id"
-       [id]
-       (admin-actor-update/get-html id))
-  (POST "/admin/actor/update/:id"
-        {params :params}
-        (admin-actor-update/handle-update params))
-  (GET "/admin/actor/insert"
-       [id]
-       (admin-actor-update/get-html-insert id))
-  (GET "/admin/actor/delete/:id" 
-       [id]
-       (admin-actor-delete/handle-delete id))
-  (GET "/admin/actor/trash" 
-       []
-       (admin-actor-trash/get-html)))
+       (admin-list/get-html)))
 
 (defn init []
   (println "Application is starting"))
 
 (def app
-  (-> app-routes
+  (-> (routes app-routes admin-actor-route)
       (wrap-resource "public")
       (wrap-keyword-params)
       (wrap-params)
