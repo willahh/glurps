@@ -14,3 +14,6 @@
 (defn disable [id]
   (actor-dao/disable id)
   (response/redirect "../../actor/trash"))
+
+(defn duplicate [id]
+  (response/redirect "../../actor"))

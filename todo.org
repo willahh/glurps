@@ -1,17 +1,37 @@
 #+TITLE+ Glurps
+* TODO CRUD
+** DONE Trash
+** TODO List in update mode where all fields are in update mode
+** TODO List order asc desc
+** TODO List filter sub form
+** TODO List layout configuration
+*** TODO Columns to display "id", "order", "..."
+** TODO List import xml
+** TODO List import json
+** TODO List export xml
+** TODO List export json
+** TODO List REST Preview
+** TODO List inner scroll
+   http://www.cssplay.co.uk/menu/tablescroll.html
+** TODO List sort asc desc
+** TODO List edit multiple
+** TODO List delete multiple
+** TODO List enable multiple
+
+** TODO Image gallery
+** TODO Fav true/false
+** TODO Clone
+** TODO Order up
+** TODO Order down
 * TODO Administration
 ** TODO User CRUD
 ** TODO Group CRUD
+** TODO Role CRUD
 ** TODO Authentification
 ** TODO Email service
 ** TODO Forgot password
 * TODO https
   https://stackoverflow.com/a/28034335/8000017
-* TODO Admin sort asc desc
-* TODO Admin edit multiple
-* TODO Admin delete multiple
-* TODO Admin trash multiple
-* TODO Admin enable multiple
 * TODO REST API
   Tests can be made through Postman application
 * TODO Locales file
@@ -24,6 +44,7 @@
       - User is redirected on the list
       - .. when finished, a dialog appear to display the process informations and
       a button to reload the page
+* TODO Locales fr en file
 * DONE Get POST form works
 * TODO Page admin/log : Add filter from level or type
 * TODO Logger
@@ -32,8 +53,5 @@
 ** TODO Generate one file per day
 ** TODO Implements clojure.java.io stream
 * TODO Events panel with service worker
-* TODO Export to xml
-* TODO Import to xml
-* TODO Export to json
-* TODO Import to json
+* TODO Events panel
 * TODO Database connnector -> mysql or graphdb

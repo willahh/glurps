@@ -12,3 +12,7 @@ pom.xml.asc
 /resources/databases/adminer.php
 /node_modules
 *.log
+upload/*
+config.edn
+config.edn
+src/glurps/config.edn

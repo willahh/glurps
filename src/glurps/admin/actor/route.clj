@@ -13,6 +13,12 @@
   (GET "/admin/actor/trash"
        []
        (admin-actor-list/get-html :disable? true))
+  (GET "/admin/actor/list/update"
+       []
+       (admin-actor-list/get-html :disable? true))
+  (GET "/admin/actor/duplicate"
+       []
+       (admin-actor-action/duplicate))
   (GET "/admin/actor/show/:id"
        [id]
        (admin-actor-show/get-html id))

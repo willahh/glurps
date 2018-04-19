@@ -14,6 +14,7 @@
   [:head
    [:title "Glurps! Administration"]
    (page/include-css "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css")
+   (page/include-css "https://fonts.googleapis.com/icon?family=Material+Icons")   
    (page/include-css "https://code.jquery.com/jquery-3.2.1.slim.min.js")
    (page/include-css "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js")
    (page/include-css "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js")
