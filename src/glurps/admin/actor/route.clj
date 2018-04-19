@@ -8,13 +8,16 @@
 
 (defroutes admin-actor-route
   (GET "/admin/actor"
-       []
+       [offset limit]
        (admin-actor-list/get-html))
+  (GET "/admin/actor/p:p"
+       [p]
+       (admin-actor-list/get-html :page p))
   (GET "/admin/actor/trash"
-       []
+       [offset limit]
        (admin-actor-list/get-html :disable? true))
   (GET "/admin/actor/list/update"
-       []
+       [offset limit]
        (admin-actor-list/get-html :disable? true))
   (GET "/admin/actor/duplicate"
        []

@@ -3,6 +3,7 @@
 ** DONE Trash
 ** TODO List in update mode where all fields are in update mode
 ** TODO List order asc desc
+** TODO List pagination
 ** TODO List filter sub form
 ** TODO List layout configuration
 *** TODO Columns to display "id", "order", "..."
@@ -17,7 +18,7 @@
 ** TODO List edit multiple
 ** TODO List delete multiple
 ** TODO List enable multiple
-
+** TODO List / Thumb switch
 ** TODO Image gallery
 ** TODO Fav true/false
 ** TODO Clone

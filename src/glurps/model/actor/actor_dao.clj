@@ -15,6 +15,9 @@
               (schema :cols)
               (into {} actor-record)))
 
+(defn- get-count [col]
+  (first (rest (first (first col)))))
+
 (defn update [set-map where-clause]
   (db/update db-allocine/db-spec (schema :table-name) set-map where-clause))
 
@@ -38,6 +41,10 @@
 (defn get-list [offset limit & args]
   (db/query db-allocine/db-spec
             (str "SELECT * FROM \"actor\" WHERE \"active\" = '1' LIMIT " limit " OFFSET " offset)))
+
+(defn count []
+  (get-count (db/query db-allocine/db-spec
+                       (str "SELECT COUNT(*) FROM \"" (schema :table-name) "\""))))
 
 (defn get-list-disable [offset limit & args]
   (db/query db-allocine/db-spec
