@@ -22,10 +22,12 @@
   (db/delete db-allocine/db-spec (schema :table-name) id))
 
 (defn enable [id]
-  )
+  (db/update db-allocine/db-spec (schema :table-name) 
+             {:active 1} [(str "id = " id)]))
 
 (defn disable [id]
-  )
+  (db/update db-allocine/db-spec (schema :table-name) 
+             {:active 0} [(str "id = " id)]))
 
 (defn get-by-name [name]
   (db/query db-allocine/db-spec (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"name\" = '" name "'")))

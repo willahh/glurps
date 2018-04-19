@@ -9,4 +9,4 @@
   (main/get-html [:div.row
                   [:div
                    [:h2 "Actors"]
-                   (actor-view/get-list-html (actor-dao/get-list 1 100))]]))
+                   (actor-view/get-list-html (actor-dao/get-list 0 10))]]))

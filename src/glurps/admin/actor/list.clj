@@ -48,23 +48,3 @@
                     [:option "Edit"]
                     [:option "Move to trash"]]
                    [:button {:class "btn"} "Apply"]]]))
-
-;; (defn get-trash-html []
-;;   (def urls [{:type "show" :name "show" :url "/admin/actor/show/{id}"}
-;;              {:type "update" :name "update" :url "/admin/actor/update/{id}"}
-;;              {:type "enable" :name "enable" :url "/admin/actor/enable/{id}"}])
-;;   (main/get-html [:div
-;;                   [:div "Actor list"]
-;;                   [:a {:class "btn btn-primary" :href "/admin/actor/insert"} "Add"]
-;;                   [:a {:class "btn" :href "/admin/actor/enable"} "Activate"]
-;;                   (crud-list/get-html field-id
-;;                                       urls
-;;                                       (view-layout :fields)
-;;                                       (actor-dao/get-list-disable 0 50)
-;;                                       view-layout)
-;;                   [:div {:class "option"}
-;;                    [:select
-;;                     [:option "Bulk action"]
-;;                     [:option "Edit"]
-;;                     [:option "Move to trash"]]
-;;                    [:button {:class "btn"} "Apply"]]]))
