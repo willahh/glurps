@@ -6,9 +6,15 @@
 ** TODO List filter sub form
 ** TODO List layout configuration
 *** TODO Columns to display "id", "order", "..."
+** TODO List import xml
+** TODO List import json
+** TODO List export xml
+** TODO List export json
+** TODO List REST Preview
+** TODO List inner scroll
+   http://www.cssplay.co.uk/menu/tablescroll.html
+** TODO Image gallery
 ** TODO Fav true/false
-** TODO Import
-** TODO Export
 ** TODO Clone
 ** TODO Order up
 ** TODO Order down
@@ -28,8 +34,4 @@
 ** TODO Generate one file per day
 ** TODO Implements clojure.java.io stream
 * TODO Events panel
-* TODO Export to xml
-* TODO Import to xml
-* TODO Export to json
-* TODO Import to json
 * TODO Database connnector -> mysql or graphdb
