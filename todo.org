@@ -1,23 +1,39 @@
-#+TITLE+ Todo
-* TODO Generate a REST API
-  Tests can be made through Postman application
+#+TITLE+ Glurps
 * TODO Administration
 ** TODO User CRUD
 ** TODO Group CRUD
 ** TODO Authentification
 ** TODO Email service
+** TODO Forgot password
+* TODO https
+  https://stackoverflow.com/a/28034335/8000017
+* TODO Admin sort asc desc
+* TODO Admin edit multiple
+* TODO Admin delete multiple
+* TODO Admin trash multiple
+* TODO Admin enable multiple
+* TODO REST API
+  Tests can be made through Postman application
 * TODO Locales file
-* TODO Get POST form works
+* TODO Service worker
+  Implements a javascript service worker in admin to display some user
+  information in live.
+  Examples :
+    - User do an insert from a form, click to submit :
+      - Process is made in background
+      - User is redirected on the list
+      - .. when finished, a dialog appear to display the process informations and
+      a button to reload the page
+* DONE Get POST form works
 * TODO Page admin/log : Add filter from level or type
 * TODO Logger
 ** TODO Use cache - future is good but should not be called on every calls,
    Check for the use of channels with core.async
 ** TODO Generate one file per day
-* TODO Events panel
+** TODO Implements clojure.java.io stream
+* TODO Events panel with service worker
 * TODO Export to xml
 * TODO Import to xml
 * TODO Export to json
 * TODO Import to json
 * TODO Database connnector -> mysql or graphdb
-* TODO Logger 
-   Implements clojure.java.io stream

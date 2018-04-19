@@ -7,9 +7,10 @@
   (response/redirect "../../actor"))
 
 (defn enable [id]
+  (Thread/sleep 2000)
   (actor-dao/enable id)
   (response/redirect "../../actor"))
 
 (defn disable [id]
   (actor-dao/disable id)
-  (response/redirect "../../actor"))
+  (response/redirect "../../actor/trash"))
