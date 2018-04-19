@@ -6,7 +6,7 @@
             [glurps.process.crud.filter :as crud-filter]
             [glurps.model.actor.actor-dao :as actor-dao]))
 
-(def view-layout
+(def list-conf
   "Optional view layout configuration"
   {:path "/admin/actor"
    :fields ["id"
@@ -21,22 +21,21 @@
    :field-html-display {:picture field-image/get-html}})
 
 (defn get-html [& {:keys [disable?
-                          page] :as params}]
+                          page] :or {page 1} :as params}]
   (let [field-id "id"
         urls (crud-list/get-action-html disable?)
-        path (:path view-layout)
-        fields (:fields view-layout)
-        filter-fields (:filter-fields view-layout)
-        total (actor-dao/count)
-        offset 0
-        limit 5]
+        path (:path list-conf)
+        fields (:fields list-conf)
+        filter-fields (:filter-fields list-conf)
+        limit 2
+        count (actor-dao/count)
+        offset (crud-list/get-pagination-offset page limit count)]
     (main/get-html
      [:div 
       [:h2 "Actor list"]
       [:div 
-       
        (crud-nav/get-html disable?)
-       (crud-list/get-list-option-html path offset limit total)
+       (crud-list/get-list-option-html path offset limit count)
        (crud-filter/get-html filter-fields)
        (crud-list/get-html field-id
                            urls
@@ -44,5 +43,5 @@
                            (if disable?
                              (actor-dao/get-list-disable offset limit)
                              (actor-dao/get-list offset limit))
-                           view-layout)
-       (crud-list/get-list-option-html path offset limit total)]])))
+                           list-conf)
+       (crud-list/get-list-option-html path offset limit count)]])))

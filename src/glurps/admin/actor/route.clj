@@ -12,7 +12,7 @@
        (admin-actor-list/get-html))
   (GET "/admin/actor/p:p"
        [p]
-       (admin-actor-list/get-html :page p))
+       (admin-actor-list/get-html :page (read-string p)))
   (GET "/admin/actor/trash"
        [offset limit]
        (admin-actor-list/get-html :disable? true))

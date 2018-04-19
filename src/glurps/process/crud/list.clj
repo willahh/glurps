@@ -20,13 +20,17 @@
     [:option "Move to trash"]]
    [:button {:class "btn"} "Apply"]])
 
+(defn get-pagination-offset [page limit count]
+  "Get pagination offset from page number, limit and table rows count."
+  (* (- page 1) limit))
+
 (defn get-pagination [path offset limit total]
   [:div {:class "pagination" :style "text-align: center;"}
    [:a {:class "btn" :href (str path "/p" 1)} 1]
    [:span {:class "btn" } "..."]
    (for [i (range 0 limit)]
      (let [start (+ offset i)]
-       [:a {:class "btn" :href (str path "/p" i)} start]))
+       [:a {:class "btn" :href (str path "/p" start)} start]))
    [:span {:class "btn" } "..."]
    [:a {:class "btn" :href (str path "/p" total)} total]])
 
@@ -44,7 +48,10 @@
    {:type "fav" :name "<i class=\"material-icons\">favorite_border</i>" :url "/admin/actor/duplicate/{id}"}
    (get-action-disable-url disable?)])
 
-(defn get-html [field-id urls columns records & view-layout]
+(defn get-empty-result []
+  "No results")
+
+(defn get-html [field-id urls columns records & list-conf]
   [:table {:class "table listTable" :style "border: 1px solid #000"}
    [:thead
     [:tr
@@ -58,7 +65,7 @@
        [:td "<input type=\"checkbox\">"]
        (for [column columns]
          [:td
-          (field/get-field-html column record (first view-layout))
+          (field/get-field-html column record (first list-conf))
           ])
        [:td
         (html-helper/get-action-html field-id urls (record (keyword field-id)))
