@@ -14,3 +14,5 @@ pom.xml.asc
 *.log
 upload/*
 config.edn
+config.edn
+src/glurps/config.edn
