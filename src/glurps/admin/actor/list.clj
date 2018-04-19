@@ -9,6 +9,7 @@
 (def list-conf
   "Optional view layout configuration"
   {:path "/admin/actor"
+   :title "Actor list"
    :fields ["id"
             "name"
             "job"
@@ -16,6 +17,7 @@
             "age"
             "birthdate"
             "picture"]
+   :limit 2
    :filter-fields [{:name "name"}
                    {:name "age"}]
    :field-html-display {:picture field-image/get-html}})
@@ -23,16 +25,19 @@
 (defn get-html [& {:keys [disable?
                           page] :or {page 1} :as params}]
   (let [field-id "id"
-        urls (crud-list/get-action-html disable?)
         path (:path list-conf)
         fields (:fields list-conf)
         filter-fields (:filter-fields list-conf)
-        limit 2
+        limit (:limit list-conf)
+        urls (crud-list/get-action-html disable?)
         count (actor-dao/count)
-        offset (crud-list/get-pagination-offset page limit count)]
+        offset (crud-list/get-pagination-offset page limit count)
+        records (if disable?
+                  (actor-dao/get-list-disable offset limit)
+                  (actor-dao/get-list offset limit))]
     (main/get-html
      [:div 
-      [:h2 "Actor list"]
+      [:h2 (:title list-conf)]
       [:div 
        (crud-nav/get-html disable?)
        (crud-list/get-list-option-html path offset limit count)
@@ -40,8 +45,6 @@
        (crud-list/get-html field-id
                            urls
                            fields
-                           (if disable?
-                             (actor-dao/get-list-disable offset limit)
-                             (actor-dao/get-list offset limit))
+                           records
                            list-conf)
        (crud-list/get-list-option-html path offset limit count)]])))

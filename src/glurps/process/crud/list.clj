@@ -34,6 +34,19 @@
    [:span {:class "btn" } "..."]
    [:a {:class "btn" :href (str path "/p" total)} total]])
 
+;; (let [count 4
+;;       start 3
+;;       b (+ start (/ count 2))]
+;;   {:count count
+;;    :start start
+;;    :b b
+;;    :out(concat (map #(- % b) (range start b))
+;;                `(~start)
+;;                (map #(+ 1 %) (range start b)))})
+
+
+
+
 (defn get-list-option-html [path offset limit total]
   [:div {:class "row"}
    [:div {:class "col-sm-6"} (get-bulk-action-html)]
@@ -48,25 +61,30 @@
    {:type "fav" :name "<i class=\"material-icons\">favorite_border</i>" :url "/admin/actor/duplicate/{id}"}
    (get-action-disable-url disable?)])
 
-(defn get-empty-result []
-  "No results")
+(defn get-empty-result-html []
+  [:div {:style "text-align: center;"}
+   [:div {:style "display: inline-block; font-weight: bold; text-align: center; padding: 6px 12px; background: #fff;"} 
+    [:div "No result"]    
+    [:div "<i class=\"material-icons\" style=\"font-size: 114px;\">web</i>"]]])
 
 (defn get-html [field-id urls columns records & list-conf]
-  [:table {:class "table listTable" :style "border: 1px solid #000"}
-   [:thead
-    [:tr
-     [:th ""]
-     (for [column columns]
-       [:th column])
-     [:th "actions"]]]
-   [:tbody
-    (for [record records]          
+  (if (= 0 (count records))
+    (get-empty-result-html)
+    [:table {:class "table listTable" :style "border: 1px solid #000"}
+     [:thead
       [:tr
-       [:td "<input type=\"checkbox\">"]
+       [:th ""]
        (for [column columns]
+         [:th column])
+       [:th "actions"]]]
+     [:tbody
+      (for [record records]          
+        [:tr
+         [:td "<input type=\"checkbox\">"]
+         (for [column columns]
+           [:td
+            (field/get-field-html column record (first list-conf))
+            ])
          [:td
-          (field/get-field-html column record (first list-conf))
-          ])
-       [:td
-        (html-helper/get-action-html field-id urls (record (keyword field-id)))
-        ]])]])
+          (html-helper/get-action-html field-id urls (record (keyword field-id)))
+          ]])]]))

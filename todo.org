@@ -31,6 +31,8 @@
 ** TODO Authentification
 ** TODO Email service
 ** TODO Forgot password
+* TODO Implement couchdb
+  http://docs.couchdb.org/en/2.1.1/intro/tour.html
 * TODO https
   https://stackoverflow.com/a/28034335/8000017
 * TODO REST API
