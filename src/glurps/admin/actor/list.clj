@@ -16,19 +16,31 @@
    :field-html-display {:picture field-image/get-html}})
 
 (def field-id "id")
-(def urls [{:type "show" :name "show" :url "/admin/actor/show/{id}"}
-           {:type "update" :name "update" :url "/admin/actor/update/{id}"}
-           {:type "trash" :name "trash" :url "/admin/actor/trash/{id}"}])
 
-(defn get-html []
+(defn get-action-disable-url [disable?]
+  (if disable?
+    {:type "enable" :name "enable" :url "/admin/actor/enable/{id}"}
+    {:type "disable" :name "disable" :url "/admin/actor/disable/{id}"}))
+
+(defn get-disable-link [disable?]
+  (if disable?
+    [:a {:class "btn" :href "/admin/actor"} "List"]
+    [:a {:class "btn" :href "/admin/actor/trash"} "Trash"]))
+
+(defn get-html [& {:keys [disable?]}]
+  (def urls [{:type "show" :name "show" :url "/admin/actor/show/{id}"}
+             {:type "update" :name "update" :url "/admin/actor/update/{id}"}
+             (get-action-disable-url disable?)])
   (main/get-html [:div
                   [:div "Actor list"]
                   [:a {:class "btn btn-primary" :href "/admin/actor/insert"} "Add"]
-                  [:a {:class "btn" :href "/admin/actor/trash"} "Trash"]
+                  (get-disable-link disable?)
                   (crud-list/get-html field-id
                                       urls
                                       (view-layout :fields)
-                                      (actor-dao/get-list-active 0 50)
+                                      (if disable?
+                                        (actor-dao/get-list-disable 0 50)
+                                        (actor-dao/get-list 0 50))
                                       view-layout)
                   [:div {:class "option"}
                    [:select
@@ -36,3 +48,23 @@
                     [:option "Edit"]
                     [:option "Move to trash"]]
                    [:button {:class "btn"} "Apply"]]]))
+
+;; (defn get-trash-html []
+;;   (def urls [{:type "show" :name "show" :url "/admin/actor/show/{id}"}
+;;              {:type "update" :name "update" :url "/admin/actor/update/{id}"}
+;;              {:type "enable" :name "enable" :url "/admin/actor/enable/{id}"}])
+;;   (main/get-html [:div
+;;                   [:div "Actor list"]
+;;                   [:a {:class "btn btn-primary" :href "/admin/actor/insert"} "Add"]
+;;                   [:a {:class "btn" :href "/admin/actor/enable"} "Activate"]
+;;                   (crud-list/get-html field-id
+;;                                       urls
+;;                                       (view-layout :fields)
+;;                                       (actor-dao/get-list-disable 0 50)
+;;                                       view-layout)
+;;                   [:div {:class "option"}
+;;                    [:select
+;;                     [:option "Bulk action"]
+;;                     [:option "Edit"]
+;;                     [:option "Move to trash"]]
+;;                    [:button {:class "btn"} "Apply"]]]))

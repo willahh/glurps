@@ -21,6 +21,12 @@
 (defn delete [id]
   (db/delete db-allocine/db-spec (schema :table-name) id))
 
+(defn enable [id]
+  )
+
+(defn disable [id]
+  )
+
 (defn get-by-name [name]
   (db/query db-allocine/db-spec (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"name\" = '" name "'")))
 
@@ -28,10 +34,6 @@
   (first (db/query db-allocine/db-spec (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"id\" = '" id "'"))))
 
 (defn get-list [offset limit & args]
-  (db/query db-allocine/db-spec
-            (str "SELECT * FROM \"actor\" LIMIT " limit " OFFSET " offset)))
-
-(defn get-list-active [offset limit & args]
   (db/query db-allocine/db-spec
             (str "SELECT * FROM \"actor\" WHERE \"active\" = '1' LIMIT " limit " OFFSET " offset)))
 
