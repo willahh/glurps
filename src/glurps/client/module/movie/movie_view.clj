@@ -1,4 +1,4 @@
-(ns glurps.module.movie.movie-view)
+(ns glurps.client.module.movie.movie-view)
 
 (defn get-item-html [movie-record]
   [:div {:class "col-md-4 mb-4"}

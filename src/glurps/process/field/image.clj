@@ -1,4 +1,4 @@
-(ns glurps.helper.field.image
+(ns glurps.process.field.image
   (:require [glurps.config :as config]
             [wlh.logger :as logger]
             [clj-http.client :as client]))
@@ -33,7 +33,17 @@
     @image-out))
 
 (defn get-html [record]
-  (let [image-name (str "actor_" (record :id) ".jpg")
-        url (str (config/get :upload-filepath) image-name)]
-    [:img {:src (get-image image-name url)
-           :style "max-width: 100px; max-height: 100px;"}]))
+  (when record (let [image-name (str "actor_" (record :id) ".jpg")
+                     url (str (config/get :upload-filepath) image-name)]
+                 [:img {:src (get-image image-name url)
+                        :style "max-width: 100px; max-height: 100px;"}])))
+
+(defn get-update-html [field-name record & field-conf]
+  (let [image-name (when record (str "actor_" (record :id) ".jpg"))
+        url (str (config/get :upload-filepath) image-name)
+        value (when record (record (keyword field-name)))]
+    [:div
+     (when record 
+       [:div [:img {:src (get-image image-name url)
+                    :style "max-width: 100px; max-height: 100px;"}]])
+     [:div [:input {:name field-name :id field-name :value value}]]]))

@@ -1,4 +1,4 @@
-(ns glurps.model.actor-dto)
+(ns glurps.model.actor.actor-model)
 
 (def fields '(^Integer id
               ^Integer alloid

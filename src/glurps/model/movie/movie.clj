@@ -1,6 +1,6 @@
-(ns glurps.model.movie
+(ns glurps.model.movie.movie
   (:require [wlh.db :as db]
-            [glurps.util.db-allocine :as db-allocine]))
+            [glurps.process.db.db-allocine :as db-allocine]))
 
 (def table-name "movie")
 (def cols ["id" "alloid" "title" "description" "date" "director" "actors" "genre" "image" "notepress" "notespectator"])

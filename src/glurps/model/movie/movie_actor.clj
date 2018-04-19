@@ -1,5 +1,5 @@
-(ns glurps.model.movie-actor
-  (:require [glurps.util.db-allocine :as db-allocine]
+(ns glurps.model.movie.movie-actor
+  (:require [glurps.process.db.db-allocine :as db-allocine]
             [clojure.java.jdbc :as jdbc]))
 
 (def table-name "movie_actor")

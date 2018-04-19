@@ -2,16 +2,15 @@
   (:use compojure.core)
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
+            [compojure.core :as compojure]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+            [glurps.admin.index :as admin-list]
+            [glurps.admin.actor.route :refer [admin-actor-route]]
             [glurps.client.views.home :as home]
             [glurps.client.views.sheet :as sheet]
             [glurps.client.views.week :as week]
             [glurps.client.views.logs :as logs]
-            [glurps.client.views.actor :as actor]
-            [glurps.admin.index :as admin-index]
-            [glurps.admin.actor.index :as admin-actor-index]
-            [glurps.admin.actor.show :as admin-actor-show]
-            [glurps.admin.actor.update :as admin-actor-update]))
+            [glurps.client.views.actor :as actor]))
 
 (use 'ring.middleware.resource
      'ring.middleware.content-type
@@ -39,25 +38,13 @@
        (logs/get-html))
   (GET "/admin"
        []
-       (admin-index/get-html))
-  (GET "/admin/actor"
-       []
-       (admin-actor-index/get-html))
-  (GET "/admin/actor/show/:id"
-       [id]
-       (admin-actor-show/get-html id))
-  (GET "/admin/actor/update/:id"
-       [id]
-       (admin-actor-update/get-html id))
-  (POST "/admin/actor/update/:id"
-        {params :params}
-        (admin-actor-update/handle-update params)))
+       (admin-list/get-html)))
 
 (defn init []
   (println "Application is starting"))
 
 (def app
-  (-> app-routes
+  (-> (routes app-routes admin-actor-route)
       (wrap-resource "public")
       (wrap-keyword-params)
       (wrap-params)

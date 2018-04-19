@@ -3,13 +3,15 @@
             [clojure.core.cache :as cache]
             [clojure.string :as str]
             [glurps.config :as config]
-            [glurps.process.scrapper-allocine.movie :as scrapper-movie]
-            [glurps.process.moviehelper :as moviehelper]))
+            [glurps.process.scrapper-allocine.movie :as scrapper-movie]))
 
 (def html-home (html/html-resource (java.net.URL. (config/get :root-url))))
 
+(defn extract-id-from-sheet-url [url]
+  (first (rest (re-find #"=([0-9]+).html" url))))
+
 (defn get-sorties-week-id-list []
-  (map #(moviehelper/extract-id-from-sheet-url ((% :attrs) :href))
+  (map #(extract-id-from-sheet-url ((% :attrs) :href))
        (html/select html-home
                     [:div.mdl-inside :div.roller-item :div.meta :a.meta-title-link])))
 

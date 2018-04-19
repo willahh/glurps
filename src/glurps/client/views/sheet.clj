@@ -29,5 +29,3 @@
 (defn get-html [id]
   (let [row (first (scrapper-home/find-by-id id))]
     (main/get-html [:div (get-view row)])))
-
-

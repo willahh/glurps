@@ -17,3 +17,9 @@
   (let [rows (into [] (map (fn [col]
                              (row (keyword col))) cols))]
     (jdbc/insert! db-spec table cols rows)))
+
+(defn update [db-spec table set-map where-clause]
+  (jdbc/update! db-spec table set-map where-clause))
+
+(defn delete [db-spec table-name id]
+  (jdbc/delete! db-spec table-name [(str "id = " id)]))

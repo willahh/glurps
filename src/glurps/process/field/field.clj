@@ -1,6 +1,7 @@
-(ns glurps.helper.field.field
-  (:require [glurps.helper.field.string :as string]
-            [glurps.helper.field.integer :as integer]))
+(ns glurps.process.field.field
+  (:require [glurps.process.field.string :as string]
+            [glurps.process.field.integer :as integer]
+            [glurps.process.field.image :as image]))
 
 (defn get-field-html [field-name record & layout]
   (if (first layout)
@@ -20,4 +21,7 @@
           (string/get-update-html field-name record)
 
           (= type "integer")
-          (integer/get-update-html field-name record))))
+          (integer/get-update-html field-name record)
+          
+          (= type "picture")
+          (image/get-update-html field-name record))))
