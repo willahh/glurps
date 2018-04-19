@@ -19,8 +19,8 @@
 
 (defn get-action-disable-url [disable?]
   (if disable?
-    {:type "enable" :name "enable" :url "/admin/actor/enable/{id}"}
-    {:type "disable" :name "disable" :url "/admin/actor/disable/{id}"}))
+    {:type "enable" :name "<i class=\"material-icons\">undo</i>" :url "/admin/actor/enable/{id}"}
+    {:type "disable" :name "<i class=\"material-icons\">clear</i>" :url "/admin/actor/disable/{id}"}))
 
 (defn get-disable-link [disable?]
   (if disable?
@@ -28,12 +28,18 @@
     [:a {:class "btn" :href "/admin/actor/trash"} "Trash"]))
 
 (defn get-html [& {:keys [disable?]}]
-  (def urls [{:type "show" :name "show" :url "/admin/actor/show/{id}"}
-             {:type "update" :name "update" :url "/admin/actor/update/{id}"}
+  (def urls [{:type "show" :name "<i class=\"material-icons\">info</i>" :url "/admin/actor/show/{id}"}
+             {:type "update" :name "<i class=\"material-icons\">mode_edit</i>" :url "/admin/actor/update/{id}"}
+             {:type "up" :name "<i class=\"material-icons\">keyboard_arrow_up</i>" :url "/admin/actor/up/{id}"}
+             {:type "down" :name "<i class=\"material-icons\">keyboard_arrow_down</i>" :url "/admin/actor/down/{id}"}
+             {:type "duplicate" :name "<i class=\"material-icons\">content_copy</i>" :url "/admin/actor/duplicate/{id}"}
+             {:type "fav" :name "<i class=\"material-icons\">favorite_border</i>" :url "/admin/actor/duplicate/{id}"}
              (get-action-disable-url disable?)])
   (main/get-html [:div
                   [:div "Actor list"]
                   [:a {:class "btn btn-primary" :href "/admin/actor/insert"} "Add"]
+                  [:a {:class "btn" :href "/admin/actor/list/update"} "Filters"]
+                  [:a {:class "btn" :href "/admin/actor/list/update"} "Update"]
                   (get-disable-link disable?)
                   (crud-list/get-html field-id
                                       urls

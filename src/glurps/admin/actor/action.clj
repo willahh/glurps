@@ -13,3 +13,7 @@
 (defn disable [id]
   (actor-dao/disable id)
   (response/redirect "../../actor"))
+
+(defn duplicate [id]
+  
+  (response/redirect "../../actor"))

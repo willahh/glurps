@@ -1,23 +1,35 @@
 #+TITLE+ Todo
-* TODO Generate a REST API
-  Tests can be made through Postman application
+* TODO CRUD
+** DONE Trash
+** TODO List in update mode where all fields are in update mode
+** TODO List order asc desc
+** TODO List filter sub form
+** TODO List layout configuration
+*** TODO Columns to display "id", "order", "..."
+** TODO Fav true/false
+** TODO Import
+** TODO Export
+** TODO Clone
+** TODO Order up
+** TODO Order down
 * TODO Administration
 ** TODO User CRUD
 ** TODO Group CRUD
 ** TODO Authentification
 ** TODO Email service
-* TODO Locales file
-* TODO Get POST form works
+* TODO REST API
+  Tests can be made through Postman application
+* TODO Locales fr en file
+* DONE Get POST form works
 * TODO Page admin/log : Add filter from level or type
 * TODO Logger
 ** TODO Use cache - future is good but should not be called on every calls,
    Check for the use of channels with core.async
 ** TODO Generate one file per day
+** TODO Implements clojure.java.io stream
 * TODO Events panel
 * TODO Export to xml
 * TODO Import to xml
 * TODO Export to json
 * TODO Import to json
 * TODO Database connnector -> mysql or graphdb
-* TODO Logger 
-   Implements clojure.java.io stream
