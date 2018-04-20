@@ -11,12 +11,13 @@
                  [compojure "1.6.0"]
                  [ring "1.6.3"]
                  [org.clojure/java.jdbc "0.7.5"]
-                 [sqlitejdbc "0.5.6"]
                  [org.clojure/test.check "0.9.0"]
                  [org.clojure/test.generative "0.5.2"]
                  [prone "1.5.1"]
                  [clj-http "3.8.0"]                 
-                 [ring/ring-defaults "0.3.1"]]
+                 [ring/ring-defaults "0.3.1"]
+                 [sqlitejdbc "0.5.6"]
+                 [com.ashafa/clutch "0.4.0"]]
   :main ^:skip-aot glurps.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
@@ -25,4 +26,3 @@
   :plugins [[lein-ring "0.9.7"]]
   :ring {:handler glurps.client.routes/app
          :init glurps.client.routes/init})
-
