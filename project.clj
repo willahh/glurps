@@ -16,8 +16,7 @@
                  [prone "1.5.1"]
                  [clj-http "3.8.0"]                 
                  [ring/ring-defaults "0.3.1"]
-                 [sqlitejdbc "0.5.6"]
-                 [com.ashafa/clutch "0.4.0"]]
+                 [sqlitejdbc "0.5.6"]]
   :main ^:skip-aot glurps.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
