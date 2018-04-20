@@ -31,41 +31,7 @@
 ** TODO Authentification
 ** TODO Email service
 ** TODO Forgot password
-* TODO Implement couchdb
-** Couchimport
------->
-https://github.com/glynnbird/couchimport
-sudo npm install -g couchimport
-
-Export :
-couchexport --url http://localhost:5984 --database animaldb --delimiter "," >
-test.csv
-
-Import : 
-cat ~/test.tsv | couchimport
-** Old
- http://docs.couchdb.org/en/2.1.1/intro/tour.html
-  https://github.com/pouchdb-community/pouchdb-dump-cli
-
-   Dump :
-#+BEGIN_SRC shell
-curl -X GET http://127.0.0.1:5984/glurps/_all_docs\?include_docs\=true
-
-
-
-npm install -g pouchdb-dump-cli
-pouchdb-dump http://localhost:5984/glurps > dump.txt
-pouchdb-dump http://localhost:5984/glurps > dump.txt
-#+END_SRC  
-
-
-https://github.com/pouchdb-community/pouchdb-load
-   Import :
-#+BEGIN_SRC shell
-npm install -g pouchdb-load
-#+END_SRC
-
-
+* TODO Implement Datomic
 * TODO https
   https://stackoverflow.com/a/28034335/8000017
 * TODO REST API
