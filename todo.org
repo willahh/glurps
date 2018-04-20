@@ -43,7 +43,6 @@ test.csv
 
 Import : 
 cat ~/test.tsv | couchimport
-** Old
  http://docs.couchdb.org/en/2.1.1/intro/tour.html
   https://github.com/pouchdb-community/pouchdb-dump-cli
 
@@ -64,7 +63,6 @@ https://github.com/pouchdb-community/pouchdb-load
 #+BEGIN_SRC shell
 npm install -g pouchdb-load
 #+END_SRC
-
 
 * TODO https
   https://stackoverflow.com/a/28034335/8000017
