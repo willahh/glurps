@@ -7,12 +7,19 @@
             [glurps.admin.actor.update :as admin-actor-update]))
 
 (defroutes admin-actor-route
+  ;; Actor list
   (GET "/admin/actor"
        [offset limit]
        (admin-actor-list/get-html))
+  (POST "/admin/actor"
+        {params :params}
+        (admin-actor-list/get-html :page-params params))
   (GET "/admin/actor/p:p"
        [p]
        (admin-actor-list/get-html :page (read-string p)))
+  (POST "/admin/actor/p:p"
+        {{p :p} :params :as page-params}
+        (admin-actor-list/get-html :page-params (:params page-params) :page (read-string p)))
   (GET "/admin/actor/trash"
        [offset limit]
        (admin-actor-list/get-html :disable? true))
@@ -22,9 +29,13 @@
   (GET "/admin/actor/duplicate"
        []
        (admin-actor-action/duplicate))
+  
+  ;; Show
   (GET "/admin/actor/show/:id"
        [id]
        (admin-actor-show/get-html id))
+  
+  ;; Update / Insert
   (GET "/admin/actor/update/:id"
        [id]
        (admin-actor-update/get-html id))
@@ -34,6 +45,8 @@
   (GET "/admin/actor/insert"
        [id]
        (admin-actor-update/get-html-insert id))
+  
+  ;; Action
   (GET "/admin/actor/delete/:id" 
        [id]
        (admin-actor-action/delete id))

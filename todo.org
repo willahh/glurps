@@ -1,9 +1,10 @@
 #+TITLE+ Glurps
-* TODO CRUD
+* TODO CRUD - List
 ** DONE Trash
+** IN PROGRESS List pagination
+** TODO List sort asc desc
 ** TODO List in update mode where all fields are in update mode
 ** TODO List order asc desc
-** TODO List pagination
 ** TODO List filter sub form
 ** TODO List layout configuration
 *** TODO Columns to display "id", "order", "..."
@@ -11,10 +12,9 @@
 ** TODO List import json
 ** TODO List export xml
 ** TODO List export json
-** TODO List REST Preview
+** TODO List REST Preview option button
 ** TODO List inner scroll
    http://www.cssplay.co.uk/menu/tablescroll.html
-** TODO List sort asc desc
 ** TODO List edit multiple
 ** TODO List delete multiple
 ** TODO List enable multiple
@@ -24,6 +24,8 @@
 ** TODO Clone
 ** TODO Order up
 ** TODO Order down
+* TODO CRUD - Show
+** TODO Next / previous
 * TODO Administration
 ** TODO User CRUD
 ** TODO Group CRUD
