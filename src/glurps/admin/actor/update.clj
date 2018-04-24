@@ -58,8 +58,8 @@
   "Try to update raw-data into database. Do a validation before."
   (do (validation/check-fields (view-layout :fields) raw-data)
       (let [actor-record (actor-model/make-actor raw-data)]
-        (actor-dao/update (into {} (filter second actor-record))
-                          [(str "id = " id)]))))
+        (actor-dao/update2 (into {} (filter second actor-record))
+                           [(str "id = " id)]))))
 
 (defn handle-insert [params]
   (main/get-html

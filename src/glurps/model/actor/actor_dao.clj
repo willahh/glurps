@@ -18,19 +18,19 @@
 (defn- get-count [col]
   (first (rest (first (first col)))))
 
-(defn update [set-map where-clause]
-  (db/update db-allocine/db-spec (schema :table-name) set-map where-clause))
+(defn update2 [set-map where-clause]
+  (db/update2 db-allocine/db-spec (schema :table-name) set-map where-clause))
 
 (defn delete [id]
   (db/delete db-allocine/db-spec (schema :table-name) id))
 
 (defn enable [id]
-  (db/update db-allocine/db-spec (schema :table-name) 
-             {:active 1} [(str "id = " id)]))
+  (db/update2 db-allocine/db-spec (schema :table-name) 
+              {:active 1} [(str "id = " id)]))
 
 (defn disable [id]
-  (db/update db-allocine/db-spec (schema :table-name) 
-             {:active 0} [(str "id = " id)]))
+  (db/update2 db-allocine/db-spec (schema :table-name) 
+              {:active 0} [(str "id = " id)]))
 
 (defn get-by-name [name]
   (db/query db-allocine/db-spec (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"name\" = '" name "'")))
@@ -38,19 +38,32 @@
 (defn get-by-id [id]
   (first (db/query db-allocine/db-spec (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"id\" = '" id "'"))))
 
-(defn get-list [filter-params offset limit & args]
+(defn get-list [filter-map offset limit & args]
   (db/query db-allocine/db-spec
             (str "SELECT * FROM \"actor\" WHERE \"active\" = '1' LIMIT " limit " OFFSET " offset)))
 
-(defn get-list2 [filter-params offset limit & args]
-  (db/query db-allocine/db-spec
-            (str "SELECT * FROM \"actor\" WHERE \"active\" = '1' LIMIT " limit " OFFSET " offset)))
+(defn bool-to-int [bool]
+  (if bool 1 0))
 
-(defn count []
+(defn get-sql-map-from-filtermap [filter-map]
+  (conj {}
+        {:select [:*]}
+        {:from [:actor]}
+        (when (:active filter-map)
+          {:where [:= :active (bool-to-int (:active filter-map))]})
+        (when (:sort-by filter-map)
+          {:order-by [[(keyword (:sort-by filter-map))
+                       (when (:order-by filter-map)
+                         (keyword (:order-by filter-map)))]]})))
+
+(defn get-list2 [filter-map offset limit]
+  (db/query2 db-allocine/db-spec (get-sql-map-from-filtermap filter-map) offset limit))
+
+(defn count2 []
   (get-count (db/query db-allocine/db-spec
                        (str "SELECT COUNT(*) FROM \"" (schema :table-name) "\""))))
 
-(defn get-list-disable [filter-params offset limit & args]
+(defn get-list-disable [filter-map offset limit & args]
   (db/query db-allocine/db-spec
             (str "SELECT * FROM \"actor\" WHERE \"active\" = '0' LIMIT " limit " OFFSET " offset)))
 

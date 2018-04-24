@@ -34,19 +34,6 @@
    [:span {:class "btn" } "..."]
    [:a {:class "btn" :href (str path "/p" total)} total]])
 
-;; (let [count 4
-;;       start 3
-;;       b (+ start (/ count 2))]
-;;   {:count count
-;;    :start start
-;;    :b b
-;;    :out(concat (map #(- % b) (range start b))
-;;                `(~start)
-;;                (map #(+ 1 %) (range start b)))})
-
-
-
-
 (defn get-list-option-html [path offset limit total]
   [:div {:class "row"}
    [:div {:class "col-sm-6"} (get-bulk-action-html)]

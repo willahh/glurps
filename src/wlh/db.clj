@@ -1,7 +1,9 @@
 (ns wlh.db
   (:require [clojure.java.jdbc :as jdbc]
+            [honeysql.core :as sql]
+
             [wlh.logger :as logger]
-            [wlh.db :as db]))
+            ))
 
 (defmacro query [db-spec sql-params]
   "Do a query with jdbc, log the request"
@@ -19,11 +21,12 @@
                              (row (keyword col))) cols))]
     (jdbc/insert! db-spec table cols rows)))
 
-(defn update [db-spec table set-map where-clause]
+(defn update2 [db-spec table set-map where-clause]
   (jdbc/update! db-spec table set-map where-clause))
 
 (defn delete [db-spec table-name id]
   (jdbc/delete! db-spec table-name [(str "id = " id)]))
 
-
-;; (jdbc/query)
+(defn query2 [db-spec sql-map offset limit]
+  (jdbc/query db-spec (sql/format (sql/build sql-map :offset offset :limit limit)))
+  )

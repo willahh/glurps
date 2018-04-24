@@ -56,3 +56,6 @@
   (GET "/admin/actor/enable/:id" 
        [id]
        (admin-actor-action/enable id)))
+
+
+;; (admin-actor-list/get-html :filter-params {:sort-by "id", :order-by "desc", :limit "5"})

@@ -36,11 +36,11 @@
         filter-fields (:filter-fields list-conf)
         limit (:limit list-conf)
         urls (crud-list/get-action-html disable?)
-        count (actor-dao/count)
+        count (actor-dao/count2)
         offset (crud-list/get-pagination-offset page limit count)
         records (if disable?
                   (actor-dao/get-list-disable filter-params offset limit)
-                  (actor-dao/get-list filter-params offset limit))]
+                  (actor-dao/get-list2 filter-params offset limit))]
     (main/get-html
      [:div 
       [:h2 (:title list-conf)]
@@ -55,3 +55,5 @@
                            records
                            list-conf)
        (crud-list/get-list-option-html path offset limit count)]])))
+
+
