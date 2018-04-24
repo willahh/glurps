@@ -1,9 +1,7 @@
 (ns wlh.db
   (:require [clojure.java.jdbc :as jdbc]
             [honeysql.core :as sql]
-
-            [wlh.logger :as logger]
-            ))
+            [wlh.logger :as logger]))
 
 (defmacro query [db-spec sql-params]
   "Do a query with jdbc, log the request"

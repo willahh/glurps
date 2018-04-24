@@ -46,4 +46,8 @@
      (when record 
        [:div [:img {:src (get-image image-name url)
                     :style "max-width: 100px; max-height: 100px;"}]])
-     [:div [:input {:name field-name :id field-name :value value}]]]))
+     [:div [:input {:name field-name :id field-name :value value}]]
+     [:div "Upload from file"]
+     [:div "Upload from url"]
+     [:div "Upload from flickr"]
+     [:div "Select from media"]]))

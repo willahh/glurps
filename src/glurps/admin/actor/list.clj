@@ -10,7 +10,7 @@
   "Optional view layout configuration"
   {:path "/admin/actor"
    :title "Actor list"
-   :fields ["id"
+   :columns ["id"
             "name"
             "job"
             "nationality"
@@ -32,9 +32,11 @@
                    :as params}]
   (let [field-id "id"
         path (:path list-conf)
-        fields (:fields list-conf)
+        columns (:columns list-conf)
         filter-fields (:filter-fields list-conf)
-        limit (:limit list-conf)
+        limit (if (:limit filter-params) 
+                (Integer. (:limit filter-params))
+                (:limit list-conf))
         urls (crud-list/get-action-html disable?)
         count (actor-dao/count2)
         offset (crud-list/get-pagination-offset page limit count)
@@ -47,11 +49,11 @@
       [:div (str "debug page params:" (pr-str filter-params))]
       [:div 
        (crud-nav/get-html disable?)
+       (crud-filter/get-html columns filter-params filter-fields)
        (crud-list/get-list-option-html path offset limit count)
-       (crud-filter/get-html filter-params filter-fields)
        (crud-list/get-html field-id
                            urls
-                           fields
+                           columns
                            records
                            list-conf)
        (crud-list/get-list-option-html path offset limit count)]])))

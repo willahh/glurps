@@ -46,6 +46,7 @@
   (if bool 1 0))
 
 (defn get-sql-map-from-filtermap [filter-map]
+  "Given a filter-map of form {:sort-by 'name', :order-by 'asc', :limit '10'}, returns a honeysql sql-map."
   (conj {}
         {:select [:*]}
         {:from [:actor]}

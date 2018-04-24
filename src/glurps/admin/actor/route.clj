@@ -58,4 +58,4 @@
        (admin-actor-action/enable id)))
 
 
-;; (admin-actor-list/get-html :filter-params {:sort-by "id", :order-by "desc", :limit "5"})
+(admin-actor-list/get-html :filter-params {:columns ["nationality" "age"], :sort-by "id", :order-by "desc", :page "0", :limit "2"})
