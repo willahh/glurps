@@ -16,14 +16,20 @@
             "nationality"
             "age"
             "birthdate"
-            "picture"]
+            "picture"
+            "date_create"
+            "date_update"]
    :limit 2
-   :filter-fields [{:name "name"}
-                   {:name "age"}]
+   :filter-fields [{:key "sort-by" :name "Sort by"}
+                   {:key "order-by" :name "Order by"}]
    :field-html-display {:picture field-image/get-html}})
 
 (defn get-html [& {:keys [disable?
-                          page] :or {page 1} :as params}]
+                          page
+                          filter-params] 
+                   :or {page 1
+                        param-params {}}
+                   :as params}]
   (let [field-id "id"
         path (:path list-conf)
         fields (:fields list-conf)
@@ -33,15 +39,16 @@
         count (actor-dao/count)
         offset (crud-list/get-pagination-offset page limit count)
         records (if disable?
-                  (actor-dao/get-list-disable offset limit)
-                  (actor-dao/get-list offset limit))]
+                  (actor-dao/get-list-disable filter-params offset limit)
+                  (actor-dao/get-list filter-params offset limit))]
     (main/get-html
      [:div 
       [:h2 (:title list-conf)]
+      [:div (str "debug page params:" (pr-str filter-params))]
       [:div 
        (crud-nav/get-html disable?)
        (crud-list/get-list-option-html path offset limit count)
-       (crud-filter/get-html filter-fields)
+       (crud-filter/get-html filter-params filter-fields)
        (crud-list/get-html field-id
                            urls
                            fields

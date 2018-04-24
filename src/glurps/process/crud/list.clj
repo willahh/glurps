@@ -67,6 +67,10 @@
     [:div "No result"]    
     [:div "<i class=\"material-icons\" style=\"font-size: 114px;\">web</i>"]]])
 
+(defn get-column-html [column]
+  [:div {:class "col"} 
+   [:span {:class "val"} column]])
+
 (defn get-html [field-id urls columns records & list-conf]
   (if (= 0 (count records))
     (get-empty-result-html)
@@ -75,7 +79,7 @@
       [:tr
        [:th ""]
        (for [column columns]
-         [:th column])
+         [:th (get-column-html column)])
        [:th "actions"]]]
      [:tbody
       (for [record records]          

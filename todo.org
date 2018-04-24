@@ -1,9 +1,10 @@
 #+TITLE+ Glurps
-* TODO CRUD
+* TODO CRUD - List
 ** DONE Trash
+** IN PROGRESS List pagination
+** TODO List sort asc desc
 ** TODO List in update mode where all fields are in update mode
 ** TODO List order asc desc
-** TODO List pagination
 ** TODO List filter sub form
 ** TODO List layout configuration
 *** TODO Columns to display "id", "order", "..."
@@ -11,10 +12,9 @@
 ** TODO List import json
 ** TODO List export xml
 ** TODO List export json
-** TODO List REST Preview
+** TODO List REST Preview option button
 ** TODO List inner scroll
    http://www.cssplay.co.uk/menu/tablescroll.html
-** TODO List sort asc desc
 ** TODO List edit multiple
 ** TODO List delete multiple
 ** TODO List enable multiple
@@ -24,6 +24,8 @@
 ** TODO Clone
 ** TODO Order up
 ** TODO Order down
+* TODO CRUD - Show
+** TODO Next / previous
 * TODO Administration
 ** TODO User CRUD
 ** TODO Group CRUD
@@ -31,41 +33,7 @@
 ** TODO Authentification
 ** TODO Email service
 ** TODO Forgot password
-* TODO Implement couchdb
-** Couchimport
------->
-https://github.com/glynnbird/couchimport
-sudo npm install -g couchimport
-
-Export :
-couchexport --url http://localhost:5984 --database animaldb --delimiter "," >
-test.csv
-
-Import : 
-cat ~/test.tsv | couchimport
-** Old
- http://docs.couchdb.org/en/2.1.1/intro/tour.html
-  https://github.com/pouchdb-community/pouchdb-dump-cli
-
-   Dump :
-#+BEGIN_SRC shell
-curl -X GET http://127.0.0.1:5984/glurps/_all_docs\?include_docs\=true
-
-
-
-npm install -g pouchdb-dump-cli
-pouchdb-dump http://localhost:5984/glurps > dump.txt
-pouchdb-dump http://localhost:5984/glurps > dump.txt
-#+END_SRC  
-
-
-https://github.com/pouchdb-community/pouchdb-load
-   Import :
-#+BEGIN_SRC shell
-npm install -g pouchdb-load
-#+END_SRC
-
-
+* TODO Implement Datomic
 * TODO https
   https://stackoverflow.com/a/28034335/8000017
 * TODO REST API
