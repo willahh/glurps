@@ -38,7 +38,11 @@
 (defn get-by-id [id]
   (first (db/query db-allocine/db-spec (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"id\" = '" id "'"))))
 
-(defn get-list [page-params offset limit & args]
+(defn get-list [filter-params offset limit & args]
+  (db/query db-allocine/db-spec
+            (str "SELECT * FROM \"actor\" WHERE \"active\" = '1' LIMIT " limit " OFFSET " offset)))
+
+(defn get-list2 [filter-params offset limit & args]
   (db/query db-allocine/db-spec
             (str "SELECT * FROM \"actor\" WHERE \"active\" = '1' LIMIT " limit " OFFSET " offset)))
 
@@ -46,7 +50,7 @@
   (get-count (db/query db-allocine/db-spec
                        (str "SELECT COUNT(*) FROM \"" (schema :table-name) "\""))))
 
-(defn get-list-disable [page-params offset limit & args]
+(defn get-list-disable [filter-params offset limit & args]
   (db/query db-allocine/db-spec
             (str "SELECT * FROM \"actor\" WHERE \"active\" = '0' LIMIT " limit " OFFSET " offset)))
 

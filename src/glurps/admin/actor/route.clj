@@ -13,13 +13,13 @@
        (admin-actor-list/get-html))
   (POST "/admin/actor"
         {params :params}
-        (admin-actor-list/get-html :page-params params))
+        (admin-actor-list/get-html :filter-params params))
   (GET "/admin/actor/p:p"
        [p]
        (admin-actor-list/get-html :page (read-string p)))
   (POST "/admin/actor/p:p"
-        {{p :p} :params :as page-params}
-        (admin-actor-list/get-html :page-params (:params page-params) :page (read-string p)))
+        {{p :p} :params :as filter-params}
+        (admin-actor-list/get-html :filter-params (:params filter-params) :page (read-string p)))
   (GET "/admin/actor/trash"
        [offset limit]
        (admin-actor-list/get-html :disable? true))

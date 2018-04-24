@@ -1,6 +1,7 @@
 (ns wlh.db
   (:require [clojure.java.jdbc :as jdbc]
-            [wlh.logger :as logger]))
+            [wlh.logger :as logger]
+            [wlh.db :as db]))
 
 (defmacro query [db-spec sql-params]
   "Do a query with jdbc, log the request"
@@ -23,3 +24,6 @@
 
 (defn delete [db-spec table-name id]
   (jdbc/delete! db-spec table-name [(str "id = " id)]))
+
+
+;; (jdbc/query)
