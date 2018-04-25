@@ -7,13 +7,19 @@
             [glurps.admin.actor.update :as admin-actor-update]))
 
 (defroutes admin-actor-route
-  ;; Actor list
+  ;; List
   (GET "/admin/actor"
        [offset limit]
        (admin-actor-list/get-html))
-  (POST "/admin/actor"
-        {params :params}
-        (admin-actor-list/get-html :filter-params params))
+  
+  
+  
+  ;; (POST "/admin/actor" request (admin-actor-list/response-handler request))
+  (POST "/admin/actor" request (admin-actor-list/get-html2 request))  
+
+  
+  
+  
   (GET "/admin/actor/p:p"
        [p]
        (admin-actor-list/get-html :page (read-string p)))
@@ -26,9 +32,6 @@
   (GET "/admin/actor/list/update"
        [offset limit]
        (admin-actor-list/get-html :disable? true))
-  (GET "/admin/actor/duplicate"
-       []
-       (admin-actor-action/duplicate))
   
   ;; Show
   (GET "/admin/actor/show/:id"
@@ -47,6 +50,9 @@
        (admin-actor-update/get-html-insert id))
   
   ;; Action
+  (GET "/admin/actor/duplicate"
+       []
+       (admin-actor-action/duplicate))
   (GET "/admin/actor/delete/:id" 
        [id]
        (admin-actor-action/delete id))
@@ -58,4 +64,5 @@
        (admin-actor-action/enable id)))
 
 
-(admin-actor-list/get-html :filter-params {:columns ["nationality" "age"], :sort-by "id", :order-by "desc", :page "0", :limit "2"})
+;; (admin-actor-list/get-html :filter-params {:columns ["nationality" "age"], :sort-by "id", :order-by "desc", :page "0", :limit "2"})
+

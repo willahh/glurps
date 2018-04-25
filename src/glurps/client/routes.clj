@@ -13,6 +13,9 @@
             [glurps.client.views.actor :as actor]))
 
 (use 'ring.middleware.resource
+     'ring.middleware.defaults
+     'ring.util.response
+     'ring.middleware.session
      'ring.middleware.content-type
      'ring.middleware.not-modified
      'ring.middleware.params
@@ -38,15 +41,27 @@
        (logs/get-html))
   (GET "/admin"
        []
-       (admin-list/get-html)))
+       (admin-list/get-html))
+  
+  (GET "/admin/test4" {session :session} (handler session "World")))
 
 (defn init []
   (println "Application is starting"))
 
 (def app
-  (-> (routes app-routes admin-actor-route)
-      (wrap-resource "public")
-      (wrap-keyword-params)
-      (wrap-params)
-      (wrap-content-type)
-      (wrap-not-modified)))
+  (-> 
+   (routes app-routes admin-actor-route)
+   (wrap-defaults site-defaults)
+   ;; (wrap-anti-forgery)
+   ))
+
+
+;; (def app
+;;   (-> 
+;;    (routes app-routes admin-actor-route)
+;;    (wrap-resource "public")
+;;    (wrap-session)
+;;    (wrap-keyword-params)
+;;    (wrap-params)
+;;    (wrap-content-type)
+;;    (wrap-not-modified)))

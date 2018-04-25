@@ -1,5 +1,6 @@
 (ns glurps.process.crud.filter
   (:require [glurps.process.html.html :as html-helper]
+            [ring.util.anti-forgery :refer [anti-forgery-field]]
             [glurps.process.field.field :as field]))
 
 (defn- get-select-option-html [option-name option-value option-label]
@@ -15,6 +16,7 @@
 
 (defn get-html [columns filter-params filter-fields]
   [:form {:action "" :method "post"}
+   (anti-forgery-field)
    [:div
     [:table {:class "table filterTable " :style "border: 1px solid #000"}
      ;; [:thead

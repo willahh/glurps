@@ -10,12 +10,12 @@
                  [org.clojure/core.cache "0.7.1"]
                  [compojure "1.6.0"]
                  [ring "1.6.3"]
+                 [ring/ring-defaults "0.3.1"]
                  [org.clojure/java.jdbc "0.7.5"]
                  [org.clojure/test.check "0.9.0"]
                  [org.clojure/test.generative "0.5.2"]
                  [prone "1.5.1"]
                  [clj-http "3.8.0"]                 
-                 [ring/ring-defaults "0.3.1"]
                  [sqlitejdbc "0.5.6"]
                  [honeysql "0.9.2"]]
   :main ^:skip-aot glurps.core

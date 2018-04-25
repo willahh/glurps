@@ -38,7 +38,7 @@
 (defn get-by-id [id]
   (first (db/query db-allocine/db-spec (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"id\" = '" id "'"))))
 
-(defn get-list [filter-map offset limit & args]
+(defn get-list [offset limit & args]
   (db/query db-allocine/db-spec
             (str "SELECT * FROM \"actor\" WHERE \"active\" = '1' LIMIT " limit " OFFSET " offset)))
 
