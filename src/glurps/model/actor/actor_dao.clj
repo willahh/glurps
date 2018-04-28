@@ -6,6 +6,9 @@
             [wlh.logger :as logger]
             [clojure.java.jdbc :as jdbc]))
 
+(defn bool-to-int [bool]
+  (if bool 1 0))
+
 (def schema {:table-name "actor"
              :cols (actor/get-fields)})
 
@@ -42,20 +45,34 @@
   (db/query db-allocine/db-spec
             (str "SELECT * FROM \"actor\" WHERE \"active\" = '1' LIMIT " limit " OFFSET " offset)))
 
-(defn bool-to-int [bool]
-  (if bool 1 0))
+(defn get-clauses-from-filtermap [filter-map]
+  (let [and (conj []
+                  (when (:fav filter-map)
+                    [:= :fav 1])
+                  (when (:active filter-map)
+                    [:= :active (bool-to-int (:active filter-map))]))
+        and-clean (into [] (filter second and))]
+    
+    (if (= (count and-clean) 1)
+      {:where (first and-clean)}
+      (if (> (count and-clean) 1)
+        {:where
+         [:and and-clean]}))))
+
 
 (defn get-sql-map-from-filtermap [filter-map]
   "Given a filter-map of form {:sort-by 'name', :order-by 'asc', :limit '10'}, returns a honeysql sql-map."
-  (conj {}
-        {:select [:*]}
-        {:from [:actor]}
-        (when (:active filter-map)
-          {:where [:= :active (bool-to-int (:active filter-map))]})
-        (when (:sort-by filter-map)
-          {:order-by [[(keyword (:sort-by filter-map))
-                       (when (:order-by filter-map)
-                         (keyword (:order-by filter-map)))]]})))
+  (let [clauses []]
+    (when (:fav filter-map)
+      (conj clauses {:where [:= :fav (:fav filter-map)]}))
+    (conj {}
+          {:select [:*]}
+          {:from [:actor]}
+          (get-clauses-from-filtermap filter-map)
+          (when (:sort-by filter-map)
+            {:order-by [[(keyword (:sort-by filter-map))
+                         (when (:order-by filter-map)
+                           (keyword (:order-by filter-map)))]]}))))
 
 (defn get-list2 [filter-map offset limit]
   (db/query2 db-allocine/db-spec (get-sql-map-from-filtermap filter-map) offset limit))
@@ -75,3 +92,14 @@
             (for [actor actors]
               (if-let [actor-row (first (get-by-name actor))]
                 actor-row)))))
+
+
+(defn fav [id]
+  "Set record to favorite"
+  (db/update2 db-allocine/db-spec (schema :table-name) 
+              {:fav 1} [(str "id = " id)]))
+
+(defn unfav [id]
+  "Unset record to favorite"
+  (db/update2 db-allocine/db-spec (schema :table-name) 
+              {:fav 0} [(str "id = " id)]))

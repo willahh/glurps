@@ -26,5 +26,6 @@
   (jdbc/delete! db-spec table-name [(str "id = " id)]))
 
 (defn query2 [db-spec sql-map offset limit]
-  (jdbc/query db-spec (sql/format (sql/build sql-map :offset offset :limit limit)))
-  )
+  (let [query (sql/format (sql/build sql-map :offset offset :limit limit))]
+    (logger/info query)
+    (jdbc/query db-spec query)))

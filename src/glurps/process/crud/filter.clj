@@ -13,10 +13,13 @@
                         (when (some #(= value %) enable-columns)
                           {:checked "true"})) label]])
 
+(defn- get-radio-html [name value label]
+  [:label [:input (conj {:type "radio" :name name :value value}
+                        (when (= name value) {:checked true}
+                              {:checked "true"})) label]])
+
 (defn get-html [columns params filter-fields]
   [:form {:action "" :method "post"}
-   
-   ;; (anti-forgery-field)
    [:div
     [:table {:class "table filterTable " :style "border: 1px solid #000"}
      ;; [:thead
@@ -39,6 +42,11 @@
           (get-checkbox-html "columns" column column (:columns params)))]
        ]
       [:tr 
+       [:td "Favs"]
+       [:td 
+        (get-checkbox-html "fav" (:fav params) "Favorite" ["on"])]
+       ]
+      [:tr 
        [:td "Sort by"]
        [:td 
         [:select {:name "sort-by"}
@@ -56,8 +64,8 @@
        [:td "Page"]
        [:td 
         [:select {:name "page"}
-         (for [i (into [] (range 0 10))]
-           (get-select-option-html i (:page params) i))]]
+         (for [i (into [] (range 1 10))]
+           (get-select-option-html (str i) (:page params) (str "Page " i)))]]
        ]
       [:tr 
        [:td "Row per page"]

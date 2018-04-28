@@ -17,3 +17,11 @@
 
 (defn duplicate [id]
   (response/redirect "../../actor"))
+
+(defn fav [id]
+  (actor-dao/fav id)
+  (response/redirect "../../actor"))
+
+(defn unfav [id]
+  (actor-dao/unfav id)
+  (response/redirect "../../actor"))

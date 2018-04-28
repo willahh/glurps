@@ -41,18 +41,18 @@
       visible-columns-default
       cols)))
 
-(defn get-html2 [{:keys [params session] :as query} & {:keys [disable?]}]
+(defn get-html [{:keys [params session] :as query} & {:keys [disable?]}]
   (let [field-id "id"
         path (:path list-conf)
         columns (:columns list-conf)
         visible-columns (get-visible-columns columns (:columns params) (:columns default-params))
-        page (if (:p params) 
+        page (if (:page params) 
                (Integer. (:page params))
                (Integer. (:page default-params)))
         limit (if (:limit params) 
                 (Integer. (:limit params))
                 (Integer. (:limit default-params)))
-        urls (crud-list/get-action-html disable?)
+        ;; urls (crud-list/get-action-html disable?)
         count (actor-dao/count2)
         offset (crud-list/get-pagination-offset page limit count)
         records (if disable?
@@ -73,8 +73,10 @@
        (crud-filter/get-html columns (merge default-params params) (:filter-fields list-conf))
        (crud-list/get-list-option-html path offset limit count)
        (crud-list/get-html field-id
-                           urls
+                           ;; urls
                            visible-columns
                            records
                            list-conf)
        (crud-list/get-list-option-html path offset limit count)]])))
+
+(get-html {})
