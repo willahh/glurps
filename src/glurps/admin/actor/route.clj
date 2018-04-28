@@ -8,30 +8,32 @@
 
 (defroutes admin-actor-route
   ;; List
-  (GET "/admin/actor"
-       [offset limit]
-       (admin-actor-list/get-html))
+  ;; (GET "/admin/actor"
+  ;;      [offset limit]
+  ;;      (admin-actor-list/get-html))
+
+  (GET "/admin/actor"       request (admin-actor-list/get-html2 request))
+  (POST "/admin/actor"      request (admin-actor-list/get-html2 request)) 
+  ;; (GET "/admin/actor/p:p"   request (admin-actor-list/get-html2 request)) 
   
+  (GET "/admin/actor/trash" request (admin-actor-list/get-html2 request :disable? true)) 
+  (POST "/admin/actor/trash" request (admin-actor-list/get-html2 request :disable? true)) 
   
-  
-  ;; (POST "/admin/actor" request (admin-actor-list/response-handler request))
-  (POST "/admin/actor" request (admin-actor-list/get-html2 request))  
+  ;; (GET "/admin/actor/p:p"
+  ;;      [p]
+  ;;      (admin-actor-list/get-html :page (read-string p)))
+  ;; (POST "/admin/actor/p:p"
+  ;;       {{p :p} :params :as filter-params}
+  ;;       (admin-actor-list/get-html :filter-params (:params filter-params) :page (read-string p)))
 
   
-  
-  
-  (GET "/admin/actor/p:p"
-       [p]
-       (admin-actor-list/get-html :page (read-string p)))
-  (POST "/admin/actor/p:p"
-        {{p :p} :params :as filter-params}
-        (admin-actor-list/get-html :filter-params (:params filter-params) :page (read-string p)))
-  (GET "/admin/actor/trash"
-       [offset limit]
-       (admin-actor-list/get-html :disable? true))
-  (GET "/admin/actor/list/update"
-       [offset limit]
-       (admin-actor-list/get-html :disable? true))
+  ;; (GET "/admin/actor/trash"
+  ;;      [offset limit]
+  ;;      (admin-actor-list/get-html :disable? true))
+
+  ;; (GET "/admin/actor/list/update"
+  ;;      [offset limit]
+  ;;      (admin-actor-list/get-html :disable? true))
   
   ;; Show
   (GET "/admin/actor/show/:id"

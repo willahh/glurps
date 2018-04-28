@@ -26,13 +26,13 @@
 
 (defn get-pagination [path offset limit total]
   [:div {:class "pagination" :style "text-align: center;"}
-   [:a {:class "btn" :href (str path "/p" 1)} 1]
+   [:a {:class "btn" :href (str path "?page=" 1)} 1]
    [:span {:class "btn" } "..."]
    (for [i (range 0 limit)]
      (let [start (+ offset i)]
-       [:a {:class "btn" :href (str path "/p" start)} start]))
+       [:a {:class "btn" :href (str path "?page=" start)} start]))
    [:span {:class "btn" } "..."]
-   [:a {:class "btn" :href (str path "/p" total)} total]])
+   [:a {:class "btn" :href (str path "?page=" total)} total]])
 
 (defn get-list-option-html [path offset limit total]
   [:div {:class "row"}

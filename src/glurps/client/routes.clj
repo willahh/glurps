@@ -4,6 +4,7 @@
             [compojure.route :as route]
             [compojure.core :as compojure]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+            ;; [ring.middleware.anti-forgery :refer :all]
             [glurps.admin.index :as admin-list]
             [glurps.admin.actor.route :refer [admin-actor-route]]
             [glurps.client.views.home :as home]
@@ -41,9 +42,7 @@
        (logs/get-html))
   (GET "/admin"
        []
-       (admin-list/get-html))
-  
-  (GET "/admin/test4" {session :session} (handler session "World")))
+       (admin-list/get-html)))
 
 (defn init []
   (println "Application is starting"))
@@ -51,7 +50,8 @@
 (def app
   (-> 
    (routes app-routes admin-actor-route)
-   (wrap-defaults site-defaults)
+   ;; (wrap-defaults site-defaults)
+   (wrap-defaults (merge site-defaults {:security {:anti-forgery false}}))
    ;; (wrap-anti-forgery)
    ))
 

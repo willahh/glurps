@@ -17,7 +17,8 @@
                  [prone "1.5.1"]
                  [clj-http "3.8.0"]                 
                  [sqlitejdbc "0.5.6"]
-                 [honeysql "0.9.2"]]
+                 [honeysql "0.9.2"]
+                 [ring-anti-forgery "0.3.0"]]
   :main ^:skip-aot glurps.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
