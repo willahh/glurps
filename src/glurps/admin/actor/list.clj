@@ -27,7 +27,7 @@
                      :sort-by "id"
                      :order-by "asc"
                      :page "1"
-                     :limit "2"})
+                     :limit "25"})
 
 (defn in? 
   "True if coll contains elm"
@@ -52,12 +52,11 @@
         limit (if (:limit params) 
                 (Integer. (:limit params))
                 (Integer. (:limit default-params)))
-        ;; urls (crud-list/get-action-html disable?)
         count (actor-dao/count2)
         offset (crud-list/get-pagination-offset page limit count)
         records (if disable?
                   (actor-dao/get-list-disable params offset limit)
-                  (actor-dao/get-list2 params offset limit))]
+                  (actor-dao/get-list2 (merge {:active 1} params) offset limit))]
     (main/get-html
      [:div 
       [:div session]
@@ -78,5 +77,3 @@
                            records
                            list-conf)
        (crud-list/get-list-option-html path offset limit count)]])))
-
-(get-html {})

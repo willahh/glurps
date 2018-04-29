@@ -45,7 +45,7 @@
    [:a {:href (str "/admin/actor/down/" (:id record)) :class "btn"} "<i class=\"material-icons\">keyboard_arrow_down</i>"]
    [:a {:href (str "/admin/actor/duplicate/" (:id record)) :class "btn"} "<i class=\"material-icons\">content_copy</i>"]
    (if (= (:fav record) 1)
-     [:a {:href (str "/admin/actor/fav/" (:id record)) :class "btn"} "<i class=\"material-icons\">favorite</i>"]
+     [:a {:href (str "/admin/actor/unfav/" (:id record)) :class "btn"} "<i class=\"material-icons\">favorite</i>"]
      [:a {:href (str "/admin/actor/fav/" (:id record)) :class "btn"} "<i class=\"material-icons\">favorite_border</i>"])
    (if (= (:active record) 1)
      [:a {:href (str "/admin/actor/disable/" (:id record)) :class "btn"} "<i class=\"material-icons\">clear</i>"]
@@ -77,9 +77,6 @@
          [:td "<input type=\"checkbox\">"]
          (for [column columns]
            [:td
-            (field/get-field-html column record (first list-conf))
-            ])
+            (field/get-field-html column record (first list-conf))])
          [:td
-          (get-action-html record)
-          ;; (html-helper/get-action-html field-id (record (keyword field-id)))
-          ]])]]))
+          (get-action-html record)]])]]))

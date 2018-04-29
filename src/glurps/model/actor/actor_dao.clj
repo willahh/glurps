@@ -45,43 +45,42 @@
   (db/query db-allocine/db-spec
             (str "SELECT * FROM \"actor\" WHERE \"active\" = '1' LIMIT " limit " OFFSET " offset)))
 
-(defn get-clauses-from-filtermap [filter-map]
+(defn get-clauses-from-params [params]
   (let [and (conj []
-                  (when (:fav filter-map)
+                  (when (:fav params)
                     [:= :fav 1])
-                  (when (:active filter-map)
-                    [:= :active (bool-to-int (:active filter-map))]))
+                  (when (:active params)
+                    [:= :active (bool-to-int (:active params))]))
         and-clean (into [] (filter second and))]
     
     (if (= (count and-clean) 1)
       {:where (first and-clean)}
       (if (> (count and-clean) 1)
         {:where
-         [:and and-clean]}))))
+         (into [] (cons :and and-clean))}))))
 
-
-(defn get-sql-map-from-filtermap [filter-map]
-  "Given a filter-map of form {:sort-by 'name', :order-by 'asc', :limit '10'}, returns a honeysql sql-map."
+(defn get-sql-map-from-params [params]
+  "Given a params of form {:sort-by 'name', :order-by 'asc', :limit '10'}, returns a honeysql sql-map."
   (let [clauses []]
-    (when (:fav filter-map)
-      (conj clauses {:where [:= :fav (:fav filter-map)]}))
+    (when (:fav params)
+      (conj clauses {:where [:= :fav (:fav params)]}))
     (conj {}
           {:select [:*]}
           {:from [:actor]}
-          (get-clauses-from-filtermap filter-map)
-          (when (:sort-by filter-map)
-            {:order-by [[(keyword (:sort-by filter-map))
-                         (when (:order-by filter-map)
-                           (keyword (:order-by filter-map)))]]}))))
+          (get-clauses-from-params params)
+          (when (:sort-by params)
+            {:order-by [[(keyword (:sort-by params))
+                         (when (:order-by params)
+                           (keyword (:order-by params)))]]}))))
 
-(defn get-list2 [filter-map offset limit]
-  (db/query2 db-allocine/db-spec (get-sql-map-from-filtermap filter-map) offset limit))
+(defn get-list2 [params offset limit]
+  (db/query2 db-allocine/db-spec (get-sql-map-from-params params) offset limit))
 
 (defn count2 []
   (get-count (db/query db-allocine/db-spec
                        (str "SELECT COUNT(*) FROM \"" (schema :table-name) "\""))))
 
-(defn get-list-disable [filter-map offset limit & args]
+(defn get-list-disable [params offset limit & args]
   (db/query db-allocine/db-spec
             (str "SELECT * FROM \"actor\" WHERE \"active\" = '0' LIMIT " limit " OFFSET " offset)))
 
