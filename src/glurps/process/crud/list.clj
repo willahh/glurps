@@ -41,8 +41,8 @@
   [:span
    [:a {:href (str "/admin/actor/show/" (:id record)) :class "btn"} "<i class=\"material-icons\">info</i>"]
    [:a {:href (str "/admin/actor/update/" (:id record)) :class "btn"} "<i class=\"material-icons\">mode_edit</i>"]
-   [:a {:href (str "/admin/actor/up/" (:id record)) :class "btn"} "<i class=\"material-icons\">keyboard_arrow_up</i>"]
-   [:a {:href (str "/admin/actor/down/" (:id record)) :class "btn"} "<i class=\"material-icons\">keyboard_arrow_down</i>"]
+   ;; [:a {:href (str "/admin/actor/up/" (:id record)) :class "btn"} "<i class=\"material-icons\">keyboard_arrow_up</i>"]
+   ;; [:a {:href (str "/admin/actor/down/" (:id record)) :class "btn"} "<i class=\"material-icons\">keyboard_arrow_down</i>"]
    [:a {:href (str "/admin/actor/duplicate/" (:id record)) :class "btn"} "<i class=\"material-icons\">content_copy</i>"]
    (if (= (:fav record) 1)
      [:a {:href (str "/admin/actor/unfav/" (:id record)) :class "btn"} "<i class=\"material-icons\">favorite</i>"]
@@ -57,11 +57,20 @@
     [:div "No result"]    
     [:div "<i class=\"material-icons\" style=\"font-size: 114px;\">web</i>"]]])
 
-(defn get-column-html [column]
-  [:div {:class "col"} 
-   [:span {:class "val"} column]])
+(defn get-column-html [field field-order field-asc]
+  (let [url (str "?order=" field 
+                 (if (= field field-order)
+                   (if (= field-asc 1) "&asc=0" "&asc=1")
+                   "&asc=1"))]
+    [:div {:class "col"}
+     [:a {:style "white-space:nowrap; vertical-align: middle;" :href url}
+      (when (= field field-order) 
+        (if (= field-asc 1)
+          [:span {:style "vertical-align: middle;"} "<i class='material-icons'>arrow_downward</i>"]
+          [:span {:style "vertical-align: middle;"} "<i class='material-icons'>arrow_upward</i>"]))
+      [:span {:class "val"}  field]]]))
 
-(defn get-html [field-id columns records & list-conf]
+(defn get-html [field-id columns records field-order field-asc & list-conf]
   (if (= 0 (count records))
     (get-empty-result-html)
     [:table {:class "table listTable" :style "border: 1px solid #000"}
@@ -69,7 +78,7 @@
       [:tr
        [:th ""]
        (for [column columns]
-         [:th (get-column-html column)])
+         [:th (get-column-html column field-order field-asc)])
        [:th "actions"]]]
      [:tbody
       (for [record records]          

@@ -3,6 +3,13 @@
             [honeysql.core :as sql]
             [wlh.logger :as logger]))
 
+;; (def requests-trace (atom []))
+
+;; (reset! requests-trace [])
+
+;; ()
+
+
 (defmacro query [db-spec sql-params]
   "Do a query with jdbc, log the request"
   `(let [query# ~sql-params]
@@ -27,5 +34,5 @@
 
 (defn query2 [db-spec sql-map offset limit]
   (let [query (sql/format (sql/build sql-map :offset offset :limit limit))]
-    (logger/info query)
+    (logger/info (str "[db]" query))
     (jdbc/query db-spec query)))

@@ -25,7 +25,7 @@
 
 (def default-params {:columns ["id" "name" "picture" "date_create" "date_update"]
                      :sort-by "id"
-                     :order-by "asc"
+                     :asc "1"
                      :page "1"
                      :limit "25"})
 
@@ -53,6 +53,10 @@
                 (Integer. (:limit params))
                 (Integer. (:limit default-params)))
         count (actor-dao/count2)
+        field-order (if (:order params)
+                      (:order params) field-id)
+        field-asc (if (:asc params)
+                    (Integer. (:asc params)) true)
         offset (crud-list/get-pagination-offset page limit count)
         records (if disable?
                   (actor-dao/get-list-disable params offset limit)
@@ -70,10 +74,15 @@
       [:div 
        (crud-nav/get-html disable?)
        (crud-filter/get-html columns (merge default-params params) (:filter-fields list-conf))
-       (crud-list/get-list-option-html path offset limit count)
+       ;; (crud-list/get-list-option-html path offset limit count)
        (crud-list/get-html field-id
-                           ;; urls
                            visible-columns
                            records
+                           field-order
+                           field-asc
                            list-conf)
-       (crud-list/get-list-option-html path offset limit count)]])))
+       ;; (crud-list/get-list-option-html path offset limit count)
+       ]])))
+
+
+(get-html {:params {:columns ["id" "name" "picture" "date_create" "date_update"], :sort-by "id", :asc "0", :page "1", :limit "25"}})

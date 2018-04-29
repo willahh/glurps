@@ -2,8 +2,9 @@
 * TODO CRUD - List
 ** DONE Trash
 ** IN PROGRESS List pagination
-** TODO List sort asc desc
-** TODO List in update mode where all fields are in update mode
+** DONE List sort asc desc
+** TODO Save crud params into session
+** TODO Put database requests into a vector and display requests states
 ** TODO List order asc desc
 ** TODO List filter sub form
 ** TODO List layout configuration
@@ -20,10 +21,11 @@
 ** TODO List enable multiple
 ** TODO List / Thumb switch
 ** TODO Image gallery
-** TODO Fav true/false
+** DONE Fav true/false
 ** TODO Clone
 ** TODO Order up
 ** TODO Order down
+** TODO List in update mode where all fields are in update mode
 * TODO CRUD - Show
 ** TODO Next / previous
 * TODO Administration
@@ -57,5 +59,4 @@
 ** TODO Generate one file per day
 ** TODO Implements clojure.java.io stream
 * TODO Events panel with service worker
-* TODO Events panel
 * TODO Database connnector -> mysql or graphdb

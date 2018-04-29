@@ -47,18 +47,18 @@
         (get-checkbox-html "fav" (:fav params) "Favorite" ["on"])]
        ]
       [:tr 
-       [:td "Sort by"]
+       [:td "Order by"]
        [:td 
         [:select {:name "sort-by"}
          (get-select-option-html "id" (:sort-by params) "Id")
          (get-select-option-html "name" (:sort-by params) "Name")]]
        ]
       [:tr 
-       [:td "Order by"]
+       [:td "Asc"]
        [:td 
-        [:select {:name "order-by"}
-         (get-select-option-html "asc" (:order-by params)  "Asc")
-         (get-select-option-html "desc" (:order-by params) "Desc")]]
+        [:select {:name "asc"}
+         (get-select-option-html "1" (:asc params)  "Asc")
+         (get-select-option-html "0" (:asc params) "Desc")]]
        ]
       [:tr 
        [:td "Page"]
