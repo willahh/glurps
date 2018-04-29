@@ -3,12 +3,17 @@
             [honeysql.core :as sql]
             [wlh.logger :as logger]))
 
-;; (def requests-trace (atom []))
-
-;; (reset! requests-trace [])
-
-;; ()
-
+(defn get-sql-map-from-params [params & clauses]
+  "Takes a `params` map and returns a honeysql sql-map.
+  `params` represents the page parameters. e.g POST, GET, parameters."
+  (conj {}
+        {:select [:*]}
+        {:from [:actor]}
+        (when clauses (first clauses))
+        (when (:order-by params)
+          {:order-by [[(keyword (:order-by params))
+                       (if (= (:asc params) "1")
+                         :asc :desc)]]})))
 
 (defmacro query [db-spec sql-params]
   "Do a query with jdbc, log the request"

@@ -19,12 +19,12 @@
              "picture"
              "date_create"
              "date_update"] 
-   :filter-fields [{:key "sort-by" :name "Sort by"}
+   :filter-fields [{:key "asc" :name "Sort by"}
                    {:key "order-by" :name "Order by"}]
    :field-html-display {:picture field-image/get-html}})
 
 (def default-params {:columns ["id" "name" "picture" "date_create" "date_update"]
-                     :sort-by "id"
+                     :order-by "id"
                      :asc "1"
                      :page "1"
                      :limit "25"})
@@ -60,7 +60,7 @@
         offset (crud-list/get-pagination-offset page limit count)
         records (if disable?
                   (actor-dao/get-list-disable params offset limit)
-                  (actor-dao/get-list2 (merge {:active 1} params) offset limit))]
+                  (actor-dao/get-list (merge {:active 1} params) offset limit))]
     (main/get-html
      [:div 
       [:div session]
@@ -85,4 +85,4 @@
        ]])))
 
 
-(get-html {:params {:columns ["id" "name" "picture" "date_create" "date_update"], :sort-by "id", :asc "0", :page "1", :limit "25"}})
+;; (get-html {:params {}})

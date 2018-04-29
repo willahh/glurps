@@ -7,4 +7,4 @@
   (main/get-html [:div.row
                   [:div
                    [:h2 "Week"]
-                   (actor-view/get-list-html (actor-dao/get-list 2 2))]]))
+                   (actor-view/get-list-html (actor-dao/get-list {} 2 2))]]))

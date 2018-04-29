@@ -14,4 +14,4 @@
                   [:h2 "Movies"]
                   (get-item-list-view (scrapper-home/get-sorties-week-rows-debug))
                   [:h2 "Actors"]
-                  (actor-view/get-list-html (actor-dao/get-list 2 2))]))
+                  (actor-view/get-list-html (actor-dao/get-list {} 2 2))]))
