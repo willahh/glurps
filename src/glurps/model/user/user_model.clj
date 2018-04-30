@@ -1,6 +1,9 @@
 (ns glurps.model.user.user-model)
 
 (def fields '(^Integer id
+              ^Integer active
+              ^String date_create
+              ^String date_update
               ^String login
               ^String email
               ^String password
@@ -8,6 +11,9 @@
               ^String last_name))
 
 (defrecord User [^Integer id
+                 ^Integer active
+                 ^String date_create
+                 ^String date_update
                  ^String login
                  ^String email
                  ^String password
@@ -18,5 +24,5 @@
   (into [] (map #(str %)) fields))
 
 (defn make-user
-  [{:keys [id login email password first_name last_name]}]
-  (->User id login email password first_name last_name))
+  [{:keys [id active date_create date_update login email password first_name last_name]}]
+  (->User id active date_create date_update login email password first_name last_name))

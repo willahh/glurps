@@ -1,2 +1,0 @@
-(ns wlh.db-datomic)
-

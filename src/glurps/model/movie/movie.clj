@@ -11,4 +11,4 @@
   (db-allocine/insert (keyword table-name) cols-to-insert row))
 
 (defn find-by-alloid [alloid]
-  (db/query db-allocine/db-spec (str "SELECT * FROM \"" table-name "\" WHERE \"alloid\" = '" alloid "'")))
+  (db/query-old db-allocine/db-spec (str "SELECT * FROM \"" table-name "\" WHERE \"alloid\" = '" alloid "'")))

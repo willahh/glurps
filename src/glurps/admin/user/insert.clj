@@ -1,11 +1,11 @@
-(ns glurps.admin.actor.insert
+(ns glurps.admin.user.insert
   (:require [wlh.validation :as validation]
             [glurps.config :as config]
             [glurps.admin.main :as main]
             [glurps.process.field.image :as field-image]
             [glurps.process.crud.update :as crud-update]
-            [glurps.model.actor.actor-dao :as actor-dao]
-            [glurps.model.actor.actor-model :as actor-model]))
+            [glurps.model.user.user-dao :as user-dao]
+            [glurps.model.user.user-model :as user-model]))
 
 (defn valid-birthdate? [value]
   (and (= (type value) java.lang.String)
@@ -36,16 +36,16 @@
 (defn get-html [id]
   (main/get-html
    [:div (pr-str id)
-    (let [actor-record (actor-dao/find-by-id id)]
-      (crud-update/get-html actor-record
+    (let [user-record (user-dao/find-by-id id)]
+      (crud-update/get-html user-record
                             view-layout))]))
 
 (defn try-insert [raw-data]
   "Try to insert raw-data into database. Do a validation before."
   (try 
     (do (validation/check-fields (view-layout :fields) raw-data)
-        (let [actor-record (actor-model/make-actor raw-data)]
-          (actor-dao/insert actor-record)))
+        (let [user-record (user-model/make-user raw-data)]
+          (user-dao/insert user-record)))
     (catch Exception e e)))
 
 (defn handle-update [params]
@@ -61,6 +61,6 @@
      [:div (pr-str raw-data)
       (try-insert raw-data)])))
 
-(defn handle-delete [actor-id]
-  (actor-dao/delete actor-id)
+(defn handle-delete [user-id]
+  (user-dao/delete user-id)
   (main/get-html [:div "ok"]))

@@ -1,10 +1,10 @@
-(ns glurps.admin.actor.list
+(ns glurps.admin.user.list
   (:require [glurps.admin.main :as main]
-            [glurps.admin.actor.setting :as setting]
+            [glurps.admin.user.setting :as setting]
             [glurps.process.crud.list :as crud-list]
             [glurps.process.crud.nav :as crud-nav]
             [glurps.process.crud.filter :as crud-filter]
-            [glurps.model.actor.actor-dao :as actor-dao]))
+            [glurps.model.user.user-dao :as user-dao]))
 
 (defn in? 
   "True if coll contains elm."
@@ -29,15 +29,15 @@
         limit (if (:limit params) 
                 (Integer. (:limit params))
                 (Integer. (:limit setting/default-params)))
-        count (actor-dao/count2)
+        count (user-dao/count)
         field-order (if (:order params)
                       (:order params) field-id)
         field-asc (if (:asc params)
                     (Integer. (:asc params)) true)
         offset (crud-list/get-pagination-offset page limit count)
         records (if disable?
-                  (actor-dao/get-list-disable params offset limit)
-                  (actor-dao/get-list (merge {:active 1} params) offset limit))]
+                  (user-dao/get-list-disable params offset limit)
+                  (user-dao/get-list (merge {:active 1} params) offset limit))]
     (main/get-html
      [:div 
       [:div session]
@@ -60,3 +60,6 @@
                            setting/list-conf)
        ;; (crud-list/get-list-option-html path offset limit count)
        ]])))
+
+
+(get-html {:params {}})

@@ -4,9 +4,9 @@
             [compojure.route :as route]
             [compojure.core :as compojure]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            ;; [ring.middleware.anti-forgery :refer :all]
             [glurps.admin.index :as admin-list]
             [glurps.admin.actor.route :refer [admin-actor-route]]
+            [glurps.admin.user.route :refer [admin-user-route]]
             [glurps.client.views.home :as home]
             [glurps.client.views.sheet :as sheet]
             [glurps.client.views.week :as week]
@@ -49,19 +49,12 @@
 
 (def app
   (-> 
-   (routes app-routes admin-actor-route)
-   ;; (wrap-defaults site-defaults)
-   (wrap-defaults (merge site-defaults {:security {:anti-forgery false}}))
-   ;; (wrap-anti-forgery)
-   ))
+   (routes app-routes admin-actor-route admin-user-route)
+   (wrap-defaults (merge site-defaults {:security {:anti-forgery false}}))))
 
 
-;; (def app
-;;   (-> 
-;;    (routes app-routes admin-actor-route)
-;;    (wrap-resource "public")
-;;    (wrap-session)
-;;    (wrap-keyword-params)
-;;    (wrap-params)
-;;    (wrap-content-type)
-;;    (wrap-not-modified)))
+
+
+
+
+

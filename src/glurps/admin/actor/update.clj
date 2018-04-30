@@ -37,7 +37,7 @@
 (defn get-html [id]
   (main/get-html
    [:div (pr-str id)
-    (let [actor-record (actor-dao/get-by-id id)]
+    (let [actor-record (actor-dao/find-by-id id)]
       (crud-update/get-html actor-record
                             view-layout))]))
 
@@ -58,7 +58,7 @@
   "Try to update raw-data into database. Do a validation before."
   (do (validation/check-fields (view-layout :fields) raw-data)
       (let [actor-record (actor-model/make-actor raw-data)]
-        (actor-dao/update2 (into {} (filter second actor-record))
+        (actor-dao/update! (into {} (filter second actor-record))
                            [(str "id = " id)]))))
 
 (defn handle-insert [params]
