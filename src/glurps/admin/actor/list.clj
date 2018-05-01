@@ -40,6 +40,7 @@
                   (actor-dao/get-list (merge {:active 1} params) offset limit))]
     (main/get-html
      [:div 
+      (crud-list/breadcrumb-html)
       [:div session]
       ;; (assoc session :count 2)
       ;; (assoc :session (assoc session :identity "foo"))
@@ -48,6 +49,7 @@
        [:div (str "Params:" (pr-str params))]
        [:div (str "Session:" session)]]
       [:div 
+       
        (crud-nav/get-html disable?)
        (crud-filter/get-html columns (merge setting/default-params params) (:filter-fields setting/list-conf))
        ;; (crud-list/get-list-option-html path offset limit count)

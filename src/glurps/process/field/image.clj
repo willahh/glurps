@@ -35,7 +35,8 @@
 (defn get-html [record]
   (when record (let [image-name (str "actor_" (record :id) ".jpg")
                      url (str (config/get :upload-filepath) image-name)]
-                 [:img {:src (get-image image-name url)
+                 [:img {:class "ui medium circular image"
+                        :src (get-image image-name url)
                         :style "max-width: 100px; max-height: 100px;"}])))
 
 (defn get-update-html [field-name record & field-conf]

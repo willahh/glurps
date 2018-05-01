@@ -89,3 +89,11 @@
             (field/get-field-html column record (first list-conf))])
          [:td
           (get-action-html (:module-name (first list-conf)) record)]])]]))
+
+(defn breadcrumb-html []
+  [:div {:class "ui large breadcrumb"}
+   [:a.section "Home"]
+   [:i {:class "right chevron icon divider"}]
+   [:a.section "Actor"]
+   [:i {:class "right chevron icon divider"}]
+   [:a.section "List"]])

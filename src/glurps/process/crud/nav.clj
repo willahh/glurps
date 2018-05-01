@@ -2,12 +2,12 @@
 
 (defn get-disable-link [disable?]
   (if disable?
-    [:a {:class "btn" :href "/admin/actor"} "List"]
-    [:a {:class "btn" :href "/admin/actor/trash"} "Trash"]))
+    [:a {:class "item" :href "/admin/actor" :title "List"} [:i {:class "icon list"}]]
+    [:a {:class "item" :href "/admin/actor/trash" :title "Trash"} [:i {:class "icon trash"}]]))
 
 (defn get-html [disable?]
-  [:div {:class "btn-list"}
-   [:a {:class "btn btn-primary" :href "/admin/actor/insert"} "Add"]
-   [:a {:class "btn" :href "/admin/actor/list/update"} "Filters"]
-   [:a {:class "btn" :href "/admin/actor/list/update"} "Update"]
+  [:div {:class "ui compact icon menu"}
+   [:a {:class "item" :href "/admin/actor/insert" :title "Add"} [:i {:class "icon add"}]]
+   [:a {:class "item" :href "/admin/actor/list/update" :title "Filter" :onclick "$('.modal').modal('show'); return false;"} [:i {:class "icon filter"}]]
+   [:a {:class "item" :href "/admin/actor/list/update" :title "Edit"} [:i {:class "icon edit"}]]
    (get-disable-link disable?)])
