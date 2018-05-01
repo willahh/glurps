@@ -3,6 +3,10 @@
             [hiccup.page :as page]
             [hiccup.core :as core]))
 
+(def module-type-list "list")
+(def module-type-show "show")
+(def module-type-edit "edit")
+
 (def main-nav-rows [{:label "Home" :href "/admin"}
                     {:label "Actor" :href "/admin/actor"}
                     {:label "Users" :href "/admin/user"}
@@ -59,8 +63,37 @@
        [:a {:class "ui inverted button"} "Log in"]
        [:a {:class "ui inverted button"} "Sign up"]]]]]])
 
+(defn breadcrumb-html []
+  [:div {:class "ui large breadcrumb"}
+   [:a.section "Home"]
+   [:i {:class "right chevron icon divider"}]
+   [:a.section "Actor"]
+   [:i {:class "right chevron icon divider"}]
+   [:a.section "List"]])
+
 (defn get-html [hiccup-html]
   (page/html5 (get-head)
               [:body
                [:div (get-page-header)]
                [:div {:class "ui container"} hiccup-html]]))
+
+(defn get-page-title [module-conf module-type & records]
+  (let [module-name (clojure.string/capitalize (:module-name module-conf))
+        record (if (and records (first records)) (first (first (first records))))
+        title (case module-type
+                "list" (str module-name " list")
+                "show" (str module-name " show"
+                            (when record (str " - " ((keyword (:field-label module-conf)) record))))
+                "edit" (str module-name " edit"
+                            (when record (str " - " ((keyword (:field-label module-conf)) record)))))]
+    [:h2 title]))
+
+(defn admin-page-html-wrapper [module-conf module-type html & records]
+  "Html wrapper for all admin pages."
+  (page/html5 (get-head)
+              [:body
+               [:div (get-page-header)]
+               [:div {:class "ui container"}
+                (breadcrumb-html)
+                (get-page-title module-conf module-type records)
+                html]]))

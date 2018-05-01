@@ -5,7 +5,8 @@
 (def list-conf
   {:path "/admin/actor"
    :module-name "actor"
-   :title "Actor list"
+   :field-id "id"
+   :field-label "name"
    :columns ["id"
              "name"
              "job"
@@ -18,8 +19,6 @@
    :filter-fields [{:key "asc" :name "Sort by"}
                    {:key "order" :name "Order by"}]
    :field-html-display {:picture field-image/get-html}})
-
-(def field-id "id")
 
 (def default-params {:columns ["id" "name" "picture" "date_create" "date_update"]
                      :order "id"

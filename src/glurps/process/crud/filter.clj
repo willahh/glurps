@@ -31,51 +31,50 @@
                               {:checked "true"})) label]])
 
 (defn get-html [columns params filter-fields]
-  [:div {:class "ui basic modal"}
-   [:div {:class "ui icon header"}
-    [:i {:class "archive icon"}] "Test"]
+  [:form {:class "ui basic modal" :action "" :method "post"}
    [:div.content
-    [:form {:class "filter" :action "" :method "post"}
-     [:div
-      [:table {:class "ui definition table"}
-       [:tbody
-        [:tr 
-         [:td "Columns"]
-         [:td 
-          [:div {:class "grouped fields"}
-           (for [column columns]
-             [:div.field (get-checkbox-html "columns" column column (:columns params))])]]
-         ]
-        [:tr 
-         [:td "Favs"]
-         [:td 
-          (get-checkbox-html "fav" (:fav params) "Favorite" ["on"])]
-         ]
-        [:tr 
-         [:td "Order by"]
-         [:td 
-          (get-select "order" [{:name "id" :value (:order params) :label "Id"}
-                               {:name "name" :value (:order params) :label "Name"}])]]
-        [:tr 
-         [:td "Asc"]
-         [:td 
-          (get-select "asc" [{:name "1" :value (:asc params) :label "Asc"}
-                             {:name "0" :value (:asc params) :label "Desc"}])]
-         ]
-        [:tr 
-         [:td "Page"]
-         [:td 
-          (get-select "page" 
-                      (for [i  (into [] (range 1 10))]
-                        {:name (str i) :value (:page params) :label (str "Page" i)}))]
-         ]
-        [:tr 
-         [:td "Row per page"]
-         [:td 
-          (get-select "limit" 
-                      (for [i ["2" "5" "10" "25" "50" "100" "250" "500"]]
-                        {:name i :value (:limit params) :label i}))]
-         ]]]
-      [:div.submit
-       [:input {:type "submit" :class "ui button" :value "Submit"}]
-       [:input {:class "ui button" :value "Cancel"}]]]]]])
+    [:table {:class "ui definition table"}
+     [:tbody
+      [:tr 
+       [:td "Columns"]
+       [:td 
+        [:div {:class "grouped fields"}
+         (for [column columns]
+           [:div.field (get-checkbox-html "columns" column column (:columns params))])]]
+       ]
+      [:tr 
+       [:td "Favs"]
+       [:td 
+        (get-checkbox-html "fav" (:fav params) "Favorite" ["on"])]
+       ]
+      [:tr 
+       [:td "Order by"]
+       [:td 
+        (get-select "order" [{:name "id" :value (:order params) :label "Id"}
+                             {:name "name" :value (:order params) :label "Name"}])]]
+      [:tr 
+       [:td "Asc"]
+       [:td 
+        (get-select "asc" [{:name "1" :value (:asc params) :label "Asc"}
+                           {:name "0" :value (:asc params) :label "Desc"}])]
+       ]
+      [:tr 
+       [:td "Page"]
+       [:td 
+        (get-select "page" 
+                    (for [i  (into [] (range 1 10))]
+                      {:name (str i) :value (:page params) :label (str "Page" i)}))]
+       ]
+      [:tr 
+       [:td "Row per page"]
+       [:td 
+        (get-select "limit" 
+                    (for [i ["2" "5" "10" "25" "50" "100" "250" "500"]]
+                      {:name i :value (:limit params) :label i}))]
+       ]]]
+    ]
+   [:div.actions
+    [:div {:class "ui red basic cancel inverted button"}
+     [:i {:class "remove icon"}] "Cancel"]
+    [:button {:type "submit ":class "ui green ok inverted button"}
+     [:i {:class "checkmark icon"}] "Validate"]]])

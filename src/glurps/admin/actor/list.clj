@@ -19,7 +19,7 @@
       cols)))
 
 (defn get-html [{:keys [params session] :as query} & {:keys [disable?]}]
-  (let [field-id setting/field-id
+  (let [field-id (:field-id setting/list-conf)
         path (:path setting/list-conf)
         columns (:columns setting/list-conf)
         visible-columns (get-visible-columns columns (:columns params) (:columns setting/default-params))
@@ -38,13 +38,14 @@
         records (if disable?
                   (actor-dao/get-list-disable params offset limit)
                   (actor-dao/get-list (merge {:active 1} params) offset limit))]
-    (main/get-html
+    (main/admin-page-html-wrapper
+     setting/list-conf main/module-type-list
      [:div 
-      (crud-list/breadcrumb-html)
+      ;; (main/breadcrumb-html)
+      ;; [:h2 (:title setting/list-conf)]
       [:div session]
       ;; (assoc session :count 2)
       ;; (assoc :session (assoc session :identity "foo"))
-      [:h2 (:title setting/list-conf)]
       [:div 
        [:div (str "Params:" (pr-str params))]
        [:div (str "Session:" session)]]

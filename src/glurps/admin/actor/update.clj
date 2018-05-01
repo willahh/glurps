@@ -1,5 +1,7 @@
 (ns glurps.admin.actor.update
-  (:require [wlh.validation :as validation]
+  (:require [ring.util.response :as response]
+            [wlh.validation :as validation]
+            [glurps.admin.actor.setting :as setting]
             [glurps.config :as config]
             [glurps.admin.main :as main]
             [glurps.admin.actor.list :as list]
@@ -35,14 +37,18 @@
             {:name "picture" :type "picture" :validator valid-picture?}]})
 
 (defn get-html [id]
-  (main/get-html
-   [:div (pr-str id)
-    (let [actor-record (actor-dao/find-by-id id)]
-      (crud-update/get-html actor-record
-                            view-layout))]))
+  (let [actor-record (actor-dao/find-by-id id)]
+    (main/admin-page-html-wrapper
+     setting/list-conf
+     main/module-type-edit
+     (crud-update/get-html actor-record
+                           view-layout)
+     [actor-record])))
 
 (defn get-html-insert [id]
-  (main/get-html
+  (main/admin-page-html-wrapper
+   setting/list-conf
+   main/module-type-edit
    [:div (pr-str id)
     (crud-update/get-html nil view-layout)]))
 
@@ -84,7 +90,7 @@
          :birthdate (params :birthdate)
          :picture (params :picture)}]
     (try-update (params :id) raw-data)
-    (list/get-html)))
+    (response/redirect "../../actor")))
 
 (defn handle-delete [actor-id]
   (actor-dao/delete actor-id)

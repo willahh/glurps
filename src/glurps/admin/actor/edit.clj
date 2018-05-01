@@ -5,8 +5,11 @@
             [glurps.model.actor.actor-dao :as actor-dao]))
 
 (defn get-html [id]
-  (main/get-html
-   (let [actor-record (actor-dao/find-by-id id)]
+  (let [record (actor-dao/find-by-id id)]
+    (main/admin-page-html-wrapper
+     setting/list-conf
+     main/module-type-edit
      (crud-show/get-html (:columns setting/list-conf)
-                         actor-record
-                         setting/list-conf))))
+                         record
+                         setting/list-conf)
+     [record])))
