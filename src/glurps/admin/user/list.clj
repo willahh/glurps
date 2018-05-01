@@ -62,4 +62,3 @@
        ]])))
 
 
-(get-html {:params {}})

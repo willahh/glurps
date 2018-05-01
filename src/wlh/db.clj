@@ -10,8 +10,8 @@
         {:select [:*]}
         {:from [(keyword table-name)]}
         (when clauses (first clauses))
-        (when (:order-by params)
-          {:order-by [[(keyword (:order-by params))
+        (when (:order params)
+          {:order-by [[(keyword (:order params))
                        (if (= (:asc params) "1")
                          :asc :desc)]]})))
 

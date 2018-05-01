@@ -37,19 +37,19 @@
    [:div {:class "col-sm-6"} (get-bulk-action-html)]
    [:div {:class "col-sm-6"} (get-pagination path offset limit total)]])
 
-(defn get-action-html [record & disable?]
+(defn get-action-html [module-name record & disable?]
   [:span
-   [:a {:href (str "/admin/actor/show/" (:id record)) :class "btn"} "<i class=\"material-icons\">info</i>"]
-   [:a {:href (str "/admin/actor/update/" (:id record)) :class "btn"} "<i class=\"material-icons\">mode_edit</i>"]
-   ;; [:a {:href (str "/admin/actor/up/" (:id record)) :class "btn"} "<i class=\"material-icons\">keyboard_arrow_up</i>"]
-   ;; [:a {:href (str "/admin/actor/down/" (:id record)) :class "btn"} "<i class=\"material-icons\">keyboard_arrow_down</i>"]
-   [:a {:href (str "/admin/actor/duplicate/" (:id record)) :class "btn"} "<i class=\"material-icons\">content_copy</i>"]
+   [:a {:href (str "/admin/" module-name "/show/" (:id record)) :class "btn"} "<i class=\"material-icons\">info</i>"]
+   [:a {:href (str "/admin/" module-name "/update/" (:id record)) :class "btn"} "<i class=\"material-icons\">mode_edit</i>"]
+   ;; [:a {:href (str "/admin/" module-name "/up/" (:id record)) :class "btn"} "<i class=\"material-icons\">keyboard_arrow_up</i>"]
+   ;; [:a {:href (str "/admin/" module-name "/down/" (:id record)) :class "btn"} "<i class=\"material-icons\">keyboard_arrow_down</i>"]
+   [:a {:href (str "/admin/" module-name "/duplicate/" (:id record)) :class "btn"} "<i class=\"material-icons\">content_copy</i>"]
    (if (= (:fav record) 1)
-     [:a {:href (str "/admin/actor/unfav/" (:id record)) :class "btn"} "<i class=\"material-icons\">favorite</i>"]
-     [:a {:href (str "/admin/actor/fav/" (:id record)) :class "btn"} "<i class=\"material-icons\">favorite_border</i>"])
+     [:a {:href (str "/admin/" module-name "/unfav/" (:id record)) :class "btn"} "<i class=\"material-icons\">favorite</i>"]
+     [:a {:href (str "/admin/" module-name "/fav/" (:id record)) :class "btn"} "<i class=\"material-icons\">favorite_border</i>"])
    (if (= (:active record) 1)
-     [:a {:href (str "/admin/actor/disable/" (:id record)) :class "btn"} "<i class=\"material-icons\">clear</i>"]
-     [:a {:href (str "/admin/actor/enable/" (:id record)) :class "btn"} "<i class=\"material-icons\">undo</i>"])])
+     [:a {:href (str "/admin/" module-name "/disable/" (:id record)) :class "btn"} "<i class=\"material-icons\">clear</i>"]
+     [:a {:href (str "/admin/" module-name "/enable/" (:id record)) :class "btn"} "<i class=\"material-icons\">undo</i>"])])
 
 (defn get-empty-result-html []
   [:div {:style "text-align: center;"}
@@ -88,4 +88,4 @@
            [:td
             (field/get-field-html column record (first list-conf))])
          [:td
-          (get-action-html record)]])]]))
+          (get-action-html (:module-name (first list-conf)) record)]])]]))

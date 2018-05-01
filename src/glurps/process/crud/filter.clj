@@ -49,9 +49,9 @@
       [:tr 
        [:td "Order by"]
        [:td 
-        [:select {:name "order-by"}
-         (get-select-option-html "id" (:order-by params) "Id")
-         (get-select-option-html "name" (:order-by params) "Name")]]
+        [:select {:name "order"}
+         (get-select-option-html "id" (:order params) "Id")
+         (get-select-option-html "name" (:order params) "Name")]]
        ]
       [:tr 
        [:td "Asc"]
