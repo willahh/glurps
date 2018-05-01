@@ -1,0 +1,25 @@
+{
+  "name": "glurps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willahh/glurps.git"
+  },
+  "author": "William Ravel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/willahh/glurps/issues"
+  },
+  "homepage": "https://github.com/willahh/glurps#readme",
+  "dependencies": {
+    "semantic-ui": "^2.3.1"
+  }
+}
