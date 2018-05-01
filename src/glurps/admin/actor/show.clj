@@ -13,5 +13,5 @@
      main/module-type-show
      (crud-show/get-html (:columns setting/list-conf)
                          record
-                         setting/list-conf)
+                         (:fields setting/list-conf))
      [record])))

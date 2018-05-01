@@ -39,10 +39,16 @@
                         :src (get-image image-name url)
                         :style "max-width: 100px; max-height: 100px;"}])))
 
-(defn get-update-html [field-name record & field-conf]
+(defn get-readonly-html [field-name record value]
+  (when record (let [image-name (str "actor_" (record :id) ".jpg")
+                     url (str (config/get :upload-filepath) image-name)]
+                 [:img {:class "ui medium circular image"
+                        :src (get-image image-name url)
+                        :style "max-width: 100px; max-height: 100px;"}])))
+
+(defn get-update-html [field-name record value]
   (let [image-name (when record (str "actor_" (record :id) ".jpg"))
-        url (str (config/get :upload-filepath) image-name)
-        value (when record (record (keyword field-name)))]
+        url (str (config/get :upload-filepath) image-name)]
     [:div
      (when record 
        [:div [:img {:src (get-image image-name url)

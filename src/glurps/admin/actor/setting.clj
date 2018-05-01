@@ -1,5 +1,6 @@
 (ns glurps.admin.actor.setting
-  (:require [glurps.process.field.image :as field-image]
+  (:require [wlh.validation :as validation]
+            [glurps.process.field.image :as field-image]
             [glurps.process.field.field :as field]))
 
 (def list-conf
@@ -7,6 +8,18 @@
    :module-name "actor"
    :field-id "id"
    :field-label "name"
+   :field-image "picture"
+   :fields [
+            {:name "id" :type "integer"}
+            {:name "alloid" :type "integer"}
+            {:name "name" :type "string" :validator string?}
+            {:name "job" :type "string" :validator string?}
+            {:name "nationality" :type "string" :validator string?}
+            {:name "age" :type "integer" :validator integer?}
+            {:name "birthdate" :type "string" :validator validation/valid-birthdate?}
+            {:name "picture" :type "picture" :validator validation/valid-picture?}
+            {:name "date_create" :type "string"}
+            {:name "date_update" :type "string"}]
    :columns ["id"
              "name"
              "job"

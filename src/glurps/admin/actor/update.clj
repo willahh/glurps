@@ -10,39 +10,13 @@
             [glurps.model.actor.actor-dao :as actor-dao]
             [glurps.model.actor.actor-model :as actor-model]))
 
-(defn valid-birthdate? [value]
-  (and (= (type value) java.lang.String)
-       (some? value)
-       (not-empty value)))
-
-(defn valid-filmography? [value]
-  (and (= (type value) java.lang.String)
-       (some? value)
-       (not-empty value)))
-
-(defn valid-picture? [value]
-  (and (= (type value) java.lang.String)
-       (some? value)
-       (not-empty value)))
-
-(def view-layout
-  "View layout configuration"
-  {:fields [
-            {:name "alloid" :type "integer"}
-            {:name "name" :type "string" :validator string?}
-            {:name "job" :type "string" :validator string?}
-            {:name "nationality" :type "string" :validator string?}
-            {:name "age" :type "integer" :validator integer?}
-            {:name "birthdate" :type "string" :validator valid-birthdate?}
-            {:name "picture" :type "picture" :validator valid-picture?}]})
-
 (defn get-html [id]
   (let [actor-record (actor-dao/find-by-id id)]
     (main/admin-page-html-wrapper
      setting/list-conf
      main/module-type-edit
      (crud-update/get-html actor-record
-                           view-layout)
+                           (:fields setting/list-conf))
      [actor-record])))
 
 (defn get-html-insert [id]
@@ -50,19 +24,19 @@
    setting/list-conf
    main/module-type-edit
    [:div (pr-str id)
-    (crud-update/get-html nil view-layout)]))
+    (crud-update/get-html nil (:fields setting/list-conf))]))
 
 (defn try-insert [raw-data]
   "Try to insert raw-data into database. Do a validation before."
   (try 
-    (do (validation/check-fields (view-layout :fields) raw-data)
+    (do (validation/check-fields ((:fields setting/list-conf) :fields) raw-data)
         (let [actor-record (actor-model/make-actor raw-data)]
           (actor-dao/insert actor-record)))
     (catch Exception e e)))
 
 (defn try-update [id raw-data]
   "Try to update raw-data into database. Do a validation before."
-  (do (validation/check-fields (view-layout :fields) raw-data)
+  (do (validation/check-fields (:fields setting/list-conf) raw-data)
       (let [actor-record (actor-model/make-actor raw-data)]
         (actor-dao/update! (into {} (filter second actor-record))
                            [(str "id = " id)]))))

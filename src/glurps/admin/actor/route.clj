@@ -7,10 +7,15 @@
             [glurps.admin.actor.update :as admin-actor-update]))
 
 (defroutes admin-actor-route
-  (GET "/admin/actor"       request (admin-actor-list/get-html request))
-  (POST "/admin/actor"      request (admin-actor-list/get-html request)) 
-  (GET "/admin/actor/trash" request (admin-actor-list/get-html request :disable? true)) 
-  (POST "/admin/actor/trash" request (admin-actor-list/get-html request :disable? true)) 
+  ;; List
+  (GET "/admin/actor"
+       request (admin-actor-list/get-html request))
+  (POST "/admin/actor"
+        request (admin-actor-list/get-html request)) 
+  (GET "/admin/actor/trash"
+       request (admin-actor-list/get-html request :disable? true)) 
+  (POST "/admin/actor/trash"
+        request (admin-actor-list/get-html request :disable? true)) 
   
   ;; Show
   (GET "/admin/actor/show/:id" [id] (admin-actor-show/get-html id))
@@ -19,12 +24,12 @@
   (GET "/admin/actor/update/:id"
        [id]
        (admin-actor-update/get-html id))
-  (POST "/admin/actor/update/:id"
-        {params :params}
-        (admin-actor-update/handle-update params))
   (GET "/admin/actor/insert"
        [id]
        (admin-actor-update/get-html-insert id))
+  (POST "/admin/actor/update/:id"
+        {params :params}
+        (admin-actor-update/handle-update params))
   
   ;; Action
   (GET "/admin/actor/fav/:id"

@@ -1,19 +1,15 @@
 (ns glurps.admin.actor.list
-  (:require [glurps.admin.main :as main]
+  (:require [wlh.utils :as utils]
+            [glurps.admin.main :as main]
             [glurps.admin.actor.setting :as setting]
             [glurps.process.crud.list :as crud-list]
             [glurps.process.crud.nav :as crud-nav]
             [glurps.process.crud.filter :as crud-filter]
             [glurps.model.actor.actor-dao :as actor-dao]))
 
-(defn in? 
-  "True if coll contains elm."
-  [coll elm]  
-  (some #(= elm %) coll))
-
 (defn get-visible-columns [columns visible-columns visible-columns-default]
   (let [cols (filter (fn [col]
-                       (in? visible-columns col)) columns)]
+                       (utils/in? visible-columns col)) columns)]
     (if (zero? (count cols)) 
       visible-columns-default
       cols)))
@@ -50,7 +46,6 @@
        [:div (str "Params:" (pr-str params))]
        [:div (str "Session:" session)]]
       [:div 
-       
        (crud-nav/get-html disable?)
        (crud-filter/get-html columns (merge setting/default-params params) (:filter-fields setting/list-conf))
        ;; (crud-list/get-list-option-html path offset limit count)
@@ -63,6 +58,4 @@
        ;; (crud-list/get-list-option-html path offset limit count)
        ]])))
 
-
-
-
+(get-html {:params {}})

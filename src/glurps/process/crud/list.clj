@@ -1,5 +1,6 @@
 (ns glurps.process.crud.list
-  (:require [glurps.process.html.html :as html-helper]
+  (:require [glurps.admin.main :as main]
+            [glurps.process.html.html :as html-helper]
             [glurps.process.field.field :as field]))
 
 (defn- get-url [url id]
@@ -86,6 +87,6 @@
          [:td [:input {:type "checkbox"}]]
          (for [column columns]
            [:td
-            (field/get-field-html column record (first list-conf))])
+            (field/get-field-html2 column record (:fields (first list-conf)) true)])
          [:td
           (get-action-html (:module-name (first list-conf)) record)]])]]))

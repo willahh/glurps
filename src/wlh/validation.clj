@@ -1,5 +1,21 @@
 (ns wlh.validation)
 
+(defn valid-birthdate? [value]
+  (and (= (type value) java.lang.String)
+       (some? value)
+       (not-empty value)))
+
+(defn valid-filmography? [value]
+  (and (= (type value) java.lang.String)
+       (some? value)
+       (not-empty value)))
+
+(defn valid-picture? [value]
+  (and (= (type value) java.lang.String)
+       (some? value)
+       (not-empty value)))
+
+
 (defn check-field [{:keys [name type validator value] :as field-conf}]
   "Take a map of field configuration and test it"
   (when validator

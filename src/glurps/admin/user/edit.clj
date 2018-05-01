@@ -9,4 +9,4 @@
    (let [user-record (user-dao/find-by-id id)]
      (crud-show/get-html (:columns setting/list-conf)
                          user-record
-                         setting/list-conf))))
+                         (:fields setting/list-conf)))))

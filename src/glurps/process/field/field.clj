@@ -1,5 +1,6 @@
 (ns glurps.process.field.field
-  (:require [glurps.process.field.string :as string]
+  (:require [glurps.admin.main :as main]
+            [glurps.process.field.string :as string]
             [glurps.process.field.integer :as integer]
             [glurps.process.field.image :as image]))
 
@@ -13,15 +14,21 @@
         ((keyword field-name) record)))
     ((keyword field-name) record)))
 
-(defn get-field-html2 [field-name record layout]
-  (let [field-conf
-        (first (filter #(= (:name %) field-name) (layout :fields)))
-        type (field-conf :type)]
+(defn get-field-html2 [field-name record fields read-only]
+  (let [field-conf (first (filter #(= (:name %) field-name) fields))
+        value (when record ((keyword field-name) record))
+        type (:type field-conf)]
     (cond (= type "string")
-          (string/get-update-html field-name record)
-
+          (if read-only
+            (string/get-readonly-html field-name record value)
+            (string/get-update-html field-name record value))
+          
           (= type "integer")
-          (integer/get-update-html field-name record)
+          (if read-only
+            (integer/get-readonly-html field-name record value)
+            (integer/get-update-html field-name record value))
           
           (= type "picture")
-          (image/get-update-html field-name record))))
+          (if read-only
+            (image/get-readonly-html field-name record value)
+            (image/get-update-html field-name record value)))))
