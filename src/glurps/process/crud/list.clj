@@ -40,17 +40,17 @@
 
 (defn get-action-html [module-name record & disable?]
   [:span
-   [:a {:href (str "/admin/" module-name "/show/" (:id record)) :class "btn"} "<i class=\"material-icons\">info</i>"]
-   [:a {:href (str "/admin/" module-name "/update/" (:id record)) :class "btn"} "<i class=\"material-icons\">mode_edit</i>"]
+   [:a {:href (str "/admin/" module-name "/show/" (:id record)) :class "btn" :title "Info"} "<i class=\"material-icons\">info</i>"]
+   [:a {:href (str "/admin/" module-name "/update/" (:id record)) :class "btn" :title "Edit"} "<i class=\"material-icons\">mode_edit</i>"]
    ;; [:a {:href (str "/admin/" module-name "/up/" (:id record)) :class "btn"} "<i class=\"material-icons\">keyboard_arrow_up</i>"]
    ;; [:a {:href (str "/admin/" module-name "/down/" (:id record)) :class "btn"} "<i class=\"material-icons\">keyboard_arrow_down</i>"]
-   [:a {:href (str "/admin/" module-name "/duplicate/" (:id record)) :class "btn"} "<i class=\"material-icons\">content_copy</i>"]
+   [:a {:href (str "/admin/" module-name "/duplicate/" (:id record)) :class "btn" :title "Duplicate"} "<i class=\"material-icons\">content_copy</i>"]
    (if (= (:fav record) 1)
-     [:a {:href (str "/admin/" module-name "/unfav/" (:id record)) :class "btn"} "<i class=\"material-icons\">favorite</i>"]
-     [:a {:href (str "/admin/" module-name "/fav/" (:id record)) :class "btn"} "<i class=\"material-icons\">favorite_border</i>"])
+     [:a {:href (str "/admin/" module-name "/unfav/" (:id record)) :class "btn" :title "Add to favorite"} "<i class=\"material-icons\">favorite</i>"]
+     [:a {:href (str "/admin/" module-name "/fav/" (:id record)) :class "btn" :title "Remove from favorite"} "<i class=\"material-icons\">favorite_border</i>"])
    (if (= (:active record) 1)
-     [:a {:href (str "/admin/" module-name "/disable/" (:id record)) :class "btn"} "<i class=\"material-icons\">clear</i>"]
-     [:a {:href (str "/admin/" module-name "/enable/" (:id record)) :class "btn"} "<i class=\"material-icons\">undo</i>"])])
+     [:a {:href (str "/admin/" module-name "/disable/" (:id record)) :class "btn" :title "Disable"} "<i class=\"material-icons\">clear</i>"]
+     [:a {:href (str "/admin/" module-name "/enable/" (:id record)) :class "btn" :title "Enable"} "<i class=\"material-icons\">undo</i>"])])
 
 (defn get-empty-result-html []
   [:div {:style "text-align: center;"}
@@ -90,3 +90,18 @@
             (field/get-field-html2 column record (:fields (first list-conf)) true)])
          [:td
           (get-action-html (:module-name (first list-conf)) record)]])]]))
+
+(defn get-html-thumb [field-id columns records field-order field-asc list-conf]
+  (if (= 0 (count records))
+    (get-empty-result-html)
+    
+    [:div {:class "ui six link cards"}
+     (for [record records]          
+       [:div {:class "card"}
+        [:div {:class "image"}
+         [:img {:src ((keyword (:field-image list-conf)) record)}]]
+        [:div {:class "content"}
+         [:div {:class "header"}
+          "Header"]
+         [:div {:class "meta"}
+          "Friends"]]])]))

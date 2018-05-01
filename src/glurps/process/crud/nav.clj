@@ -16,5 +16,5 @@
       (get-disable-link disable?)]]
     [:span {:class "ui column"}
      [:span {:class "buttons"}
-      [:a {:class "ui button primary basic" :href "/admin/actor" :title "List"} [:i {:class "icon list"}]]
-      [:a {:class "ui button primary basic" :href "/admin/actor" :title "Thumb"} [:i {:class "icon th"}]]]]]])
+      [:a {:class "ui button blue" :href "?display=list" :title "List"} [:i {:class "icon list"}]]
+      [:a {:class "ui button primary basic" :href "?display=thumb" :title "Thumb"} [:i {:class "icon th"}]]]]]])

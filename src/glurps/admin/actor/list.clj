@@ -19,6 +19,9 @@
         path (:path setting/list-conf)
         columns (:columns setting/list-conf)
         visible-columns (get-visible-columns columns (:columns params) (:columns setting/default-params))
+        display (if (:display params)
+                  (:display params)
+                  (:display setting/default-params))
         page (if (:page params) 
                (Integer. (:page params))
                (Integer. (:page setting/default-params)))
@@ -49,13 +52,21 @@
        (crud-nav/get-html disable?)
        (crud-filter/get-html columns (merge setting/default-params params) (:filter-fields setting/list-conf))
        ;; (crud-list/get-list-option-html path offset limit count)
-       (crud-list/get-html field-id
-                           visible-columns
-                           records
-                           field-order
-                           field-asc
-                           setting/list-conf)
+       
+       (if (= display "list")
+         (crud-list/get-html field-id
+                             visible-columns
+                             records
+                             field-order
+                             field-asc
+                             setting/list-conf)
+         (crud-list/get-html-thumb field-id
+                                   visible-columns
+                                   records
+                                   field-order
+                                   field-asc
+                                   setting/list-conf))
        ;; (crud-list/get-list-option-html path offset limit count)
        ]])))
 
-(get-html {:params {}})
+;; (get-html {:params {}})

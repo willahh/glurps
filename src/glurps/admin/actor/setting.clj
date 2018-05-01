@@ -35,6 +35,7 @@
 
 (def default-params {:columns ["id" "name" "picture" "date_create" "date_update"]
                      :order "id"
+                     :display "list"
                      :asc "1"
                      :page "1"
                      :limit "25"})
