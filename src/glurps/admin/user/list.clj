@@ -60,5 +60,3 @@
                            setting/list-conf)
        ;; (crud-list/get-list-option-html path offset limit count)
        ]])))
-
-

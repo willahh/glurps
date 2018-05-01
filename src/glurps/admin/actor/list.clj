@@ -41,13 +41,12 @@
     (main/get-html
      [:div 
       [:div session]
-      (assoc session :count 2)
+      ;; (assoc session :count 2)
       ;; (assoc :session (assoc session :identity "foo"))
       [:h2 (:title setting/list-conf)]
       [:div 
-       [:div (str "debug params:" (pr-str params))]
-       [:div (str "debug session:" session)]
-       ]
+       [:div (str "Params:" (pr-str params))]
+       [:div (str "Session:" session)]]
       [:div 
        (crud-nav/get-html disable?)
        (crud-filter/get-html columns (merge setting/default-params params) (:filter-fields setting/list-conf))

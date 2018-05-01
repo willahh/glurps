@@ -73,17 +73,17 @@
 (defn get-html [field-id columns records field-order field-asc & list-conf]
   (if (= 0 (count records))
     (get-empty-result-html)
-    [:table {:class "table listTable" :style "border: 1px solid #000"}
+    [:table {:class "ui celled striped table"}
      [:thead
       [:tr
-       [:th ""]
+       [:th [:input {:type "checkbox"}]]
        (for [column columns]
          [:th (get-column-html column field-order field-asc)])
        [:th "actions"]]]
      [:tbody
       (for [record records]          
         [:tr
-         [:td "<input type=\"checkbox\">"]
+         [:td [:input {:type "checkbox"}]]
          (for [column columns]
            [:td
             (field/get-field-html column record (first list-conf))])

@@ -1,17 +1,29 @@
 (ns glurps.process.crud.filter
   (:require [glurps.process.html.html :as html-helper]
-            ;; [ring.util.anti-forgery :refer [anti-forgery-field]]
             [glurps.process.field.field :as field]))
 
-(defn- get-select-option-html [option-name option-value option-label]
-  [:option (conj {:value option-name} 
-                 (when (= option-name option-value) {:selected "selected"}))
-   option-label])
+(defn- get-select [field-name options]
+  (let [selected-option (first (filter #(= (:value %) (:name %)) options))]
+    [:div {:class "ui selection dropdown"}
+     [:input {:type "hidden" :name field-name :value (:value selected-option)}]
+     [:i {:class "dropdown icon"}]
+     [:div {:class "default text"} (:label selected-option)]
+     [:div {:class "menu"}
+      (for [option options]
+        [:div (conj {:class "item" :data-value (:name option)}
+                    (when (= (:name option) (:value option)) {:selected "true"})) (:label option)])]]))
+
+(defn- get-select-option-html [name value label]
+  [:option (conj {:value name} 
+                 (when (= name value) {:selected "selected"}))
+   label])
 
 (defn- get-checkbox-html [name value label enable-columns]
-  [:label [:input (conj {:type "checkbox" :name name :value value}
-                        (when (some #(= value %) enable-columns)
-                          {:checked "true"})) label]])
+  [:div {:class "ui slider checkbox"}
+   [:input (conj {:type "checkbox" :name name :value value}
+                 (when (some #(= value %) enable-columns)
+                   {:checked "true"}))]
+   [:label label]])
 
 (defn- get-radio-html [name value label]
   [:label [:input (conj {:type "radio" :name name :value value}
@@ -21,25 +33,14 @@
 (defn get-html [columns params filter-fields]
   [:form {:action "" :method "post"}
    [:div
-    [:table {:class "table filterTable " :style "border: 1px solid #000"}
-     ;; [:thead
-     ;;  [:tr
-     ;;   [:th ""]
-     ;;   (for [field filter-fields]
-     ;;     [:th field])
-     ;;   [:th "actions"]]]
-     
-     ;; [:tbody
-     ;;  (for [field filter-fields]          
-     ;;    [:tr
-     ;;     [:td "a"]
-     ;;     [:td "b"]])]
+    [:table {:class "ui definition table"}
      [:tbody
       [:tr 
        [:td "Columns"]
        [:td 
-        (for [column columns]
-          (get-checkbox-html "columns" column column (:columns params)))]
+        [:div {:class "grouped fields"}
+         (for [column columns]
+           [:div.field (get-checkbox-html "columns" column column (:columns params))])]]
        ]
       [:tr 
        [:td "Favs"]
@@ -49,30 +50,27 @@
       [:tr 
        [:td "Order by"]
        [:td 
-        [:select {:name "order"}
-         (get-select-option-html "id" (:order params) "Id")
-         (get-select-option-html "name" (:order params) "Name")]]
-       ]
+        (get-select "order" [{:name "id" :value (:order params) :label "Id"}
+                             {:name "name" :value (:order params) :label "Name"}])]]
       [:tr 
        [:td "Asc"]
        [:td 
-        [:select {:name "asc"}
-         (get-select-option-html "1" (:asc params)  "Asc")
-         (get-select-option-html "0" (:asc params) "Desc")]]
+        (get-select "asc" [{:name "1" :value (:asc params) :label "Asc"}
+                           {:name "0" :value (:asc params) :label "Desc"}])]
        ]
       [:tr 
        [:td "Page"]
        [:td 
-        [:select {:name "page"}
-         (for [i (into [] (range 1 10))]
-           (get-select-option-html (str i) (:page params) (str "Page " i)))]]
+        (get-select "page" 
+                    (for [i  (into [] (range 1 10))]
+                      {:name (str i) :value (:page params) :label (str "Page" i)}))]
        ]
       [:tr 
        [:td "Row per page"]
        [:td 
-        [:select {:name "limit"}
-         (for [i ["2" "5" "10" "25" "50" "100" "250" "500"]]
-           (get-select-option-html i (:limit params) i))]]
+        (get-select "limit" 
+                    (for [i ["2" "5" "10" "25" "50" "100" "250" "500"]]
+                      {:name i :value (:limit params) :label i}))]
        ]]]
     [:div.submit
      [:input {:type "submit" :class "btn btn-primary" :value "Submit"}]

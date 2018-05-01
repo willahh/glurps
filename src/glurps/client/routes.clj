@@ -23,6 +23,7 @@
      'ring.middleware.keyword-params)
 
 (defroutes app-routes
+  (route/resources "/")
   (GET "/"
        []
        (home/get-html))

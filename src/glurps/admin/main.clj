@@ -14,31 +14,53 @@
 (defn- get-head []
   [:head
    [:title "Glurps! Administration"]
-   (page/include-css "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css")
+   ;; (page/include-css "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css")
    (page/include-css "https://fonts.googleapis.com/icon?family=Material+Icons")   
-   (page/include-css "https://code.jquery.com/jquery-3.2.1.slim.min.js")
-   (page/include-css "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js")
-   (page/include-css "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js")
+   (page/include-js "https://code.jquery.com/jquery-3.2.1.slim.min.js")
+   ;; (page/include-css "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js")
+   ;; (page/include-css "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js")
+   (page/include-js "/semantic/dist/semantic.min.js")
+   (page/include-js "/js/main.js")
+   (page/include-css "/semantic/dist/semantic.min.css")
    (page/include-css "/css/styles.css")])
 
 (defn- get-main-nav-view [main-nav-rows]
-  [:ul {:class "navbar-nav mr-auto"}
+  [:div {:class "ui large secondary inverted pointing menu"}
+   [:a {:class "toc item"} "<i class='sidebar icon'></i>"]
    (map (fn [row]
-          [:li {:class "nav-item active"}
-           [:a.nav-link {:href (row :href) :title (row :info)} (row :label)]]) main-nav-rows)])
+          [:a {:class "item" :href (:href row)} (:label row)]) main-nav-rows)
+   [:a {:class "active item"} "Home"]
+   [:a {:class "item"} "Home"]])
+
+(defn- get-main-nav-view-follow []
+  [:div {:class "ui large top fixed hidden menu"}
+   [:div {:class "ui container"}
+    (map (fn [row]
+           [:a {:class "item" :href (:href row)} (:label row)]) main-nav-rows)]
+   [:div {:class "right menu"}
+    [:div {:class "item"}
+     [:a {:class "ui button"} "Log in"]]
+    [:div {:class "item"}
+     [:a {:class "ui primary button"} "Sign Up"]]]])
 
 (defn- get-page-header []
-  [:nav {:class "navbar navbar-expand-lg navbar-light bg-light"}
-   [:a.navbar-brand {:href "#"}]
-   [:button.navbar-toggler {:type "button" :data-toggle "collapse" :data-target "#navbarSupportedContent"}
-    [:span.navbar-toggler-icon]]
-   [:div#navbarSupportedContent {:class "collapse navbar-collapse"}
-    (get-main-nav-view main-nav-rows)
-    [:form {:class "form-inline my-2 my-lg-0"}
-     [:input {:class "form-control mr-sm-2" :type "text" :placeholder "Search"}]
-     [:button {:class "btn btn-outline-succes my-2 my-sm-0" :type "submit"} "Submit"]]]])
+  [:div
+   ;; (get-main-nav-view-follow)
+   [:div.ui {:class "ui inverted menu"}
+    [:div {:class "header item"} "Glurps!"]
+    [:div {:class "ui container"}
+     (get-main-nav-view main-nav-rows)
+     [:div {:class "right menu"}
+      [:div {:class "item segment"}
+       ;; [:div {:class "ui action left icon input"}
+       ;;  [:i {:class "search icon"}]
+       ;;  [:input {:placeholder ""} "Search"]
+       ;;  [:button {:class "ui button"} "Submit"]]
+       [:a {:class "ui inverted button"} "Log in"]
+       [:a {:class "ui inverted button"} "Sign up"]]]]]])
 
 (defn get-html [hiccup-html]
   (page/html5 (get-head)
-              [:body {:class "bg-light"}
-               [:div.container (get-page-header) hiccup-html]]))
+              [:body
+               [:div (get-page-header)]
+               [:div {:class "ui container"} hiccup-html]]))
