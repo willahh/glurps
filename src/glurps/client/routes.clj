@@ -8,6 +8,7 @@
             [glurps.admin.index :as admin-list]
             [glurps.admin.actor.route :refer [admin-actor-route]]
             [glurps.admin.user.route :refer [admin-user-route]]
+            [glurps.client.module.asset.route :refer [client-asset-route]]
             [glurps.client.views.home :as home]
             [glurps.client.views.sheet :as sheet]
             [glurps.client.views.week :as week]
@@ -69,7 +70,11 @@
 
 (def app
   (-> 
-   (routes app-routes admin-actor-route admin-user-route)
+   (routes
+    app-routes
+    admin-actor-route
+    admin-user-route
+    client-asset-route)
    (wrap-defaults
     (-> site-defaults
         (assoc-in [:security :anti-forgery] false)

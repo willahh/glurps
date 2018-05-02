@@ -32,9 +32,7 @@
   [:div {:class "ui large secondary inverted pointing menu"}
    [:a {:class "toc item"} "<i class='sidebar icon'></i>"]
    (map (fn [row]
-          [:a {:class "item" :href (:href row)} (:label row)]) main-nav-rows)
-   [:a {:class "active item"} "Home"]
-   [:a {:class "item"} "Home"]])
+          [:a {:class "item" :href (:href row)} (:label row)]) main-nav-rows)])
 
 (defn- get-main-nav-view-follow []
   [:div {:class "ui large top fixed hidden menu"}

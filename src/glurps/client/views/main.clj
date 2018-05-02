@@ -6,6 +6,7 @@
 (def main-nav-rows [{:label "Home" :href "/"}
                     {:label "Week" :info "Get last week movies" :href "/week"}
                     {:label "Actors" :info "Show actors" :href "/actor"}
+                    {:label "Assets" :info "Show assets" :href "/asset"}
                     {:label "Admin" :href "/admin" :info "Administration"}])
 
 (defn get-head []
