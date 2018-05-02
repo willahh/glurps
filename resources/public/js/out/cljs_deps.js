@@ -41,7 +41,12 @@ goog.addDependency("../reagent/impl/template.js", ['reagent.impl.template'], ['r
 goog.addDependency("../cljsjs/react-dom/development/react-dom.inc.js", ['react_dom', 'cljsjs.react.dom'], ['react'], {'foreign-lib': true});
 goog.addDependency("../reagent/dom.js", ['reagent.dom'], ['reagent.impl.util', 'reagent.interop', 'reagent.ratom', 'cljs.core', 'reagent.impl.template', 'reagent.impl.batching', 'reagent.debug', 'react_dom']);
 goog.addDependency("../reagent/core.js", ['reagent.core'], ['reagent.impl.util', 'reagent.interop', 'reagent.ratom', 'react', 'cljs.core', 'reagent.impl.template', 'reagent.impl.batching', 'reagent.impl.component', 'reagent.debug', 'reagent.dom']);
-goog.addDependency("../glurps/client/module/asset/list.js", ['glurps.client.module.asset.list'], ['reagent.core', 'cljs.core']);
+goog.addDependency("../hiccups/runtime.js", ['hiccups.runtime'], ['cljs.core', 'clojure.string']);
+goog.addDependency("../glurps/config_edn.js", ['glurps.config_edn'], ['cljs.core']);
+goog.addDependency("../glurps/config.js", ['glurps.config'], ['cljs.core', 'glurps.config_edn']);
+goog.addDependency("../glurps/client/main.js", ['glurps.client.main'], ['hiccups.runtime', 'glurps.config', 'cljs.core']);
+goog.addDependency("../glurps/component/card/card.js", ['glurps.component.card.card'], ['cljs.core']);
+goog.addDependency("../glurps/client/module/asset/list.js", ['glurps.client.module.asset.list'], ['reagent.core', 'cljs.core', 'glurps.client.main', 'glurps.component.card.card']);
 goog.addDependency("../devtools/protocols.js", ['devtools.protocols'], ['cljs.core']);
 goog.addDependency("../devtools/context.js", ['devtools.context'], ['cljs.core']);
 goog.addDependency("../devtools/format.js", ['devtools.format'], ['cljs.core', 'devtools.context']);

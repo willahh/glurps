@@ -1,7 +1,8 @@
 (ns glurps.process.crud.list
   (:require [glurps.admin.main :as main]
             [glurps.process.html.html :as html-helper]
-            [glurps.process.field.field :as field]))
+            [glurps.process.field.field :as field]
+            [glurps.component.card.card :as card]))
 
 (defn- get-url [url id]
   (clojure.string/replace url #"\{id\}" (str id)))
@@ -95,13 +96,8 @@
   (if (= 0 (count records))
     (get-empty-result-html)
     
-    [:div {:class "ui six link cards"}
-     (for [record records]          
-       [:div {:class "card"}
-        [:div {:class "image"}
-         [:img {:src ((keyword (:field-image list-conf)) record)}]]
-        [:div {:class "content"}
-         [:div {:class "header"}
-          "Header"]
-         [:div {:class "meta"}
-          "Friends"]]])]))
+    (let [card-records (map (fn [record]
+                              {:image (:picture record)
+                               :title (:name record)
+                               :meta (:age record)}) records)]
+      (card/cards-html card-records))))

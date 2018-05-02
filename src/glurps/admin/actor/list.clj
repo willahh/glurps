@@ -69,4 +69,5 @@
        ;; (crud-list/get-list-option-html path offset limit count)
        ]])))
 
-;; (get-html {:params {}})
+;; (get-html {:params {:display "thumb"}})
+;; (actor-dao/get-list {} 1 2)
