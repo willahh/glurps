@@ -43,7 +43,7 @@
    [:cljsbuild :builds :app :compiler :output-dir]
    [:cljsbuild :builds :app :compiler :output-to]]
 
-  :resource-paths ["resources/public"]
+  ;; :resource-paths ["resources/public"]
 
   :figwheel {:http-server-root "."
              :nrepl-port 7002
