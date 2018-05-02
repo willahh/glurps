@@ -9,13 +9,23 @@
 (defroutes admin-actor-route
   ;; List
   (GET "/admin/actor"
-       request (admin-actor-list/get-html request))
+       request
+       (let [session (:session request)]
+         {:headers {"Content-Type" "text/html"}
+          :body (admin-actor-list/get-html request)
+          :session session}))
+  ;; (GET "/admin/actor"
+  ;;      request
+  ;;      (admin-actor-list/get-html request))
   (POST "/admin/actor"
-        request (admin-actor-list/get-html request)) 
+        request
+        (admin-actor-list/get-html request)) 
   (GET "/admin/actor/trash"
-       request (admin-actor-list/get-html request :disable? true)) 
+       request
+       (admin-actor-list/get-html request :disable? true)) 
   (POST "/admin/actor/trash"
-        request (admin-actor-list/get-html request :disable? true)) 
+        request
+        (admin-actor-list/get-html request :disable? true)) 
   
   ;; Show
   (GET "/admin/actor/show/:id" [id] (admin-actor-show/get-html id))

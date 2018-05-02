@@ -3,6 +3,7 @@
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [compojure.core :as compojure]
+            [compojure.handler :as handler]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [glurps.admin.index :as admin-list]
             [glurps.admin.actor.route :refer [admin-actor-route]]
@@ -16,7 +17,9 @@
 (use 'ring.middleware.resource
      'ring.middleware.defaults
      'ring.util.response
+     'ring.middleware.session.cookie
      'ring.middleware.session
+     'ring.middleware.flash
      'ring.middleware.content-type
      'ring.middleware.not-modified
      'ring.middleware.params
@@ -48,14 +51,32 @@
 (defn init []
   (println "Application is starting"))
 
+;; (def app
+;;   (-> 
+;;    (routes app-routes admin-actor-route admin-user-route)
+;;    (wrap-session)
+;;    (wrap-defaults (merge site-defaults {:security {:anti-forgery false}}))))
+
+;; (def app
+;;   (-> 
+;;    (routes app-routes admin-actor-route admin-user-route)
+;;    (wrap-defaults
+;;     (-> site-defaults
+;;         (assoc-in [:security :anti-forgery] false)
+;;         (dissoc :session)))
+;;    (wrap-flash)
+;;    (wrap-session)))
+
 (def app
   (-> 
    (routes app-routes admin-actor-route admin-user-route)
-   (wrap-defaults (merge site-defaults {:security {:anti-forgery false}}))))
+   (wrap-defaults
+    (-> site-defaults
+        (assoc-in [:security :anti-forgery] false)
+        (assoc-in [:session :store] (cookie-store {:key "BuD3KgdAXhDHrJXu"}))
+        (assoc-in [:session :cookie-name] "example-app-sessions")))))
 
-
-
-
-
-
-
+;; (def app
+;;   (-> 
+;;    (routes app-routes admin-actor-route admin-user-route)
+;;    (handler/site)))

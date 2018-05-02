@@ -43,7 +43,7 @@
       ;; (main/breadcrumb-html)
       ;; [:h2 (:title setting/list-conf)]
       [:div session]
-      ;; (assoc session :count 2)
+      (assoc session :count 2)
       ;; (assoc :session (assoc session :identity "foo"))
       [:div 
        [:div (str "Params:" (pr-str params))]
