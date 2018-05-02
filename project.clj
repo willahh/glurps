@@ -18,12 +18,58 @@
                  [clj-http "3.8.0"]                 
                  [sqlitejdbc "0.5.6"]
                  [honeysql "0.9.2"]
-                 [ring-anti-forgery "0.3.0"]]
+                 [ring-anti-forgery "0.3.0"]
+                 [org.clojure/clojurescript "1.10.238"]
+                 [reagent "0.8.0"]]
   :main ^:skip-aot glurps.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
              :dev {:ring {:stacktrace-middleware prone.middleware/wrap-exceptions}
-                   :dependencies [[org.clojure/test.check "0.9.0"]]}}
-  :plugins [[lein-ring "0.9.7"]]
+                   :source-paths ["src" "env/dev/clj"]
+                   :dependencies [[org.clojure/test.check "0.9.0"]
+                                  [binaryage/devtools "0.9.7"]
+                                  [figwheel-sidecar "0.5.15"]
+                                  [org.clojure/tools.nrepl "0.2.13"]
+                                  [com.cemerick/piggieback "0.2.2"]]}}
+  
+  :plugins [[lein-ring "0.9.7"]
+            [lein-figwheel "0.5.15"]]
   :ring {:handler glurps.client.routes/app
-         :init glurps.client.routes/init})
+         :init glurps.client.routes/init}
+  
+  ;; Clojurescript config
+  :clean-targets ^{:protect false}
+  [:target-path
+   [:cljsbuild :builds :app :compiler :output-dir]
+   [:cljsbuild :builds :app :compiler :output-to]]
+
+  :resource-paths ["resources/public"]
+
+  :figwheel {:http-server-root "."
+             :nrepl-port 7002
+             :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"]
+             :css-dirs ["resources/public/css"]}
+
+  :cljsbuild {:builds {:app
+                       {:source-paths ["src" "env/dev/cljs"]
+                        :compiler
+                        {:main "glurps.dev"
+                         :output-to "resources/public/js/app.js"
+                         :output-dir "resources/public/js/out"
+                         :asset-path   "js/out"
+                         :source-map true
+                         :optimizations :none
+                         :pretty-print  true}
+                        :figwheel
+                        {:on-jsload "glurps.client.module.asset.list/mount-root"
+                         :open-urls ["http://localhost:3449/index.html"]}}
+                       :release
+                       {:source-paths ["src" "env/prod/cljs"]
+                        :compiler
+                        {:output-to "resources/public/js/app.js"
+                         :output-dir "resources/public/js/release"
+                         :asset-path   "js/out"
+                         :optimizations :advanced
+                         :pretty-print false}}}}
+
+  :aliases {"package" ["do" "clean" ["cljsbuild" "once" "release"]]})
