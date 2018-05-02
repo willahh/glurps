@@ -21,7 +21,8 @@
                  [ring-anti-forgery "0.3.0"]
                  [org.clojure/clojurescript "1.10.238"]
                  [reagent "0.8.0"]
-                 [hiccups "0.3.0"]]
+                 [hiccups "0.3.0"]
+                 [cljs-ajax "0.7.3"]]
   :main ^:skip-aot glurps.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
