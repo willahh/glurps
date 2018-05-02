@@ -23,4 +23,4 @@ glurps.client.main.wrapper_html = (function glurps$client$main$wrapper_html(html
 return ["<!DOCTYPE html>\n",cljs.core.str.cljs$core$IFn$_invoke$arity$1(hiccups.runtime.html.call(null,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"html","html",-998796897),glurps.client.main.head.call(null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"body","body",-2049205669),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div","div",1057191632),glurps.client.main.header_html.call(null)], null),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"div","div",1057191632),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"class","class",-2030961996),"ui container"], null),glurps.client.main.breadcrumb_html.call(null),html], null)], null)], null)))].join('');
 });
 
-//# sourceMappingURL=main.js.map?rel=1525299184346
+//# sourceMappingURL=main.js.map?rel=1525299296482
