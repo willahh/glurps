@@ -19,3 +19,4 @@ src/glurps/config.edn
 /.cljs_rhino_repl
 /resources/public/js/out
 .cljs_rhino_repl
+.cljs_rhino_repl/*

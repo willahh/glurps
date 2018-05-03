@@ -4,7 +4,7 @@
             [glurps.client.module.asset.ajax.actor :as ajax-actor]))
 
 (defroutes client-asset-route
-  (GET "/admin/asset"
+  (GET "/asset"
        request (list/html request))
-  (GET "/admin/asset/ajax/actor"
+  (GET "/asset/ajax/actor"
        request (ajax-actor/get-actors request)))
