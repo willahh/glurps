@@ -69,8 +69,9 @@ goog.addDependency("../hiccups/runtime.js", ['hiccups.runtime'], ['cljs.core', '
 goog.addDependency("../glurps/config_edn.js", ['glurps.config_edn'], ['cljs.core']);
 goog.addDependency("../glurps/config.js", ['glurps.config'], ['cljs.core', 'glurps.config_edn']);
 goog.addDependency("../glurps/client/main.js", ['glurps.client.main'], ['hiccups.runtime', 'glurps.config', 'cljs.core']);
+goog.addDependency("../glurps/component/form/select.js", ['glurps.component.form.select'], ['cljs.core']);
 goog.addDependency("../glurps/component/card/card.js", ['glurps.component.card.card'], ['cljs.core']);
-goog.addDependency("../glurps/client/module/asset/list.js", ['glurps.client.module.asset.list'], ['ajax.core', 'reagent.core', 'cljs.core', 'glurps.client.main', 'cljs.reader', 'glurps.component.card.card']);
+goog.addDependency("../glurps/client/module/asset/list.js", ['glurps.client.module.asset.list'], ['ajax.core', 'reagent.core', 'cljs.core', 'glurps.client.main', 'glurps.component.form.select', 'cljs.reader', 'glurps.component.card.card']);
 goog.addDependency("../devtools/protocols.js", ['devtools.protocols'], ['cljs.core']);
 goog.addDependency("../devtools/context.js", ['devtools.context'], ['cljs.core']);
 goog.addDependency("../devtools/format.js", ['devtools.format'], ['cljs.core', 'devtools.context']);
