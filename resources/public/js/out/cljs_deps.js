@@ -53,6 +53,8 @@ goog.addDependency("../ajax/simple.js", ['ajax.simple'], ['ajax.formats', 'goog.
 goog.addDependency("../ajax/easy.js", ['ajax.easy'], ['ajax.formats', 'ajax.transit', 'ajax.json', 'ajax.url', 'cljs.core', 'ajax.ring', 'ajax.simple']);
 goog.addDependency("../ajax/xhrio.js", ['ajax.xhrio'], ['goog.net.XhrManager', 'goog.net.XhrIo', 'goog.json', 'goog.Uri', 'cljs.core', 'goog.net.EventType', 'ajax.protocols', 'goog.events', 'goog.net.ErrorCode']);
 goog.addDependency("../ajax/core.js", ['ajax.core'], ['ajax.formats', 'ajax.xml_http_request', 'ajax.transit', 'ajax.json', 'ajax.url', 'ajax.interceptors', 'cljs.core', 'ajax.ring', 'ajax.easy', 'ajax.simple', 'ajax.protocols', 'ajax.util', 'clojure.string', 'ajax.xhrio']);
+goog.addDependency("../glurps/component/form/select.js", ['glurps.component.form.select'], ['cljs.core']);
+goog.addDependency("../glurps/component/pagination/pagination.js", ['glurps.component.pagination.pagination'], ['cljs.core', 'glurps.component.form.select']);
 goog.addDependency("../reagent/interop.js", ['reagent.interop'], ['cljs.core']);
 goog.addDependency("../reagent/debug.js", ['reagent.debug'], ['cljs.core']);
 goog.addDependency("../reagent/impl/util.js", ['reagent.impl.util'], ['reagent.interop', 'cljs.core', 'reagent.debug', 'clojure.string']);
@@ -65,13 +67,16 @@ goog.addDependency("../reagent/impl/template.js", ['reagent.impl.template'], ['r
 goog.addDependency("../cljsjs/react-dom/development/react-dom.inc.js", ['react_dom', 'cljsjs.react.dom'], ['react'], {'foreign-lib': true});
 goog.addDependency("../reagent/dom.js", ['reagent.dom'], ['reagent.impl.util', 'reagent.interop', 'reagent.ratom', 'cljs.core', 'reagent.impl.template', 'reagent.impl.batching', 'reagent.debug', 'react_dom']);
 goog.addDependency("../reagent/core.js", ['reagent.core'], ['reagent.impl.util', 'reagent.interop', 'reagent.ratom', 'react', 'cljs.core', 'reagent.impl.template', 'reagent.impl.batching', 'reagent.impl.component', 'reagent.debug', 'reagent.dom']);
+goog.addDependency("../clojure/browser/event.js", ['clojure.browser.event'], ['cljs.core', 'goog.events.EventTarget', 'goog.events.EventType', 'goog.events']);
+goog.addDependency("../clojure/browser/net.js", ['clojure.browser.net'], ['goog.net.xpc.CfgFields', 'goog.net.XhrIo', 'goog.json', 'goog.Uri', 'cljs.core', 'goog.object', 'goog.net.EventType', 'goog.net.xpc.CrossPageChannel', 'goog.net.WebSocket', 'clojure.browser.event']);
+goog.addDependency("../clojure/browser/repl.js", ['clojure.browser.repl'], ['goog.dom', 'goog.userAgent.product', 'goog.json', 'cljs.core', 'goog.object', 'clojure.browser.net', 'cljs.repl', 'goog.array', 'clojure.browser.event']);
+goog.addDependency("../jayq/core.js", ['jayq.core'], ['cljs.core', 'clojure.string', 'cljs.reader']);
 goog.addDependency("../hiccups/runtime.js", ['hiccups.runtime'], ['cljs.core', 'clojure.string']);
 goog.addDependency("../glurps/config_edn.js", ['glurps.config_edn'], ['cljs.core']);
 goog.addDependency("../glurps/config.js", ['glurps.config'], ['cljs.core', 'glurps.config_edn']);
 goog.addDependency("../glurps/client/main.js", ['glurps.client.main'], ['hiccups.runtime', 'glurps.config', 'cljs.core']);
-goog.addDependency("../glurps/component/form/select.js", ['glurps.component.form.select'], ['cljs.core']);
 goog.addDependency("../glurps/component/card/card.js", ['glurps.component.card.card'], ['cljs.core']);
-goog.addDependency("../glurps/client/module/asset/list.js", ['glurps.client.module.asset.list'], ['ajax.core', 'reagent.core', 'cljs.core', 'glurps.client.main', 'glurps.component.form.select', 'cljs.reader', 'glurps.component.card.card']);
+goog.addDependency("../glurps/client/module/asset/list.js", ['glurps.client.module.asset.list'], ['ajax.core', 'glurps.component.pagination.pagination', 'reagent.core', 'clojure.browser.repl', 'cljs.core', 'jayq.core', 'glurps.client.main', 'glurps.component.form.select', 'cljs.reader', 'glurps.component.card.card']);
 goog.addDependency("../devtools/protocols.js", ['devtools.protocols'], ['cljs.core']);
 goog.addDependency("../devtools/context.js", ['devtools.context'], ['cljs.core']);
 goog.addDependency("../devtools/format.js", ['devtools.format'], ['cljs.core', 'devtools.context']);

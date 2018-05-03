@@ -6,6 +6,7 @@
             [compojure.handler :as handler]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [glurps.admin.index :as admin-list]
+            [glurps.api.api :refer [api-route]]
             [glurps.admin.actor.route :refer [admin-actor-route]]
             [glurps.admin.user.route :refer [admin-user-route]]
             [glurps.client.module.asset.route :refer [client-asset-route]]
@@ -72,6 +73,7 @@
   (-> 
    (routes
     app-routes
+    api-route
     admin-actor-route
     admin-user-route
     client-asset-route)

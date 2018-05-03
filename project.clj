@@ -22,7 +22,8 @@
                  [org.clojure/clojurescript "1.10.238"]
                  [reagent "0.8.0"]
                  [hiccups "0.3.0"]
-                 [cljs-ajax "0.7.3"]]
+                 [cljs-ajax "0.7.3"]
+                 [jayq "2.5.5"]]
   :main ^:skip-aot glurps.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}

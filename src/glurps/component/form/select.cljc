@@ -1,6 +1,6 @@
 (ns glurps.component.form.select)
 
-(defn select-html [field-name options]
+(defn select-html [field-name options & conf]
   (let [selected-option (first (filter #(= (:value %) (:name %)) options))]
     [:div {:class "ui selection dropdown"}
      [:input {:type "hidden" :name field-name :value (:value selected-option)}]

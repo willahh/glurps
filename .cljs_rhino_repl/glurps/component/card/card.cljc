@@ -1,7 +1,7 @@
 (ns glurps.component.card.card)
 
-(defn card-html [image title meta]
-  [:div {:class "card"}
+(defn card-html [image title meta id]
+  [:div {:class "card" :data-id (str id)}
    [:div {:class "image"}
     [:img {:src image}]]
    [:div {:class "content"}
@@ -15,4 +15,5 @@
    (for [record records]          
      (card-html (:image record) 
                 (:title record)
-                (:meta record)))])
+                (:meta record)
+                (:id record)))])
