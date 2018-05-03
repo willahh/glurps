@@ -26,11 +26,11 @@ hiccups.runtime.xml_mode_QMARK_ = (function hiccups$runtime$xml_mode_QMARK_(){
 return cljs.core._EQ_.call(null,hiccups.runtime._STAR_html_mode_STAR_,new cljs.core.Keyword(null,"xml","xml",-1170142052));
 });
 hiccups.runtime.in_mode = (function hiccups$runtime$in_mode(mode,f){
-var _STAR_html_mode_STAR_61509 = hiccups.runtime._STAR_html_mode_STAR_;
+var _STAR_html_mode_STAR_55329 = hiccups.runtime._STAR_html_mode_STAR_;
 hiccups.runtime._STAR_html_mode_STAR_ = mode;
 
 try{return f.call(null);
-}finally {hiccups.runtime._STAR_html_mode_STAR_ = _STAR_html_mode_STAR_61509;
+}finally {hiccups.runtime._STAR_html_mode_STAR_ = _STAR_html_mode_STAR_55329;
 }});
 /**
  * Change special characters into HTML character entities.
@@ -49,10 +49,10 @@ return ">";
 hiccups.runtime.xml_attribute = (function hiccups$runtime$xml_attribute(name,value){
 return [" ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(hiccups.runtime.as_str.call(null,name)),"=\"",cljs.core.str.cljs$core$IFn$_invoke$arity$1(hiccups.runtime.escape_html.call(null,value)),"\""].join('');
 });
-hiccups.runtime.render_attribute = (function hiccups$runtime$render_attribute(p__61510){
-var vec__61511 = p__61510;
-var name = cljs.core.nth.call(null,vec__61511,(0),null);
-var value = cljs.core.nth.call(null,vec__61511,(1),null);
+hiccups.runtime.render_attribute = (function hiccups$runtime$render_attribute(p__55330){
+var vec__55331 = p__55330;
+var name = cljs.core.nth.call(null,vec__55331,(0),null);
+var value = cljs.core.nth.call(null,vec__55331,(1),null);
 if(value === true){
 if(cljs.core.truth_(hiccups.runtime.xml_mode_QMARK_.call(null))){
 return hiccups.runtime.xml_attribute.call(null,name,name);
@@ -74,23 +74,23 @@ return cljs.core.apply.call(null,cljs.core.str,cljs.core.sort.call(null,cljs.cor
 /**
  * Ensure a tag vector is of the form [tag-name attrs content].
  */
-hiccups.runtime.normalize_element = (function hiccups$runtime$normalize_element(p__61514){
-var vec__61515 = p__61514;
-var seq__61516 = cljs.core.seq.call(null,vec__61515);
-var first__61517 = cljs.core.first.call(null,seq__61516);
-var seq__61516__$1 = cljs.core.next.call(null,seq__61516);
-var tag = first__61517;
-var content = seq__61516__$1;
+hiccups.runtime.normalize_element = (function hiccups$runtime$normalize_element(p__55334){
+var vec__55335 = p__55334;
+var seq__55336 = cljs.core.seq.call(null,vec__55335);
+var first__55337 = cljs.core.first.call(null,seq__55336);
+var seq__55336__$1 = cljs.core.next.call(null,seq__55336);
+var tag = first__55337;
+var content = seq__55336__$1;
 if(!((((tag instanceof cljs.core.Keyword)) || ((tag instanceof cljs.core.Symbol)) || (typeof tag === 'string')))){
 throw [cljs.core.str.cljs$core$IFn$_invoke$arity$1(tag)," is not a valid tag name"].join('');
 } else {
 }
 
-var vec__61518 = cljs.core.re_matches.call(null,hiccups.runtime.re_tag,hiccups.runtime.as_str.call(null,tag));
-var _ = cljs.core.nth.call(null,vec__61518,(0),null);
-var tag__$1 = cljs.core.nth.call(null,vec__61518,(1),null);
-var id = cljs.core.nth.call(null,vec__61518,(2),null);
-var class$ = cljs.core.nth.call(null,vec__61518,(3),null);
+var vec__55338 = cljs.core.re_matches.call(null,hiccups.runtime.re_tag,hiccups.runtime.as_str.call(null,tag));
+var _ = cljs.core.nth.call(null,vec__55338,(0),null);
+var tag__$1 = cljs.core.nth.call(null,vec__55338,(1),null);
+var id = cljs.core.nth.call(null,vec__55338,(2),null);
+var class$ = cljs.core.nth.call(null,vec__55338,(3),null);
 var tag_attrs = new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"id","id",-1388402092),id,new cljs.core.Keyword(null,"class","class",-2030961996),(cljs.core.truth_(class$)?clojure.string.replace.call(null,class$,"."," "):null)], null);
 var map_attrs = cljs.core.first.call(null,content);
 if(cljs.core.map_QMARK_.call(null,map_attrs)){
@@ -103,10 +103,10 @@ return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMP
  * Render a tag vector as a HTML element.
  */
 hiccups.runtime.render_element = (function hiccups$runtime$render_element(element){
-var vec__61521 = hiccups.runtime.normalize_element.call(null,element);
-var tag = cljs.core.nth.call(null,vec__61521,(0),null);
-var attrs = cljs.core.nth.call(null,vec__61521,(1),null);
-var content = cljs.core.nth.call(null,vec__61521,(2),null);
+var vec__55341 = hiccups.runtime.normalize_element.call(null,element);
+var tag = cljs.core.nth.call(null,vec__55341,(0),null);
+var attrs = cljs.core.nth.call(null,vec__55341,(1),null);
+var content = cljs.core.nth.call(null,vec__55341,(2),null);
 if(cljs.core.truth_((function (){var or__3922__auto__ = content;
 if(cljs.core.truth_(or__3922__auto__)){
 return or__3922__auto__;
@@ -135,4 +135,4 @@ return hiccups.runtime.as_str.call(null,x);
 }
 });
 
-//# sourceMappingURL=runtime.js.map?rel=1525299294893
+//# sourceMappingURL=runtime.js.map?rel=1525389491014

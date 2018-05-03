@@ -21,4 +21,4 @@ glurps.client.module.asset.list.init_BANG_ = (function glurps$client$module$asse
 return glurps.client.module.asset.list.mount_root.call(null);
 });
 
-//# sourceMappingURL=list.js.map?rel=1525299296496
+//# sourceMappingURL=list.js.map?rel=1525389492686
