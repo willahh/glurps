@@ -4,28 +4,28 @@ goog.require('cljs.core');
 goog.require('figwheel.client');
 figwheel.connect.start = (function figwheel$connect$start(){
 var config = new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"on-jsload","on-jsload",-395756602),(function() { 
-var G__32240__delegate = function (x__32224__auto__){
+var G__87213__delegate = function (x__32224__auto__){
 if(cljs.core.truth_(glurps.client.module.asset.list.mount_root)){
 return cljs.core.apply.call(null,glurps.client.module.asset.list.mount_root,x__32224__auto__);
 } else {
 return figwheel.client.utils.log.call(null,new cljs.core.Keyword(null,"debug","debug",-1608172596),["Figwheel: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(new cljs.core.Keyword(null,"on-jsload","on-jsload",-395756602))," hook '",cljs.core.str.cljs$core$IFn$_invoke$arity$1("glurps.client.module.asset.list/mount-root"),"' is missing"].join(''));
 }
 };
-var G__32240 = function (var_args){
+var G__87213 = function (var_args){
 var x__32224__auto__ = null;
 if (arguments.length > 0) {
-var G__32241__i = 0, G__32241__a = new Array(arguments.length -  0);
-while (G__32241__i < G__32241__a.length) {G__32241__a[G__32241__i] = arguments[G__32241__i + 0]; ++G__32241__i;}
-  x__32224__auto__ = new cljs.core.IndexedSeq(G__32241__a,0,null);
+var G__87214__i = 0, G__87214__a = new Array(arguments.length -  0);
+while (G__87214__i < G__87214__a.length) {G__87214__a[G__87214__i] = arguments[G__87214__i + 0]; ++G__87214__i;}
+  x__32224__auto__ = new cljs.core.IndexedSeq(G__87214__a,0,null);
 } 
-return G__32240__delegate.call(this,x__32224__auto__);};
-G__32240.cljs$lang$maxFixedArity = 0;
-G__32240.cljs$lang$applyTo = (function (arglist__32242){
-var x__32224__auto__ = cljs.core.seq(arglist__32242);
-return G__32240__delegate(x__32224__auto__);
+return G__87213__delegate.call(this,x__32224__auto__);};
+G__87213.cljs$lang$maxFixedArity = 0;
+G__87213.cljs$lang$applyTo = (function (arglist__87215){
+var x__32224__auto__ = cljs.core.seq(arglist__87215);
+return G__87213__delegate(x__32224__auto__);
 });
-G__32240.cljs$core$IFn$_invoke$arity$variadic = G__32240__delegate;
-return G__32240;
+G__87213.cljs$core$IFn$_invoke$arity$variadic = G__87213__delegate;
+return G__87213;
 })()
 ,new cljs.core.Keyword(null,"open-urls","open-urls",-1478664930),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, ["http://localhost:3449/index.html"], null),new cljs.core.Keyword(null,"build-id","build-id",1642831089),"app",new cljs.core.Keyword(null,"websocket-url","websocket-url",-490444938),"ws://localhost:3449/figwheel-ws"], null);
 figwheel.client.start.call(null,config);
@@ -38,4 +38,4 @@ return null;
 });
 goog.exportSymbol('figwheel.connect.start', figwheel.connect.start);
 
-//# sourceMappingURL=connect.js.map?rel=1525376050184
+//# sourceMappingURL=connect.js.map?rel=1525389593469

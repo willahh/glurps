@@ -7,4 +7,4 @@ var conf = glurps.config_edn.data;
 return cljs.core.keyword.call(null,key).call(null,conf);
 });
 
-//# sourceMappingURL=config.js.map?rel=1525376042305
+//# sourceMappingURL=config.js.map?rel=1525389574360

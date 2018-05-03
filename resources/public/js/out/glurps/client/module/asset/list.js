@@ -15,8 +15,8 @@ if(typeof glurps.client.module.asset.list.state !== 'undefined'){
 glurps.client.module.asset.list.state = reagent.core.atom.call(null,new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"page","page",849072397),(1),new cljs.core.Keyword(null,"tab","tab",-559583621),"first",new cljs.core.Keyword(null,"actor-selected","actor-selected",-1587265347),"",new cljs.core.Keyword(null,"user-records","user-records",146002922),cljs.core.PersistentVector.EMPTY,new cljs.core.Keyword(null,"records","records",1326822832),cljs.core.PersistentVector.EMPTY], null));
 }
 glurps.client.module.asset.list.get_record_by_id = (function glurps$client$module$asset$list$get_record_by_id(id){
-return cljs.core.filter.call(null,(function (p1__51412_SHARP_){
-return cljs.core._EQ_.call(null,[cljs.core.str.cljs$core$IFn$_invoke$arity$1(new cljs.core.Keyword(null,"id","id",-1388402092).cljs$core$IFn$_invoke$arity$1(p1__51412_SHARP_))].join(''),[cljs.core.str.cljs$core$IFn$_invoke$arity$1(id)].join(''));
+return cljs.core.filter.call(null,(function (p1__75886_SHARP_){
+return cljs.core._EQ_.call(null,[cljs.core.str.cljs$core$IFn$_invoke$arity$1(new cljs.core.Keyword(null,"id","id",-1388402092).cljs$core$IFn$_invoke$arity$1(p1__75886_SHARP_))].join(''),[cljs.core.str.cljs$core$IFn$_invoke$arity$1(id)].join(''));
 }),new cljs.core.Keyword(null,"records","records",1326822832).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,glurps.client.module.asset.list.state)));
 });
 glurps.client.module.asset.list.map_records_to_cards_html = (function glurps$client$module$asset$list$map_records_to_cards_html(records,key_keyword,image_keyword,title_keyword,meta_keyword){
@@ -118,4 +118,4 @@ glurps.client.module.asset.list.init_BANG_ = (function glurps$client$module$asse
 return glurps.client.module.asset.list.mount_root.call(null);
 });
 
-//# sourceMappingURL=list.js.map?rel=1525389422458
+//# sourceMappingURL=list.js.map?rel=1525389579122
