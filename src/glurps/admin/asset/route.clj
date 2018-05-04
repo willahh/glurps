@@ -25,6 +25,9 @@
   (GET "/admin/asset/insert"
        [id]
        (admin-asset-update/get-html-insert id))
+  (POST "/admin/asset/insert"
+        {params :params}
+        (admin-asset-update/handle-insert params))
   
   ;; Action
   (GET "/admin/asset/fav/:id"

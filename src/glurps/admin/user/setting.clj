@@ -15,10 +15,9 @@
             {:name "last_name" :type "string"}
             {:name "date_create" :type "string"}
             {:name "date_update" :type "string"}] 
-   :filter-fields ["id" "login"]})
-
-(def default-params {:columns ["id" "login" "email" "date_create" "date_update"]
-                     :order "id"
-                     :asc "1"
-                     :page "1"
-                     :limit "25"})
+   :filter-fields ["id" "login"]
+   :default-params {:columns ["id" "login" "email" "date_create" "date_update"]
+                    :order "id"
+                    :asc "1"
+                    :page "1"
+                    :limit "25"}})

@@ -1,4 +1,4 @@
-(ns glurps.config-edn)
+(ns glurps.config.config-edn)
 
 (def data {:root-url "http://www.allocine.fr"
            :root-path "http://localhost:3000/glurps/"

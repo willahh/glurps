@@ -37,8 +37,8 @@
   
   :plugins [[lein-ring "0.9.7"]
             [lein-figwheel "0.5.15"]]
-  :ring {:handler glurps.client.routes/app
-         :init glurps.client.routes/init}
+  :ring {:handler glurps.routes/app
+         :init glurps.routes/init}
   
   ;; Clojurescript config
   :clean-targets ^{:protect false}

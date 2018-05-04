@@ -8,8 +8,7 @@
    :field-id "id"
    :field-label "title"
    :field-image ""
-   :fields [
-            {:name "id" :type "integer"}
+   :fields [{:name "id" :type "integer"}
             {:name "type" :type "string" :validator string?}
             {:name "file_name" :type "string" :validator string?}
             {:name "size" :type "integer" :validator integer?}

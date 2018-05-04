@@ -5,7 +5,7 @@
 
 (def schema 
   "Map of the database schema."
-  {:table-name "actor"
+  {:table-name "asset"
    :cols (asset-model/get-fields)})
 
 (defn- bool-to-int [bool]

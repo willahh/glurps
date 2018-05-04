@@ -174,7 +174,7 @@
        [:div (str "debug session:" session)]
        ]
       [:div 
-       (crud-nav/get-html disable?)
+       (crud-nav/get-html list-conf disable?)
        (crud-filter/get-html columns
                              (merge (:default-params list-conf) params))
        ;; (crud-list/get-list-option-html path offset limit count)

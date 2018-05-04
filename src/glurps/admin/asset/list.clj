@@ -5,6 +5,3 @@
 
 (defn get-html [{:keys [params session] :as query} & {:keys [disable?]}]
   (crud-list/get-html-wrapper session params setting/list-conf disable? (asset-dao/count) asset-dao/get-list asset-dao/get-list-disable))
-
-
-(get-html {:params {}})

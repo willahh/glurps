@@ -13,4 +13,3 @@
       [:a {:class "ui button" :href "../../actor"} "Cancel"]
       [:div {:class "or"}]
       [:button {:class "ui positive button" :type "submit"} "Save"]]]))
-

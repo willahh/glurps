@@ -3,7 +3,7 @@
             [glurps.process.field.field :as field]))
 
 (defn get-html [columns record fields]
-  [:table {:class "table showTable" :style "border: 1px solid #000; width: auto;"}
+  [:table {:class "ui definition table"}
    [:tbody
     (for [column columns]
       [:tr

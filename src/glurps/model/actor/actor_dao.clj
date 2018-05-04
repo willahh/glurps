@@ -68,7 +68,7 @@
 (defn find-by-id [id]
   (first (db/query-old (config/get :db-spec) (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"id\" = '" id "'"))))
 
-(defn count2 []
+(defn count []
   (get-count (db/query-old (config/get :db-spec)
                            (str "SELECT COUNT(*) FROM \"" (schema :table-name) "\""))))
 

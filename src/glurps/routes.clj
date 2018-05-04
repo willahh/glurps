@@ -1,4 +1,4 @@
-(ns glurps.client.routes
+(ns glurps.routes
   (:use compojure.core)
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
@@ -54,22 +54,6 @@
 (defn init []
   (println "Application is starting"))
 
-;; (def app
-;;   (-> 
-;;    (routes app-routes admin-actor-route admin-user-route)
-;;    (wrap-session)
-;;    (wrap-defaults (merge site-defaults {:security {:anti-forgery false}}))))
-
-;; (def app
-;;   (-> 
-;;    (routes app-routes admin-actor-route admin-user-route)
-;;    (wrap-defaults
-;;     (-> site-defaults
-;;         (assoc-in [:security :anti-forgery] false)
-;;         (dissoc :session)))
-;;    (wrap-flash)
-;;    (wrap-session)))
-
 (def app
   (-> 
    (routes
@@ -84,8 +68,3 @@
         (assoc-in [:security :anti-forgery] false)
         (assoc-in [:session :store] (cookie-store {:key "BuD3KgdAXhDHrJXu"}))
         (assoc-in [:session :cookie-name] "example-app-sessions")))))
-
-;; (def app
-;;   (-> 
-;;    (routes app-routes admin-actor-route admin-user-route)
-;;    (handler/site)))

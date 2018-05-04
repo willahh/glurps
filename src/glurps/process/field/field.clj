@@ -6,7 +6,7 @@
 
 (defn get-field-html2 [field-name record fields read-only]
   (let [field-conf (first (filter #(= (:name %) field-name) fields))
-        value (when record ((keyword field-name) record))
+        value (when record (record (keyword field-name)))
         type (:type field-conf)]
     (cond (= type "string")
           (if read-only

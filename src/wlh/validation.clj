@@ -23,16 +23,14 @@
       (throw (new AssertionError (str "Assert failed: " (pr-str validator value))))))
   true)
 
-(defn check-fields [fields-conf raw-data]
+(defn check-fields [fields raw-data]
   "Take a vector a field configuration, a map of raw data, and test all fields"
   (let [causes (atom [])
         success (atom true)]
-    (let [fields-conf (map (fn [a] 
-                             (assoc a :value 
-                                    (raw-data 
-                                     (keyword (a :name))))) fields-conf)]
+    (let [fields (map (fn [field] 
+                        (assoc field :value ((keyword (:name field)) raw-data))) fields)]
       
-      (doseq [field-conf fields-conf]
+      (doseq [field-conf fields]
         (try (check-field field-conf)
              (catch AssertionError e
                (reset! success false)
