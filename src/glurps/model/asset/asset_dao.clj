@@ -1,6 +1,6 @@
 (ns glurps.model.user.asset-dao
-  (:require [wlh.db :as db]
-            [glurps.process.db.db-allocine :as db-allocine]
+  (:require [glurps.config :as config]
+            [wlh.db :as db]
             [glurps.model.user.asset-model :as asset-model]))
 
 (defn- bool-to-int [bool]
@@ -24,7 +24,7 @@
          (into [] (cons :and and-clean))}))))
 
 (defn get-list [params offset limit]
-  (db/query db-allocine/db-spec
+  (db/query (config/get :db-spec)
             (db/get-sql-map-from-params asset-model/table-name params (get-clauses params))
             offset
             limit))
@@ -33,5 +33,5 @@
   (first (rest (first (first col)))))
 
 (defn count []
-  (get-count (db/query-old db-allocine/db-spec
+  (get-count (db/query-old (config/get :db-spec)
                            (str "SELECT COUNT(*) FROM \"" asset-model/table-name "\""))))

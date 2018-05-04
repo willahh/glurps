@@ -1,6 +1,6 @@
 (ns glurps.model.user.user-dao
-  (:require [wlh.db :as db]
-            [glurps.process.db.db-allocine :as db-allocine]
+  (:require [glurps.config :as config]
+            [wlh.db :as db]
             [glurps.model.user.user-model :as user-model]))
 
 (def schema
@@ -28,7 +28,7 @@
          (into [] (cons :and and-clean))}))))
 
 (defn get-list [params offset limit]
-  (db/query db-allocine/db-spec
+  (db/query (config/get :db-spec)
             (db/get-sql-map-from-params (:table-name schema) params (get-clauses params))
             offset
             limit))
@@ -37,42 +37,42 @@
   (first (rest (first (first col)))))
 
 (defn count []
-  (get-count (db/query-old db-allocine/db-spec
+  (get-count (db/query-old (config/get :db-spec)
                            (str "SELECT COUNT(*) FROM \"" (schema :table-name) "\""))))
 (defn find-by-id [id]
-  (first (db/query-old db-allocine/db-spec (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"id\" = '" id "'"))))
+  (first (db/query-old (config/get :db-spec) (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"id\" = '" id "'"))))
 
 (defn get-list-disable [params offset limit & args]
-  (db/query-old db-allocine/db-spec
+  (db/query-old (config/get :db-spec)
                 (str "SELECT * FROM \"actor\" WHERE \"active\" = '0' LIMIT " limit " OFFSET " offset)))
 
 (defn insert [actor-record]
   "Takes a record actor, insert it in the database."
-  (db/insert db-allocine/db-spec
+  (db/insert (config/get :db-spec)
              (:table-name schema)
              (:cols schema)
              (into {} actor-record)))
 
 (defn update! [set-map where-clause]
-  (db/update! db-allocine/db-spec (schema :table-name) set-map where-clause))
+  (db/update! (config/get :db-spec) (schema :table-name) set-map where-clause))
 
 (defn delete [id]
-  (db/delete db-allocine/db-spec (schema :table-name) id))
+  (db/delete (config/get :db-spec) (schema :table-name) id))
 
 (defn enable [id]
-  (db/update! db-allocine/db-spec (schema :table-name) 
+  (db/update! (config/get :db-spec) (schema :table-name) 
               {:active 1} [(str "id = " id)]))
 
 (defn disable [id]
-  (db/update! db-allocine/db-spec (schema :table-name) 
+  (db/update! (config/get :db-spec) (schema :table-name) 
               {:active 0} [(str "id = " id)]))
 
 (defn fav [id]
   "Set record to favorite"
-  (db/update! db-allocine/db-spec (schema :table-name) 
+  (db/update! (config/get :db-spec) (schema :table-name) 
               {:fav 1} [(str "id = " id)]))
 
 (defn unfav [id]
   "Unset record to favorite"
-  (db/update! db-allocine/db-spec (schema :table-name) 
+  (db/update! (config/get :db-spec) (schema :table-name) 
               {:fav 0} [(str "id = " id)]))

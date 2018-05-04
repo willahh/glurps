@@ -15,24 +15,24 @@
                        (if (= (:asc params) "1")
                          :asc :desc)]]})))
 
-(defmacro query-old [db-spec sql-params]
+(defmacro query-old [db sql-params]
   "Do a query with jdbc, log the request"
   `(let [query# ~sql-params]
      (logger/info (str "[db] " query#))
-     (jdbc/query ~db-spec query#)))
+     (jdbc/query ~db query#)))
 
-(defn insert [db-spec table cols row]
+(defn insert [db table cols row]
   (let [rows (into [] (map (fn [col]
                              (row (keyword col))) cols))]
-    (jdbc/insert! db-spec table cols rows)))
+    (jdbc/insert! db table cols rows)))
 
-(defn update! [db-spec table set-map where-clause]
-  (jdbc/update! db-spec table set-map where-clause))
+(defn update! [db table set-map where-clause]
+  (jdbc/update! db table set-map where-clause))
 
-(defn delete [db-spec table-name id]
-  (jdbc/delete! db-spec table-name [(str "id = " id)]))
+(defn delete [db table-name id]
+  (jdbc/delete! db table-name [(str "id = " id)]))
 
-(defn query [db-spec sql-map offset limit]
+(defn query [db sql-map offset limit]
   (let [query (sql/format (sql/build sql-map :offset offset :limit limit))]
     (logger/info (str "[db]" query))
-    (jdbc/query db-spec query)))
+    (jdbc/query db query)))
