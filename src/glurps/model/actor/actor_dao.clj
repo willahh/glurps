@@ -1,6 +1,6 @@
 (ns glurps.model.actor.actor-dao
-  (:require [wlh.db :as db]
-            [glurps.config :as config]
+  (:require [glurps.config :as config]
+            [wlh.db :as db]
             [glurps.model.actor.actor-model :as actor]))
 
 (def schema 
@@ -79,7 +79,6 @@
             (for [actor actors]
               (if-let [actor-row (first (find-by-name actor))]
                 actor-row)))))
-
 
 (defn fav [id]
   "Set record to favorite"

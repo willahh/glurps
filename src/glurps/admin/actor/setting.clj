@@ -20,18 +20,7 @@
             {:name "picture" :type "picture" :validator validation/valid-picture?}
             {:name "date_create" :type "string"}
             {:name "date_update" :type "string"}]
-   :columns ["id"
-             "name"
-             "job"
-             "nationality"
-             "age"
-             "birthdate"
-             "picture"
-             "date_create"
-             "date_update"] 
-   :filter-fields [{:key "asc" :name "Sort by"}
-                   {:key "order" :name "Order by"}]
-   :field-html-display {:picture field-image/get-html}})
+   :filter-fields ["id" "name"]})
 
 (def default-params {:columns ["id" "name" "picture" "date_create" "date_update"]
                      :order "id"

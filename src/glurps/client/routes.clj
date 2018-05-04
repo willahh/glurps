@@ -9,6 +9,7 @@
             [glurps.api.api :refer [api-route]]
             [glurps.admin.actor.route :refer [admin-actor-route]]
             [glurps.admin.user.route :refer [admin-user-route]]
+            [glurps.admin.asset.route :refer [admin-asset-route]]
             [glurps.client.module.asset.route :refer [client-asset-route]]
             [glurps.client.views.home :as home]
             [glurps.client.views.sheet :as sheet]
@@ -76,6 +77,7 @@
     api-route
     admin-actor-route
     admin-user-route
+    admin-asset-route
     client-asset-route)
    (wrap-defaults
     (-> site-defaults

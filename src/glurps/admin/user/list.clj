@@ -19,7 +19,7 @@
       cols)))
 
 (defn get-html [{:keys [params session] :as query} & {:keys [disable?]}]
-  (let [field-id setting/field-id
+  (let [field-id (:field-id setting/list-conf)
         path (:path setting/list-conf)
         columns (:columns setting/list-conf)
         visible-columns (get-visible-columns columns (:columns params) (:columns setting/default-params))
@@ -50,7 +50,8 @@
        ]
       [:div 
        (crud-nav/get-html disable?)
-       (crud-filter/get-html columns (merge setting/default-params params) (:filter-fields setting/list-conf))
+       (crud-filter/get-html columns
+                             (merge setting/default-params params))
        ;; (crud-list/get-list-option-html path offset limit count)
        (crud-list/get-html field-id
                            visible-columns

@@ -34,14 +34,14 @@
   (reader/read-string vec-str))
 
 (defn fetch-actor [page limit]
-  (GET (str "http://localhost:3000/api?col=" "actor" "&page=" page "&limit=" limit)
+  (GET (str "http://localhost:3000/api?ctx=" "actor" "&page=" page "&limit=" limit)
        :handler 
        (fn [response] 
          (let [cards (map-records-to-cards-html (vec-str-to-vec response) :id :picture :name :nationality)] 
            (swap! state update-in [:records] (fn [v] cards))))))
 
 (defn fetch-user [page limit]
-  (GET (str "http://localhost:3000/api?col=" "user" "&page=" page "&limit=" limit)
+  (GET (str "http://localhost:3000/api?ctx=" "user" "&page=" page "&limit=" limit)
        :handler 
        (fn [response] 
          (let [cards (map-records-to-cards-html (vec-str-to-vec response) :id :image :email :id)] 

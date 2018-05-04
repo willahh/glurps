@@ -15,8 +15,8 @@ if(typeof glurps.client.module.asset.list.state !== 'undefined'){
 glurps.client.module.asset.list.state = reagent.core.atom.call(null,new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"page","page",849072397),(1),new cljs.core.Keyword(null,"tab","tab",-559583621),"first",new cljs.core.Keyword(null,"actor-selected","actor-selected",-1587265347),"",new cljs.core.Keyword(null,"user-records","user-records",146002922),cljs.core.PersistentVector.EMPTY,new cljs.core.Keyword(null,"records","records",1326822832),cljs.core.PersistentVector.EMPTY], null));
 }
 glurps.client.module.asset.list.get_record_by_id = (function glurps$client$module$asset$list$get_record_by_id(id){
-return cljs.core.filter.call(null,(function (p1__30890_SHARP_){
-return cljs.core._EQ_.call(null,[cljs.core.str.cljs$core$IFn$_invoke$arity$1(new cljs.core.Keyword(null,"id","id",-1388402092).cljs$core$IFn$_invoke$arity$1(p1__30890_SHARP_))].join(''),[cljs.core.str.cljs$core$IFn$_invoke$arity$1(id)].join(''));
+return cljs.core.filter.call(null,(function (p1__33991_SHARP_){
+return cljs.core._EQ_.call(null,[cljs.core.str.cljs$core$IFn$_invoke$arity$1(new cljs.core.Keyword(null,"id","id",-1388402092).cljs$core$IFn$_invoke$arity$1(p1__33991_SHARP_))].join(''),[cljs.core.str.cljs$core$IFn$_invoke$arity$1(id)].join(''));
 }),new cljs.core.Keyword(null,"records","records",1326822832).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,glurps.client.module.asset.list.state)));
 });
 glurps.client.module.asset.list.map_records_to_cards_html = (function glurps$client$module$asset$list$map_records_to_cards_html(records,key_keyword,image_keyword,title_keyword,meta_keyword){
@@ -28,7 +28,7 @@ glurps.client.module.asset.list.vec_str_to_vec = (function glurps$client$module$
 return cljs.reader.read_string.call(null,vec_str);
 });
 glurps.client.module.asset.list.fetch_actor = (function glurps$client$module$asset$list$fetch_actor(page,limit){
-return ajax.core.GET.call(null,["http://localhost:3000/api?col=","actor","&page=",cljs.core.str.cljs$core$IFn$_invoke$arity$1(page),"&limit=",cljs.core.str.cljs$core$IFn$_invoke$arity$1(limit)].join(''),new cljs.core.Keyword(null,"handler","handler",-195596612),(function (response){
+return ajax.core.GET.call(null,["http://localhost:3000/api?ctx=","actor","&page=",cljs.core.str.cljs$core$IFn$_invoke$arity$1(page),"&limit=",cljs.core.str.cljs$core$IFn$_invoke$arity$1(limit)].join(''),new cljs.core.Keyword(null,"handler","handler",-195596612),(function (response){
 var cards = glurps.client.module.asset.list.map_records_to_cards_html.call(null,glurps.client.module.asset.list.vec_str_to_vec.call(null,response),new cljs.core.Keyword(null,"id","id",-1388402092),new cljs.core.Keyword(null,"picture","picture",-921943404),new cljs.core.Keyword(null,"name","name",1843675177),new cljs.core.Keyword(null,"nationality","nationality",-539165719));
 return cljs.core.swap_BANG_.call(null,glurps.client.module.asset.list.state,cljs.core.update_in,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"records","records",1326822832)], null),((function (cards){
 return (function (v){
@@ -38,7 +38,7 @@ return cards;
 }));
 });
 glurps.client.module.asset.list.fetch_user = (function glurps$client$module$asset$list$fetch_user(page,limit){
-return ajax.core.GET.call(null,["http://localhost:3000/api?col=","user","&page=",cljs.core.str.cljs$core$IFn$_invoke$arity$1(page),"&limit=",cljs.core.str.cljs$core$IFn$_invoke$arity$1(limit)].join(''),new cljs.core.Keyword(null,"handler","handler",-195596612),(function (response){
+return ajax.core.GET.call(null,["http://localhost:3000/api?ctx=","user","&page=",cljs.core.str.cljs$core$IFn$_invoke$arity$1(page),"&limit=",cljs.core.str.cljs$core$IFn$_invoke$arity$1(limit)].join(''),new cljs.core.Keyword(null,"handler","handler",-195596612),(function (response){
 var cards = glurps.client.module.asset.list.map_records_to_cards_html.call(null,glurps.client.module.asset.list.vec_str_to_vec.call(null,response),new cljs.core.Keyword(null,"id","id",-1388402092),new cljs.core.Keyword(null,"image","image",-58725096),new cljs.core.Keyword(null,"email","email",1415816706),new cljs.core.Keyword(null,"id","id",-1388402092));
 return cljs.core.swap_BANG_.call(null,glurps.client.module.asset.list.state,cljs.core.update_in,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"user-records","user-records",146002922)], null),((function (cards){
 return (function (v){
@@ -118,4 +118,4 @@ glurps.client.module.asset.list.init_BANG_ = (function glurps$client$module$asse
 return glurps.client.module.asset.list.mount_root.call(null);
 });
 
-//# sourceMappingURL=list.js.map?rel=1525457308421
+//# sourceMappingURL=list.js.map?rel=1525457787782

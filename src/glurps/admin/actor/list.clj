@@ -50,7 +50,9 @@
        [:div (str "Session:" session)]]
       [:div 
        (crud-nav/get-html disable?)
-       (crud-filter/get-html columns (merge setting/default-params params) (:filter-fields setting/list-conf))
+       (crud-filter/get-html 
+        columns
+        (merge setting/default-params params))
        ;; (crud-list/get-list-option-html path offset limit count)
        
        (if (= display "list")

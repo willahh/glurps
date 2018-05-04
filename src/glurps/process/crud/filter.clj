@@ -20,7 +20,7 @@
                         (when (= name value) {:checked true}
                               {:checked "true"})) label]])
 
-(defn get-html [columns params filter-fields]
+(defn get-html [columns params]
   [:form {:class "ui basic modal" :action "" :method "post"}
    [:div.content
     [:table {:class "ui definition table"}

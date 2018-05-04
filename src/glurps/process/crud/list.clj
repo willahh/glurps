@@ -1,5 +1,7 @@
 (ns glurps.process.crud.list
   (:require [glurps.admin.main :as main]
+            [glurps.process.crud.nav :as crud-nav]
+            [glurps.process.crud.filter :as crud-filter]
             [glurps.process.html.html :as html-helper]
             [glurps.process.field.field :as field]
             [glurps.component.card.card :as card]))
@@ -101,3 +103,86 @@
                                :title (:name record)
                                :meta (:age record)}) records)]
       (card/cards-html card-records))))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(defn in? 
+  "True if coll contains elm."
+  [coll elm]  
+  (some #(= elm %) coll))
+
+(defn- map-fields-to-column [fields]
+  (into [] (map #(:name %) fields)))
+
+(defn get-visible-columns [columns visible-columns visible-columns-default]
+  (let [cols (filter (fn [col]
+                       (in? visible-columns col)) columns)]
+    (if (zero? (count cols)) 
+      visible-columns-default
+      cols)))
+
+(defn get-html-wrapper [session params list-conf disable? count get-list get-list-disable]
+  (let [field-id (:field-id list-conf)
+        path (:path list-conf)
+        columns (map-fields-to-column (:fields list-conf))
+        visible-columns (get-visible-columns columns
+                                             (:columns params)
+                                             (:columns (:default-params list-conf)))
+        page (if (:page params) 
+               (Integer. (:page params))
+               (Integer. (:page (:default-params list-conf))))
+        limit (if (:limit params) 
+                (Integer. (:limit params))
+                (Integer. (:limit (:default-params list-conf))))
+        field-order (if (:order params)
+                      (:order params) field-id)
+        field-asc (if (:asc params)
+                    (Integer. (:asc params)) true)
+        offset (get-pagination-offset page limit count)
+        records (if disable?
+                  (get-list-disable params offset limit)
+                  (get-list (merge {:active 1} params) offset limit))]
+    (main/get-html
+     [:div 
+      [:div session]
+      ;; (assoc session :count 2)
+      ;; (assoc :session (assoc session :identity "foo"))
+      [:h2 (:title list-conf)]
+      [:div 
+       [:div (str "debug params:" (pr-str params))]
+       [:div (str "debug session:" session)]
+       ]
+      [:div 
+       (crud-nav/get-html disable?)
+       (crud-filter/get-html columns
+                             (merge (:default-params list-conf) params))
+       ;; (crud-list/get-list-option-html path offset limit count)
+       (get-html field-id
+                 visible-columns
+                 records
+                 field-order
+                 field-asc
+                 list-conf)
+       ;; (crud-list/get-list-option-html path offset limit count)
+       ]])))

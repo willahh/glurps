@@ -1,4 +1,4 @@
-(ns glurps.model.user.asset-model)
+(ns glurps.model.asset.asset-model)
 
 (def fields '(^Integer id
               ^Integer active
