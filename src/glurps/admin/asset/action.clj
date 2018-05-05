@@ -10,10 +10,12 @@
   (response/redirect "../../asset"))
 
 (defn insert [params]
-  (crud-update/handle-insert setting/list-conf params "../../asset" asset-model/make asset-dao/insert))
+  (crud-update/handle-insert
+   setting/list-conf params "../../asset" asset-model/make asset-dao/insert))
 
 (defn update [params]
-  (crud-update/handle-update setting/list-conf params "../../asset" asset-model/make asset-dao/update!))
+  (crud-update/handle-update
+   setting/list-conf params "../../asset" asset-model/make asset-dao/update!))
 
 (defn enable [id]
   (Thread/sleep 2000)

@@ -1,47 +1,54 @@
 (ns glurps.admin.user.route
   (:require [compojure.core :refer [defroutes ANY GET POST]]
-            [glurps.admin.index :as admin-list]
-            [glurps.admin.user.list :as admin-user-list]
-            [glurps.admin.user.action :as admin-user-action]
-            [glurps.admin.user.show :as admin-user-show]
-            [glurps.admin.user.update :as admin-user-update]))
+            [glurps.admin.user.html :as html]
+            [glurps.admin.user.action :as action]))
 
 (defroutes admin-user-route
-  (GET "/admin/user"       request (admin-user-list/get-html request))
-  (POST "/admin/user"      request (admin-user-list/get-html request)) 
-  (GET "/admin/user/trash" request (admin-user-list/get-html request :disable? true)) 
-  (POST "/admin/user/trash" request (admin-user-list/get-html request :disable? true)) 
-  
-  ;; Show
-  (GET "/admin/user/show/:id" [id] (admin-user-show/get-html id))
-  
-  ;; Update / Insert
+  ;; List / show / update / insert
+  (GET "/admin/user"
+       request
+       (html/list-html request))
+  (POST "/admin/user"
+        request
+        (html/list-html request)) 
+  (GET "/admin/user/trash"
+       request
+       (html/list-html request :disable? true)) 
+  (POST "/admin/user/trash"
+        request
+        (html/list-html request :disable? true)) 
+  (GET "/admin/user/show/:id" 
+       [id]
+       (html/show-html id))
   (GET "/admin/user/update/:id"
        [id]
-       (admin-user-update/get-html id))
+       (html/update-html id))
   (POST "/admin/user/update/:id"
         {params :params}
-        (admin-user-update/handle-update params))
+        (action/update params))
   (GET "/admin/user/insert"
        [id]
-       (admin-user-update/get-html-insert id))
+       (html/insert-html id))
+  (POST "/admin/user/insert"
+        {params :params}
+        (action/insert params))
   
-  ;; Action
+  ;; Actions
   (GET "/admin/user/fav/:id"
        [id]
-       (admin-user-action/fav id))
+       (action/fav id))
   (GET "/admin/user/unfav/:id"
        [id]
-       (admin-user-action/unfav id))
+       (action/unfav id))
   (GET "/admin/user/duplicate"
        []
-       (admin-user-action/duplicate))
+       (action/duplicate))
   (GET "/admin/user/delete/:id" 
        [id]
-       (admin-user-action/delete id))
+       (action/delete id))
   (GET "/admin/user/disable/:id" 
        [id]
-       (admin-user-action/disable id))
+       (action/disable id))
   (GET "/admin/user/enable/:id" 
        [id]
-       (admin-user-action/enable id)))
+       (action/enable id)))

@@ -23,6 +23,6 @@
 (defn get-fields []
   (into [] (map #(str %)) fields))
 
-(defn make-user
+(defn make
   [{:keys [id active date_create date_update login email password first_name last_name]}]
   (->User id active date_create date_update login email password first_name last_name))
