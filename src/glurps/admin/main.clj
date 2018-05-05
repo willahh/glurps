@@ -10,6 +10,7 @@
 (def main-nav-rows [{:label "Home" :href "/admin"}
                     {:label "Actor" :href "/admin/actor"}
                     {:label "Users" :href "/admin/user"}
+                    {:label "Groups" :href "/admin/group"}
                     {:label "Asset" :href "/admin/asset"}
                     {:label "Glurps" :href "/glurps" :info "Glurps some data from Allocine"}                    
                     {:label "Database manager" :href (config/get :database-manager-url)}

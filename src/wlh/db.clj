@@ -1,5 +1,6 @@
 (ns wlh.db
   (:require [clojure.java.jdbc :as jdbc]
+            [glurps.config :as config]
             [honeysql.core :as sql]
             [wlh.logger :as logger]))
 
