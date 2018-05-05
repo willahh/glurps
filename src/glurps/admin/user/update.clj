@@ -1,5 +1,6 @@
 (ns glurps.admin.user.update
-  (:require [wlh.validation :as validation]
+  (:require [glurps.admin.user.setting :as setting]
+            [wlh.validation :as validation]
             [glurps.config :as config]
             [glurps.admin.main :as main]
             [glurps.admin.user.list :as list]
@@ -34,12 +35,16 @@
             {:name "birthdate" :type "string" :validator valid-birthdate?}
             {:name "picture" :type "picture" :validator valid-picture?}]})
 
+
 (defn get-html [id]
-  (main/get-html
-   [:div (pr-str id)
-    (let [user-record (user-dao/find-by-id id)]
-      (crud-update/get-html user-record
-                            view-layout))]))
+  (let [record (user-dao/find-by-id id)]
+    (main/admin-page-html-wrapper
+     setting/list-conf
+     main/module-type-edit
+     (crud-update/get-html record
+                           (:fields setting/list-conf))
+     [record])))
+
 
 (defn get-html-insert [id]
   (main/get-html
@@ -60,6 +65,9 @@
       (let [user-record (user-model/make-user raw-data)]
         (user-dao/update! (into {} (filter second user-record))
                           [(str "id = " id)]))))
+
+
+
 
 (defn handle-insert [params]
   (main/get-html

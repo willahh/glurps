@@ -4,7 +4,7 @@
 
 (def list-conf
   {:path "/admin/user"
-   :module_name "user"
+   :module-name "user"
    :field-id "id"
    :field-label "email"
    :field-image ""

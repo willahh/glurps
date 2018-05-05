@@ -7,8 +7,12 @@
             [glurps.model.user.user-dao :as user-dao]))
 
 (defn get-html [id]
-  (main/get-html
-   (let [user-record (user-dao/find-by-id id)]
-     (crud-show/get-html (:columns setting/list-conf)
-                         user-record
-                         (:fields setting/list-conf)))))
+  (let [record (user-dao/find-by-id id)
+        columns (into [] (map #(:name %) (:fields setting/list-conf)))]
+    (main/admin-page-html-wrapper
+     setting/list-conf
+     main/module-type-show
+     (crud-show/get-html columns
+                         record
+                         (:fields setting/list-conf))
+     [record])))

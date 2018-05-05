@@ -16,5 +16,3 @@
                          record
                          (:fields setting/list-conf))
      [record])))
-
-(get-html 1)

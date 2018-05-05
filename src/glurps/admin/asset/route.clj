@@ -1,50 +1,54 @@
 (ns glurps.admin.asset.route
   (:require [compojure.core :refer [defroutes ANY GET POST]]
-            [glurps.admin.index :as admin-list]
-            [glurps.admin.asset.list :as admin-asset-list]
-            [glurps.admin.asset.action :as admin-asset-action]
-            [glurps.admin.asset.show :as admin-asset-show]
-            [glurps.admin.asset.update :as admin-asset-update]))
+            [glurps.admin.asset.html :as html]
+            [glurps.admin.asset.action :as action]))
 
 (defroutes admin-asset-route
-  (GET "/admin/asset"       request (admin-asset-list/get-html request))
-  (POST "/admin/asset"      request (admin-asset-list/get-html request)) 
-  (GET "/admin/asset/trash" request (admin-asset-list/get-html request :disable? true)) 
-  (POST "/admin/asset/trash" request (admin-asset-list/get-html request :disable? true)) 
-  
-  ;; Show
-  (GET "/admin/asset/show/:id" [id] (admin-asset-show/get-html id))
-  
-  ;; Update / Insert
+  ;; List / show / update / insert
+  (GET "/admin/asset"
+       request
+       (html/list-html request))
+  (POST "/admin/asset"
+        request
+        (html/list-html request)) 
+  (GET "/admin/asset/trash"
+       request
+       (html/list-html request :disable? true)) 
+  (POST "/admin/asset/trash"
+        request
+        (html/list-html request :disable? true)) 
+  (GET "/admin/asset/show/:id" 
+       [id]
+       (html/show-html id))
   (GET "/admin/asset/update/:id"
        [id]
-       (admin-asset-update/get-html id))
+       (html/update-html id))
   (POST "/admin/asset/update/:id"
         {params :params}
-        (admin-asset-update/handle-update params))
+        (action/update params))
   (GET "/admin/asset/insert"
        [id]
-       (admin-asset-update/get-html-insert id))
+       (html/insert-html id))
   (POST "/admin/asset/insert"
         {params :params}
-        (admin-asset-update/handle-insert params))
+        (action/insert params))
   
-  ;; Action
+  ;; Actions
   (GET "/admin/asset/fav/:id"
        [id]
-       (admin-asset-action/fav id))
+       (action/fav id))
   (GET "/admin/asset/unfav/:id"
        [id]
-       (admin-asset-action/unfav id))
+       (action/unfav id))
   (GET "/admin/asset/duplicate"
        []
-       (admin-asset-action/duplicate))
+       (action/duplicate))
   (GET "/admin/asset/delete/:id" 
        [id]
-       (admin-asset-action/delete id))
+       (action/delete id))
   (GET "/admin/asset/disable/:id" 
        [id]
-       (admin-asset-action/disable id))
+       (action/disable id))
   (GET "/admin/asset/enable/:id" 
        [id]
-       (admin-asset-action/enable id)))
+       (action/enable id)))
