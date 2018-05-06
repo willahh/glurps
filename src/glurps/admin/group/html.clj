@@ -16,6 +16,7 @@
                               group-dao/get-list
                               group-dao/get-list-disable))
 
+
 (defn show-html [id]
   (let [record (group-dao/find-by-id id)
         records (:fields setting/list-conf)]
@@ -29,7 +30,9 @@
       (let [records (user-dao/find-user-list-from-group-id {:active 1} (Integer. id) 0 10)]         
         [:div 
          [:h2 "Users"]
-         (crud-list/get-html (:fields user-setting/list-conf)
+         (crud-list/get-html (filter (fn [record]
+                                       (when (not= (:name record) "group_name") record))
+                                     (:fields user-setting/list-conf))
                              records
                              "login"
                              1

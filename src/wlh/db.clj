@@ -40,6 +40,4 @@
 (defn query [db sql-map offset limit]
   (let [query (sql/format (sql/build sql-map :offset offset :limit limit))]
     (logger/info (str "[db]" query))
-    (try (jdbc/query db query)
-         (catch Exception e
-           "a"))))
+    (jdbc/query db query)))

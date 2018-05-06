@@ -14,7 +14,7 @@
                               user-dao/get-list
                               user-dao/get-list-disable))
 
-;; (list-html {:params {}})
+(list-html {:params {:fav 1}})
 (user-dao/get-list (merge {:active 1} {}) 0 100)
 
 (defn show-html [id]

@@ -34,12 +34,6 @@
         {:where
          (into [] (cons :and and-clean))}))))
 
-
-
-;; (defn get-list [params offset limit]
-;;   (let [clause (db/get-clause-from-params params (get-clauses params))]
-;;     ))
-
 (defn get-list [params offset limit]
   (let [clause (db/get-clause-from-params params (get-clauses params))]
     (db/query (config/get :db-spec)
@@ -52,22 +46,6 @@
 
                                   [:glu_group :g]
                                   [:= :ug.group_id :g.id]]}) offset limit)))
-
-;; (defn get-list [params offset limit]
-;;   (let [clause (db/get-clause-from-params params (get-clauses params))]
-;;     ))
-
-;; SELECT user.id, user.active, user.date_create, user.date_update, user.login, user.password, user.first_name, user.last_name, user.email, ug.group_id, g.name
-;; FROM glu_user user
-;; LEFT JOIN glu_user_group ug on user.id = ug.user_id
-;; LEFT JOIN glu_group g on ug.group_id = g.id
-;; LIMIT 50
-
-
-
-
-
-
 
 (defn find-by-id [id]
   (first (db/query-old (config/get :db-spec) (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"id\" = '" id "'"))))
@@ -108,9 +86,13 @@
               {:fav 0} [(str "id = " id)]))
 
 (defn find-user-list-from-group-id [params group-id offset limit]
-  (let [sql-map (db/get-sql-map-from-params (:table-name schema) params (get-clauses params))]
+  (let [clause (db/get-clause-from-params params (get-clauses params))]
     (filter #(= (:group_id %) group-id)
             (db/query (config/get :db-spec)
-                      (conj sql-map {:join [:glu_user_group [:= :glu_user.id :user_id]]})
+                      (conj 
+                       {:select [:user.id :user.active :user.date_create :user.login :user.password :user.first_name :user.last_name :user.email :ug.group_id]
+                        :from [[:glu_user :user]]}
+                       ;; clause
+                       {:join [[:glu_user_group :ug] [:= :user.id :user_id]]})
                       offset
                       limit))))
