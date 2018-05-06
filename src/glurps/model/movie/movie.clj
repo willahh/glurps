@@ -2,7 +2,7 @@
   (:require [glurps.config :as config]
             [wlh.db :as db]))
 
-(def table-name "movie")
+(def table-name "glu_movie")
 (def cols ["id" "alloid" "title" "description" "date" "director" "actors" "genre" "image" "notepress" "notespectator"])
 (def cols-to-insert (filter #(not= % "id") cols))
 

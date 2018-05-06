@@ -4,7 +4,7 @@
             [glurps.model.user.user-model :as user-model]))
 
 (def schema
-  {:table-name "user"
+  {:table-name "glu_user"
    :cols (user-model/get-fields)})
 
 (defn- bool-to-int [bool]
@@ -76,3 +76,12 @@
   "Unset record to favorite"
   (db/update! (config/get :db-spec) (schema :table-name) 
               {:fav 0} [(str "id = " id)]))
+
+(defn find-user-list-from-group-id [params group-id offset limit]
+  (let [sql-map (db/get-sql-map-from-params (:table-name schema) params (get-clauses params))]
+    (db/query (config/get :db-spec)
+              {:select [ :* ],
+               :from [ :glu_user ]
+               :join [:glu_user_group [:= :glu_user.id :glu_user_group.user_id]]}
+              offset
+              limit)))

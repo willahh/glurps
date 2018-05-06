@@ -20,11 +20,8 @@
 (defn- get-head []
   [:head
    [:title "Glurps! Administration"]
-   ;; (page/include-css "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css")
    (page/include-css "https://fonts.googleapis.com/icon?family=Material+Icons")   
    (page/include-js "https://code.jquery.com/jquery-3.1.1.min.js")
-   ;; (page/include-css "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js")
-   ;; (page/include-css "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js")
    (page/include-js "/semantic/dist/semantic.min.js")
    (page/include-js "/js/main.js")
    (page/include-css "/semantic/dist/semantic.min.css")
@@ -49,17 +46,12 @@
 
 (defn- get-page-header []
   [:div
-   ;; (get-main-nav-view-follow)
    [:div.ui {:class "ui inverted menu"}
     [:div {:class "header item"} "Glurps!"]
     [:div {:class "ui container"}
      (get-main-nav-view main-nav-rows)
      [:div {:class "right menu"}
       [:div {:class "item segment"}
-       ;; [:div {:class "ui action left icon input"}
-       ;;  [:i {:class "search icon"}]
-       ;;  [:input {:placeholder ""} "Search"]
-       ;;  [:button {:class "ui button"} "Submit"]]
        [:a {:class "ui inverted button"} "Log in"]
        [:a {:class "ui inverted button"} "Sign up"]]]]]])
 

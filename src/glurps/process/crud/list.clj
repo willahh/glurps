@@ -4,7 +4,13 @@
             [glurps.process.crud.filter :as crud-filter]
             [glurps.process.html.html :as html-helper]
             [glurps.process.field.field :as field]
-            [glurps.component.card.card :as card]))
+            [glurps.component.card.card :as card]
+            [glurps.admin.user.setting :as user-setting]))
+
+(defn in? 
+  "True if coll contains elm."
+  [coll elm]  
+  (some #(= elm %) coll))
 
 (defn- get-url [url id]
   (clojure.string/replace url #"\{id\}" (str id)))
@@ -41,12 +47,10 @@
    [:div {:class "col-sm-6"} (get-bulk-action-html)]
    [:div {:class "col-sm-6"} (get-pagination path offset limit total)]])
 
-(defn get-action-html [module-name record & disable?]
+(defn get-action-html [module-name record]
   [:span
    [:a {:href (str "/admin/" module-name "/show/" (:id record)) :class "btn" :title "Info"} "<i class=\"material-icons\">info</i>"]
    [:a {:href (str "/admin/" module-name "/update/" (:id record)) :class "btn" :title "Edit"} "<i class=\"material-icons\">mode_edit</i>"]
-   ;; [:a {:href (str "/admin/" module-name "/up/" (:id record)) :class "btn"} "<i class=\"material-icons\">keyboard_arrow_up</i>"]
-   ;; [:a {:href (str "/admin/" module-name "/down/" (:id record)) :class "btn"} "<i class=\"material-icons\">keyboard_arrow_down</i>"]
    [:a {:href (str "/admin/" module-name "/duplicate/" (:id record)) :class "btn" :title "Duplicate"} "<i class=\"material-icons\">content_copy</i>"]
    (if (= (:fav record) 1)
      [:a {:href (str "/admin/" module-name "/unfav/" (:id record)) :class "btn" :title "Add to favorite"} "<i class=\"material-icons\">favorite</i>"]
@@ -62,37 +66,39 @@
     [:div "<i class=\"material-icons\" style=\"font-size: 114px;\">web</i>"]]])
 
 (defn get-column-html [field field-order field-asc]
-  (let [url (str "?order=" field 
-                 (if (= field field-order)
+  (let [field-name (:name field)
+        url (str "?order=" field-name 
+                 (if (= field-name field-order)
                    (if (= field-asc 1) "&asc=0" "&asc=1")
                    "&asc=1"))]
     [:div {:class "col"}
      [:a {:style "white-space:nowrap; vertical-align: middle;" :href url}
-      (when (= field field-order) 
+      (when (= field-name field-order) 
         (if (= field-asc 1)
           [:span {:style "vertical-align: middle;"} "<i class='material-icons'>arrow_downward</i>"]
           [:span {:style "vertical-align: middle;"} "<i class='material-icons'>arrow_upward</i>"]))
-      [:span {:class "val"}  field]]]))
+      [:span {:class "val"} field-name]]]))
 
-(defn get-html [field-id columns records field-order field-asc & list-conf]
+(defn get-html [fields records field-order field-asc list-conf list-action-html-fn]
   (if (= 0 (count records))
     (get-empty-result-html)
     [:table {:class "ui celled striped table"}
      [:thead
       [:tr
        [:th [:input {:type "checkbox"}]]
-       (for [column columns]
-         [:th (get-column-html column field-order field-asc)])
+       (for [field fields]
+         [:th (get-column-html field field-order field-asc)])
        [:th "actions"]]]
      [:tbody
       (for [record records]          
         [:tr
          [:td [:input {:type "checkbox"}]]
-         (for [column columns]
+         (for [field fields]
            [:td
-            (field/get-field-html2 column record (:fields (first list-conf)) true)])
+            (field/get-field-html2 field record fields true)])
          [:td
-          (get-action-html (:module-name (first list-conf)) record)]])]]))
+          (when list-action-html-fn
+            (list-action-html-fn (:module-name list-conf) record))]])]]))
 
 (defn get-html-thumb [field-id columns records field-order field-asc list-conf]
   (if (= 0 (count records))
@@ -127,26 +133,32 @@
 
 
 
-(defn in? 
-  "True if coll contains elm."
-  [coll elm]  
-  (some #(= elm %) coll))
+
 
 (defn- map-fields-to-column [fields]
   (into [] (map #(:name %) fields)))
 
 (defn get-visible-columns [columns visible-columns visible-columns-default]
-  (let [cols (filter (fn [col]
-                       (in? visible-columns col)) columns)]
+  (let [cols (filter (fn [field]
+                       (in? visible-columns (:name field))) columns)]
     (if (zero? (count cols)) 
       visible-columns-default
       cols)))
+
+(defn columns-to-fields [columns fields]
+  (filter (fn [field]
+            (in? columns (:name field))) fields))
+
+;; (columns-to-fields ["last_name" "login"] (:fields user-setting/list-conf))
 
 (defn get-html-wrapper [session params list-conf disable? count get-list get-list-disable]
   (let [field-id (:field-id list-conf)
         path (:path list-conf)
         columns (map-fields-to-column (:fields list-conf))
-        visible-columns (get-visible-columns columns
+        list-action-html-fn (if (:list-action-html-fn list-conf)
+                              (:list-action-html-fn list-conf)
+                              get-action-html)
+        visible-columns (get-visible-columns (map #(:name %) (:fields list-conf))
                                              (:columns params)
                                              (:columns (:default-params list-conf)))
         page (if (:page params) 
@@ -166,8 +178,6 @@
     (main/get-html
      [:div 
       [:div session]
-      ;; (assoc session :count 2)
-      ;; (assoc :session (assoc session :identity "foo"))
       [:h2 (:title list-conf)]
       [:div 
        [:div (str "debug params:" (pr-str params))]
@@ -178,11 +188,11 @@
        (crud-filter/get-html columns
                              (merge (:default-params list-conf) params))
        ;; (crud-list/get-list-option-html path offset limit count)
-       (get-html field-id
-                 visible-columns
+       (get-html (columns-to-fields visible-columns (:fields list-conf))
                  records
                  field-order
                  field-asc
-                 list-conf)
+                 list-conf
+                 list-action-html-fn)
        ;; (crud-list/get-list-option-html path offset limit count)
        ]])))

@@ -4,8 +4,9 @@
             [glurps.process.field.integer :as integer]
             [glurps.process.field.image :as image]))
 
-(defn get-field-html2 [field-name record fields read-only]
-  (let [field-conf (first (filter #(= (:name %) field-name) fields))
+(defn get-field-html2 [field record fields read-only]
+  (let [field-name (:name field)
+        field-conf (first (filter #(= (:name %) field-name) fields))
         value (when record (record (keyword field-name)))
         type (:type field-conf)]
     (cond (= type "string")

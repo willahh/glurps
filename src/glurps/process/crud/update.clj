@@ -44,15 +44,14 @@
     (response/redirect redirect-url)))
 
 (defn get-html [record fields]
-  (let [columns (into [] (map #(:name %) fields))]
-    [:form {:class "ui form" :action "" :method "POST"}
-     [:table {:class "ui definition table"}
-      [:tbody
-       (for [column columns]
-         [:tr 
-          [:td {:width 50} column]
-          [:td (field/get-field-html2 column record fields false)]])]]
-     [:div {:class "ui buttons sticky"}
-      [:a {:class "ui button" :href "../../actor"} "Cancel"]
-      [:div {:class "or"}]
-      [:button {:class "ui positive button" :type "submit"} "Save"]]]))
+  [:form {:class "ui form" :action "" :method "POST"}
+   [:table {:class "ui definition table"}
+    [:tbody
+     (for [field fields]
+       [:tr 
+        [:td {:width 50} (:name field)]
+        [:td (field/get-field-html2 field record fields false)]])]]
+   [:div {:class "ui buttons sticky"}
+    [:a {:class "ui button" :href "../../actor"} "Cancel"]
+    [:div {:class "or"}]
+    [:button {:class "ui positive button" :type "submit"} "Save"]]])

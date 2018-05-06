@@ -11,6 +11,7 @@
    :fields [{:name "id" :type "integer"}
             {:name "login" :type "string"}
             {:name "email" :type "string"}
+            {:name "group" :type "string"}
             {:name "first_name" :type "string"}
             {:name "last_name" :type "string"}
             {:name "date_create" :type "string"}

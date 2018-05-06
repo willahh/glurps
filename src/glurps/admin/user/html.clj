@@ -15,12 +15,11 @@
                               user-dao/get-list-disable))
 
 (defn show-html [id]
-  (let [record (user-dao/find-by-id id)
-        columns (into [] (map #(:name %) (:fields setting/list-conf)))]
+  (let [record (user-dao/find-by-id id)]
     (main/admin-page-html-wrapper
      setting/list-conf
      main/module-type-show
-     (crud-show/get-html columns
+     (crud-show/get-html (:fields setting/list-conf)
                          record
                          (:fields setting/list-conf))
      [record])))

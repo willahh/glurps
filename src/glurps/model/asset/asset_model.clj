@@ -27,8 +27,6 @@
 (defn get-fields []
   (into [] (map #(str %)) fields))
 
-(def table-name "asset")
-
 (defn make
   [{:keys [id active date_create date_update type file_name size width height title description]}]
   (->Asset id active date_create date_update type file_name size width height title description))

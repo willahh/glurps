@@ -5,7 +5,7 @@
 
 (def schema 
   "Map of the database schema."
-  {:table-name "asset"
+  {:table-name "glu_asset"
    :cols (asset-model/get-fields)})
 
 (defn- bool-to-int [bool]
@@ -30,14 +30,14 @@
 
 (defn get-list [params offset limit]
   (db/query (config/get :db-spec)
-            (db/get-sql-map-from-params asset-model/table-name params (get-clauses params))
+            (db/get-sql-map-from-params (:table-name schema) params (get-clauses params))
             offset
             limit))
 
 (defn get-list-disable [params offset limit]
   (db/query (config/get :db-spec)
             (db/get-sql-map-from-params 
-             asset-model/table-name
+             (:table-name schema)
              (merge params {:active 0})
              (get-clauses params))
             offset
@@ -82,4 +82,4 @@
 
 (defn count []
   (get-count (db/query-old (config/get :db-spec)
-                           (str "SELECT COUNT(*) FROM \"" asset-model/table-name "\""))))
+                           (str "SELECT COUNT(*) FROM \"" (:table-name schema) "\""))))

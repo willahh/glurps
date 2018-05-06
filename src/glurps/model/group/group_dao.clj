@@ -4,7 +4,7 @@
             [glurps.model.group.group-model :as group-model]))
 
 (def schema
-  {:table-name "user_group"
+  {:table-name "glu_group"
    :cols (group-model/get-fields)})
 
 (defn- bool-to-int [bool]
