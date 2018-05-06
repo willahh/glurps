@@ -1,14 +1,10 @@
 (ns glurps.model.movie.movie
-  (:require [wlh.db :as db]
-            [glurps.process.db.db-allocine :as db-allocine]))
+  (:require [glurps.config :as config]
+            [wlh.db :as db]))
 
-(def table-name "movie")
+(def table-name "glu_movie")
 (def cols ["id" "alloid" "title" "description" "date" "director" "actors" "genre" "image" "notepress" "notespectator"])
 (def cols-to-insert (filter #(not= % "id") cols))
 
-(defn insert [row]
-  "row is a map of database column name as key and database value as value"
-  (db-allocine/insert (keyword table-name) cols-to-insert row))
-
 (defn find-by-alloid [alloid]
-  (db/query-old db-allocine/db-spec (str "SELECT * FROM \"" table-name "\" WHERE \"alloid\" = '" alloid "'")))
+  (db/query-old (config/get :db-spec) (str "SELECT * FROM \"" table-name "\" WHERE \"alloid\" = '" alloid "'")))

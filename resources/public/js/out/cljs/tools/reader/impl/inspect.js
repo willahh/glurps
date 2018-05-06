@@ -126,8 +126,13 @@ return cljs.core.pr_str.call(null,cljs.core.type.call(null,x));
  * the inspection.
  */
 cljs.tools.reader.impl.inspect.inspect = (function cljs$tools$reader$impl$inspect$inspect(var_args){
+<<<<<<< HEAD
 var G__56682 = arguments.length;
 switch (G__56682) {
+=======
+var G__72322 = arguments.length;
+switch (G__72322) {
+>>>>>>> sqlite
 case 1:
 return cljs.tools.reader.impl.inspect.inspect.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -153,4 +158,8 @@ return cljs.tools.reader.impl.inspect.inspect_STAR_.call(null,truncate,x);
 cljs.tools.reader.impl.inspect.inspect.cljs$lang$maxFixedArity = 2;
 
 
+<<<<<<< HEAD
 //# sourceMappingURL=inspect.js.map?rel=1525389494290
+=======
+//# sourceMappingURL=inspect.js.map?rel=1525389572152
+>>>>>>> sqlite

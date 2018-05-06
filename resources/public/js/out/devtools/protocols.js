@@ -86,4 +86,8 @@ throw cljs.core.missing_protocol.call(null,"IFormat.-body",value);
 });
 
 
+<<<<<<< HEAD
 //# sourceMappingURL=protocols.js.map?rel=1525389484724
+=======
+//# sourceMappingURL=protocols.js.map?rel=1525389563770
+>>>>>>> sqlite

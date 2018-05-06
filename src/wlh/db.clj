@@ -1,7 +1,16 @@
 (ns wlh.db
   (:require [clojure.java.jdbc :as jdbc]
+            [glurps.config :as config]
             [honeysql.core :as sql]
             [wlh.logger :as logger]))
+
+(defn get-clause-from-params [params & clauses]
+  (conj {}
+        (when clauses (first clauses))
+        (when (:order params)
+          {:order-by [[(keyword (:order params))
+                       (if (= (:asc params) "1")
+                         :asc :desc)]]})))
 
 (defn get-sql-map-from-params [table-name params & clauses]
   "Takes a `params` map and returns a honeysql sql-map.
@@ -9,30 +18,26 @@
   (conj {}
         {:select [:*]}
         {:from [(keyword table-name)]}
-        (when clauses (first clauses))
-        (when (:order params)
-          {:order-by [[(keyword (:order params))
-                       (if (= (:asc params) "1")
-                         :asc :desc)]]})))
+        (get-clause-from-params params (first clauses))))
 
-(defmacro query-old [db-spec sql-params]
+(defmacro query-old [db sql-params]
   "Do a query with jdbc, log the request"
   `(let [query# ~sql-params]
      (logger/info (str "[db] " query#))
-     (jdbc/query ~db-spec query#)))
+     (jdbc/query ~db query#)))
 
-(defn insert [db-spec table cols row]
+(defn insert [db table cols row]
   (let [rows (into [] (map (fn [col]
                              (row (keyword col))) cols))]
-    (jdbc/insert! db-spec table cols rows)))
+    (jdbc/insert! db table cols rows)))
 
-(defn update! [db-spec table set-map where-clause]
-  (jdbc/update! db-spec table set-map where-clause))
+(defn update! [db table set-map where-clause]
+  (jdbc/update! db table set-map where-clause))
 
-(defn delete [db-spec table-name id]
-  (jdbc/delete! db-spec table-name [(str "id = " id)]))
+(defn delete [db table-name id]
+  (jdbc/delete! db table-name [(str "id = " id)]))
 
-(defn query [db-spec sql-map offset limit]
+(defn query [db sql-map offset limit]
   (let [query (sql/format (sql/build sql-map :offset offset :limit limit))]
     (logger/info (str "[db]" query))
-    (jdbc/query db-spec query)))
+    (jdbc/query db query)))

@@ -5,5 +5,10 @@
            :upload-filepath "/Users/willahh/www/projects/clojure/glurps/src/glurps/upload/"
            :upload-path "http://localhost/projects/clojure/glurps/upload/"
            :root-filepath "/Users/willahh/www/projects/clojure/glurps/src/glurps/"
-           :database-manager-url "http://localhost/projects/clojure/glurps/resources/databases/?sqlite=&username=root&db=allocine.db"
-           :database-allocine "/Users/willahh/www/projects/clojure/glurps/resources/databases/allocine.db"})
+           
+           ;; db
+           :db-spec {:classname "org.sqlite.JDBC"
+                     :subprotocol "sqlite"
+                     :subname "/Users/willahh/www/projects/clojure/glurps/resources/databases/allocine.db"}
+           :db-name "/Users/willahh/www/projects/clojure/glurps/resources/databases/allocine.db"
+           :database-manager-url "http://localhost/projects/clojure/glurps/resources/databases/?sqlite=&username=root&db=allocine.db"})

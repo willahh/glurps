@@ -3,5 +3,5 @@
             [glurps.client.module.asset.list :as list]))
 
 (defroutes client-asset-route
-  (GET "/admin/asset"
+  (GET "/asset"
        request (list/html request)))

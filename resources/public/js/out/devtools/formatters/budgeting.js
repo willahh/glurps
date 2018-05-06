@@ -61,16 +61,28 @@ throw (new Error("Assert failed: (not (neg? depth-budget))"));
 var data = cljs.core.second.call(null,object_reference);
 var _ = ((cljs.core.object_QMARK_.call(null,data))?null:(function(){throw (new Error("Assert failed: (object? data)"))})());
 var config = (data["config"]);
+<<<<<<< HEAD
 var G__55195 = data;
 var target__22058__auto__ = G__55195;
 if(cljs.core.truth_(target__22058__auto__)){
 } else {
 throw (new Error(["Assert failed: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(["unable to locate object path ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(null)," in ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(G__55195)].join('')),"\n","target__22058__auto__"].join('')));
+=======
+var G__71513 = data;
+var target__22058__auto__ = G__71513;
+if(cljs.core.truth_(target__22058__auto__)){
+} else {
+throw (new Error(["Assert failed: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(["unable to locate object path ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(null)," in ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(G__71513)].join('')),"\n","target__22058__auto__"].join('')));
+>>>>>>> sqlite
 }
 
 (target__22058__auto__["config"] = devtools.formatters.state.set_depth_budget.call(null,config,depth_budget));
 
+<<<<<<< HEAD
 return G__55195;
+=======
+return G__71513;
+>>>>>>> sqlite
 });
 devtools.formatters.budgeting.distribute_budget_BANG_ = (function devtools$formatters$budgeting$distribute_budget_BANG_(json_ml,depth_budget){
 if(!((depth_budget < (0)))){
@@ -79,6 +91,7 @@ throw (new Error("Assert failed: (not (neg? depth-budget))"));
 }
 
 if(cljs.core.array_QMARK_.call(null,json_ml)){
+<<<<<<< HEAD
 var new_depth_budget_55200 = (depth_budget - (1));
 if(cljs.core.truth_(devtools.formatters.budgeting.object_reference_QMARK_.call(null,json_ml))){
 devtools.formatters.budgeting.transfer_remaining_depth_budget_BANG_.call(null,json_ml,new_depth_budget_55200);
@@ -130,6 +143,59 @@ seq__55196_55201 = G__55218;
 chunk__55197_55202 = G__55219;
 count__55198_55203 = G__55220;
 i__55199_55204 = G__55221;
+=======
+var new_depth_budget_71518 = (depth_budget - (1));
+if(cljs.core.truth_(devtools.formatters.budgeting.object_reference_QMARK_.call(null,json_ml))){
+devtools.formatters.budgeting.transfer_remaining_depth_budget_BANG_.call(null,json_ml,new_depth_budget_71518);
+} else {
+var seq__71514_71519 = cljs.core.seq.call(null,json_ml);
+var chunk__71515_71520 = null;
+var count__71516_71521 = (0);
+var i__71517_71522 = (0);
+while(true){
+if((i__71517_71522 < count__71516_71521)){
+var item_71523 = cljs.core._nth.call(null,chunk__71515_71520,i__71517_71522);
+devtools.formatters.budgeting.distribute_budget_BANG_.call(null,item_71523,new_depth_budget_71518);
+
+
+var G__71524 = seq__71514_71519;
+var G__71525 = chunk__71515_71520;
+var G__71526 = count__71516_71521;
+var G__71527 = (i__71517_71522 + (1));
+seq__71514_71519 = G__71524;
+chunk__71515_71520 = G__71525;
+count__71516_71521 = G__71526;
+i__71517_71522 = G__71527;
+continue;
+} else {
+var temp__5457__auto___71528 = cljs.core.seq.call(null,seq__71514_71519);
+if(temp__5457__auto___71528){
+var seq__71514_71529__$1 = temp__5457__auto___71528;
+if(cljs.core.chunked_seq_QMARK_.call(null,seq__71514_71529__$1)){
+var c__4319__auto___71530 = cljs.core.chunk_first.call(null,seq__71514_71529__$1);
+var G__71531 = cljs.core.chunk_rest.call(null,seq__71514_71529__$1);
+var G__71532 = c__4319__auto___71530;
+var G__71533 = cljs.core.count.call(null,c__4319__auto___71530);
+var G__71534 = (0);
+seq__71514_71519 = G__71531;
+chunk__71515_71520 = G__71532;
+count__71516_71521 = G__71533;
+i__71517_71522 = G__71534;
+continue;
+} else {
+var item_71535 = cljs.core.first.call(null,seq__71514_71529__$1);
+devtools.formatters.budgeting.distribute_budget_BANG_.call(null,item_71535,new_depth_budget_71518);
+
+
+var G__71536 = cljs.core.next.call(null,seq__71514_71529__$1);
+var G__71537 = null;
+var G__71538 = (0);
+var G__71539 = (0);
+seq__71514_71519 = G__71536;
+chunk__71515_71520 = G__71537;
+count__71516_71521 = G__71538;
+i__71517_71522 = G__71539;
+>>>>>>> sqlite
 continue;
 }
 } else {
@@ -179,4 +245,8 @@ return json_ml;
 }
 });
 
+<<<<<<< HEAD
 //# sourceMappingURL=budgeting.js.map?rel=1525389490541
+=======
+//# sourceMappingURL=budgeting.js.map?rel=1525389569796
+>>>>>>> sqlite

@@ -1,7 +1,0 @@
-{:root-url "http://www.allocine.fr"
- :root-path "http://localhost:3000/glurps/"
- :upload-filepath "/Users/user/glurps/upload/"
- :upload-path "http://localhost/glurps/upload/"
- :root-filepath "/Users/user/glurps/"
- :database-manager-url "http://localhost/glurps/resources/databases/?sqlite=&username=root&db=allocine.db"
- :database-allocine "/Users/user/glurps/resources/databases/allocine.db"}

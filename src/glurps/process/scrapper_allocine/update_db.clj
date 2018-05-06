@@ -6,15 +6,22 @@
 
 (defn insert-movie [alloid]
   (let [movie-row-data (scrapper-movie/get-fields-from-id alloid)]
-    (model-movie/insert {:actors "TODO"
-                         :genre "TODO"
-                         :date (movie-row-data :date)
-                         :alloid (movie-row-data :id)
-                         :notespectator ((movie-row-data :note) :spectator)
-                         :title (movie-row-data :title)
-                         :description (movie-row-data :description)
-                         :director (movie-row-data :director)
-                         :notepress ((movie-row-data :note) :presse)})))
+    
+    
+    ;; TODO EN commentaire pour le moment, passer par l api
+    ;; (model-movie/insert {:actors "TODO"
+    ;;                      :genre "TODO"
+    ;;                      :date (movie-row-data :date)
+    ;;                      :alloid (movie-row-data :id)
+    ;;                      :notespectator ((movie-row-data :note) :spectator)
+    ;;                      :title (movie-row-data :title)
+    ;;                      :description (movie-row-data :description)
+    ;;                      :director (movie-row-data :director)
+    ;;                      :notepress ((movie-row-data :note) :presse)})
+    
+    
+    
+    ))
 
 (defn insert-into-model-movie-from-movie-row-data [movie-row-data]
   "Take a movie-row-data retrieved from html and insert into movie_actor relation table"
@@ -23,27 +30,11 @@
                           (map #(% :id) actors))
           movie-id (movie-row-data :id)]
       (for [actor-id actor-id-list]
-        (model-movie-actor/insert {:movie_id movie-id
-                                   :actor_id actor-id})))))
-
-
-
-
-
-
-
-
-
-;; (def movie-data {:genre ["Science fiction" "Action"],
-;;                  :description "Ready Player One",
-;;                  :date "28 mars 2018",
-;;                  :director "Steven Spielberg",
-;;                  :title "Ready Player One",
-;;                  :note {:presse 0.8400000000000001, :spectator 0.8400000000000001},
-;;                  :actors ["Tye Sheridan" "Olivia Cooke" "Ben Mendelsohn" "Lena Waithe"],
-;;                  :id "229831",
-;;                  :image
-;;                  "http://fr.web.img5.acsta.net/c_215_290/pictures/18/02/14/09/15/3437390.jpg"})
-
-;; (:actors movie-data)
-;; (scrapper-movie/get-fields-from-id "229831")
+        ""
+        
+        ;; TODO EN commentaire pour le moment, passer par l api        
+        ;; (model-movie-actor/insert {:movie_id movie-id
+        ;; :actor_id actor-id})
+        
+        
+        ))))

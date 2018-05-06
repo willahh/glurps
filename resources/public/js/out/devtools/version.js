@@ -6,4 +6,8 @@ devtools.version.get_current_version = (function devtools$version$get_current_ve
 return devtools.version.current_version;
 });
 
+<<<<<<< HEAD
 //# sourceMappingURL=version.js.map?rel=1525389485784
+=======
+//# sourceMappingURL=version.js.map?rel=1525389564996
+>>>>>>> sqlite

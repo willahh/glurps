@@ -18,8 +18,8 @@ cljs.tools.reader.impl.commons.read_past = (function cljs$tools$reader$impl$comm
 var ch = cljs.tools.reader.reader_types.read_char.call(null,rdr);
 while(true){
 if(pred.call(null,ch)){
-var G__40093 = cljs.tools.reader.reader_types.read_char.call(null,rdr);
-ch = G__40093;
+var G__40454 = cljs.tools.reader.reader_types.read_char.call(null,rdr);
+ch = G__40454;
 continue;
 } else {
 return ch;
@@ -82,8 +82,8 @@ return parseFloat(s);
 }
 });
 cljs.tools.reader.impl.commons.matches_QMARK_ = (function cljs$tools$reader$impl$commons$matches_QMARK_(pattern,s){
-var vec__40094 = cljs.core.re_find.call(null,pattern,s);
-var match = cljs.core.nth.call(null,vec__40094,(0),null);
+var vec__40455 = cljs.core.re_find.call(null,pattern,s);
+var match = cljs.core.nth.call(null,vec__40455,(0),null);
 return (match === s);
 });
 cljs.tools.reader.impl.commons.match_number = (function cljs$tools$reader$impl$commons$match_number(s){
@@ -133,14 +133,14 @@ return null;
 });
 cljs.tools.reader.impl.commons.read_comment = (function cljs$tools$reader$impl$commons$read_comment(var_args){
 var args__4502__auto__ = [];
-var len__4499__auto___40099 = arguments.length;
-var i__4500__auto___40100 = (0);
+var len__4499__auto___40460 = arguments.length;
+var i__4500__auto___40461 = (0);
 while(true){
-if((i__4500__auto___40100 < len__4499__auto___40099)){
-args__4502__auto__.push((arguments[i__4500__auto___40100]));
+if((i__4500__auto___40461 < len__4499__auto___40460)){
+args__4502__auto__.push((arguments[i__4500__auto___40461]));
 
-var G__40101 = (i__4500__auto___40100 + (1));
-i__4500__auto___40100 = G__40101;
+var G__40462 = (i__4500__auto___40461 + (1));
+i__4500__auto___40461 = G__40462;
 continue;
 } else {
 }
@@ -158,34 +158,34 @@ return cljs.tools.reader.impl.commons.skip_line.call(null,rdr);
 cljs.tools.reader.impl.commons.read_comment.cljs$lang$maxFixedArity = (1);
 
 /** @this {Function} */
-cljs.tools.reader.impl.commons.read_comment.cljs$lang$applyTo = (function (seq40097){
-var G__40098 = cljs.core.first.call(null,seq40097);
-var seq40097__$1 = cljs.core.next.call(null,seq40097);
+cljs.tools.reader.impl.commons.read_comment.cljs$lang$applyTo = (function (seq40458){
+var G__40459 = cljs.core.first.call(null,seq40458);
+var seq40458__$1 = cljs.core.next.call(null,seq40458);
 var self__4486__auto__ = this;
-return self__4486__auto__.cljs$core$IFn$_invoke$arity$variadic(G__40098,seq40097__$1);
+return self__4486__auto__.cljs$core$IFn$_invoke$arity$variadic(G__40459,seq40458__$1);
 });
 
 cljs.tools.reader.impl.commons.throwing_reader = (function cljs$tools$reader$impl$commons$throwing_reader(msg){
 return (function() { 
-var G__40102__delegate = function (rdr,_){
+var G__40463__delegate = function (rdr,_){
 return cljs.tools.reader.impl.errors.reader_error.call(null,rdr,msg);
 };
-var G__40102 = function (rdr,var_args){
+var G__40463 = function (rdr,var_args){
 var _ = null;
 if (arguments.length > 1) {
-var G__40103__i = 0, G__40103__a = new Array(arguments.length -  1);
-while (G__40103__i < G__40103__a.length) {G__40103__a[G__40103__i] = arguments[G__40103__i + 1]; ++G__40103__i;}
-  _ = new cljs.core.IndexedSeq(G__40103__a,0,null);
+var G__40464__i = 0, G__40464__a = new Array(arguments.length -  1);
+while (G__40464__i < G__40464__a.length) {G__40464__a[G__40464__i] = arguments[G__40464__i + 1]; ++G__40464__i;}
+  _ = new cljs.core.IndexedSeq(G__40464__a,0,null);
 } 
-return G__40102__delegate.call(this,rdr,_);};
-G__40102.cljs$lang$maxFixedArity = 1;
-G__40102.cljs$lang$applyTo = (function (arglist__40104){
-var rdr = cljs.core.first(arglist__40104);
-var _ = cljs.core.rest(arglist__40104);
-return G__40102__delegate(rdr,_);
+return G__40463__delegate.call(this,rdr,_);};
+G__40463.cljs$lang$maxFixedArity = 1;
+G__40463.cljs$lang$applyTo = (function (arglist__40465){
+var rdr = cljs.core.first(arglist__40465);
+var _ = cljs.core.rest(arglist__40465);
+return G__40463__delegate(rdr,_);
 });
-G__40102.cljs$core$IFn$_invoke$arity$variadic = G__40102__delegate;
-return G__40102;
+G__40463.cljs$core$IFn$_invoke$arity$variadic = G__40463__delegate;
+return G__40463;
 })()
 ;
 });

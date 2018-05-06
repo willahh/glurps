@@ -48,6 +48,7 @@ var n__4376__auto__ = a.length;
 var i = (0);
 while(true){
 if((i < n__4376__auto__)){
+<<<<<<< HEAD
 var c_55353 = (a[i]);
 if((c_55353["cljsIsDirty"]) === true){
 (c_55353["forceUpdate"])();
@@ -56,6 +57,16 @@ if((c_55353["cljsIsDirty"]) === true){
 
 var G__55354 = (i + (1));
 i = G__55354;
+=======
+var c_72887 = (a[i]);
+if((c_72887["cljsIsDirty"]) === true){
+(c_72887["forceUpdate"])();
+} else {
+}
+
+var G__72888 = (i + (1));
+i = G__72888;
+>>>>>>> sqlite
 continue;
 } else {
 return null;
@@ -93,8 +104,13 @@ while(true){
 if((i < n__4376__auto__)){
 (fs[i]).call(null);
 
+<<<<<<< HEAD
 var G__55355 = (i + (1));
 i = G__55355;
+=======
+var G__72889 = (i + (1));
+i = G__72889;
+>>>>>>> sqlite
 continue;
 } else {
 return null;
@@ -139,6 +155,7 @@ this$.run_funs("beforeFlush");
 
 reagent.impl.batching.ratom_flush.call(null);
 
+<<<<<<< HEAD
 var temp__5461__auto___55356 = (this$["componentQueue"]);
 if((temp__5461__auto___55356 == null)){
 } else {
@@ -146,6 +163,15 @@ var cs_55357 = temp__5461__auto___55356;
 (this$["componentQueue"] = null);
 
 reagent.impl.batching.run_queue.call(null,cs_55357);
+=======
+var temp__5461__auto___72890 = (this$["componentQueue"]);
+if((temp__5461__auto___72890 == null)){
+} else {
+var cs_72891 = temp__5461__auto___72890;
+(this$["componentQueue"] = null);
+
+reagent.impl.batching.run_queue.call(null,cs_72891);
+>>>>>>> sqlite
 }
 
 return this$.flush_after_render();
@@ -244,4 +270,8 @@ return null;
 }
 });
 
+<<<<<<< HEAD
 //# sourceMappingURL=batching.js.map?rel=1525389491104
+=======
+//# sourceMappingURL=batching.js.map?rel=1525389573711
+>>>>>>> sqlite

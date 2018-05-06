@@ -4,19 +4,10 @@
             [glurps.process.field.integer :as integer]
             [glurps.process.field.image :as image]))
 
-(defn get-field-html [field-name record & layout]
-  (if (first layout)
-    (let [field-html-presentation ((first layout) :field-html-display)
-          field-html-presentation-function
-          (field-html-presentation (keyword field-name))]
-      (if field-html-presentation-function
-        (field-html-presentation-function record)
-        ((keyword field-name) record)))
-    ((keyword field-name) record)))
-
-(defn get-field-html2 [field-name record fields read-only]
-  (let [field-conf (first (filter #(= (:name %) field-name) fields))
-        value (when record ((keyword field-name) record))
+(defn get-field-html [field record fields read-only]
+  (let [field-name (:name field)
+        field-conf (first (filter #(= (:name %) field-name) fields))
+        value (when record (record (keyword field-name)))
         type (:type field-conf)]
     (cond (= type "string")
           (if read-only

@@ -8,8 +8,13 @@ while(true){
 if((cnt < len)){
 (dest[(dest_start + cnt)] = (src[(src_start + cnt)]));
 
+<<<<<<< HEAD
 var G__56434 = (cnt + (1));
 cnt = G__56434;
+=======
+var G__76325 = (cnt + (1));
+cnt = G__76325;
+>>>>>>> sqlite
 continue;
 } else {
 return null;
@@ -113,6 +118,7 @@ var n__4376__auto__ = self__.length;
 var x = (0);
 while(true){
 if((x < n__4376__auto__)){
+<<<<<<< HEAD
 var v_56435 = this$.pop();
 if(keep_QMARK_.call(null,v_56435)){
 this$.unshift(v_56435);
@@ -121,6 +127,16 @@ this$.unshift(v_56435);
 
 var G__56436 = (x + (1));
 x = G__56436;
+=======
+var v_76326 = this$.pop();
+if(keep_QMARK_.call(null,v_76326)){
+this$.unshift(v_76326);
+} else {
+}
+
+var G__76327 = (x + (1));
+x = G__76327;
+>>>>>>> sqlite
 continue;
 } else {
 return null;
@@ -463,4 +479,8 @@ cljs.core.async.impl.buffers.promise_buffer = (function cljs$core$async$impl$buf
 return (new cljs.core.async.impl.buffers.PromiseBuffer(cljs.core.async.impl.buffers.NO_VAL));
 });
 
+<<<<<<< HEAD
 //# sourceMappingURL=buffers.js.map?rel=1525389493653
+=======
+//# sourceMappingURL=buffers.js.map?rel=1525389580072
+>>>>>>> sqlite

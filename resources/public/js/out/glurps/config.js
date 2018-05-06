@@ -7,4 +7,8 @@ var conf = glurps.config_edn.data;
 return cljs.core.keyword.call(null,key).call(null,conf);
 });
 
+<<<<<<< HEAD
 //# sourceMappingURL=config.js.map?rel=1525389491709
+=======
+//# sourceMappingURL=config.js.map?rel=1525457308301
+>>>>>>> sqlite

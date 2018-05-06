@@ -14,9 +14,6 @@
          {:headers {"Content-Type" "text/html"}
           :body (admin-actor-list/get-html request)
           :session session}))
-  ;; (GET "/admin/actor"
-  ;;      request
-  ;;      (admin-actor-list/get-html request))
   (POST "/admin/actor"
         request
         (admin-actor-list/get-html request)) 

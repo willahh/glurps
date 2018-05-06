@@ -18,8 +18,13 @@ cljs.tools.reader.impl.commons.read_past = (function cljs$tools$reader$impl$comm
 var ch = cljs.tools.reader.reader_types.read_char.call(null,rdr);
 while(true){
 if(pred.call(null,ch)){
+<<<<<<< HEAD
 var G__56814 = cljs.tools.reader.reader_types.read_char.call(null,rdr);
 ch = G__56814;
+=======
+var G__76700 = cljs.tools.reader.reader_types.read_char.call(null,rdr);
+ch = G__76700;
+>>>>>>> sqlite
 continue;
 } else {
 return ch;
@@ -82,8 +87,13 @@ return parseFloat(s);
 }
 });
 cljs.tools.reader.impl.commons.matches_QMARK_ = (function cljs$tools$reader$impl$commons$matches_QMARK_(pattern,s){
+<<<<<<< HEAD
 var vec__56815 = cljs.core.re_find.call(null,pattern,s);
 var match = cljs.core.nth.call(null,vec__56815,(0),null);
+=======
+var vec__76701 = cljs.core.re_find.call(null,pattern,s);
+var match = cljs.core.nth.call(null,vec__76701,(0),null);
+>>>>>>> sqlite
 return (match === s);
 });
 cljs.tools.reader.impl.commons.match_number = (function cljs$tools$reader$impl$commons$match_number(s){
@@ -133,6 +143,7 @@ return null;
 });
 cljs.tools.reader.impl.commons.read_comment = (function cljs$tools$reader$impl$commons$read_comment(var_args){
 var args__4502__auto__ = [];
+<<<<<<< HEAD
 var len__4499__auto___56820 = arguments.length;
 var i__4500__auto___56821 = (0);
 while(true){
@@ -141,6 +152,16 @@ args__4502__auto__.push((arguments[i__4500__auto___56821]));
 
 var G__56822 = (i__4500__auto___56821 + (1));
 i__4500__auto___56821 = G__56822;
+=======
+var len__4499__auto___76706 = arguments.length;
+var i__4500__auto___76707 = (0);
+while(true){
+if((i__4500__auto___76707 < len__4499__auto___76706)){
+args__4502__auto__.push((arguments[i__4500__auto___76707]));
+
+var G__76708 = (i__4500__auto___76707 + (1));
+i__4500__auto___76707 = G__76708;
+>>>>>>> sqlite
 continue;
 } else {
 }
@@ -158,15 +179,24 @@ return cljs.tools.reader.impl.commons.skip_line.call(null,rdr);
 cljs.tools.reader.impl.commons.read_comment.cljs$lang$maxFixedArity = (1);
 
 /** @this {Function} */
+<<<<<<< HEAD
 cljs.tools.reader.impl.commons.read_comment.cljs$lang$applyTo = (function (seq56818){
 var G__56819 = cljs.core.first.call(null,seq56818);
 var seq56818__$1 = cljs.core.next.call(null,seq56818);
 var self__4486__auto__ = this;
 return self__4486__auto__.cljs$core$IFn$_invoke$arity$variadic(G__56819,seq56818__$1);
+=======
+cljs.tools.reader.impl.commons.read_comment.cljs$lang$applyTo = (function (seq76704){
+var G__76705 = cljs.core.first.call(null,seq76704);
+var seq76704__$1 = cljs.core.next.call(null,seq76704);
+var self__4486__auto__ = this;
+return self__4486__auto__.cljs$core$IFn$_invoke$arity$variadic(G__76705,seq76704__$1);
+>>>>>>> sqlite
 });
 
 cljs.tools.reader.impl.commons.throwing_reader = (function cljs$tools$reader$impl$commons$throwing_reader(msg){
 return (function() { 
+<<<<<<< HEAD
 var G__56823__delegate = function (rdr,_){
 return cljs.tools.reader.impl.errors.reader_error.call(null,rdr,msg);
 };
@@ -186,8 +216,33 @@ return G__56823__delegate(rdr,_);
 });
 G__56823.cljs$core$IFn$_invoke$arity$variadic = G__56823__delegate;
 return G__56823;
+=======
+var G__76709__delegate = function (rdr,_){
+return cljs.tools.reader.impl.errors.reader_error.call(null,rdr,msg);
+};
+var G__76709 = function (rdr,var_args){
+var _ = null;
+if (arguments.length > 1) {
+var G__76710__i = 0, G__76710__a = new Array(arguments.length -  1);
+while (G__76710__i < G__76710__a.length) {G__76710__a[G__76710__i] = arguments[G__76710__i + 1]; ++G__76710__i;}
+  _ = new cljs.core.IndexedSeq(G__76710__a,0,null);
+} 
+return G__76709__delegate.call(this,rdr,_);};
+G__76709.cljs$lang$maxFixedArity = 1;
+G__76709.cljs$lang$applyTo = (function (arglist__76711){
+var rdr = cljs.core.first(arglist__76711);
+var _ = cljs.core.rest(arglist__76711);
+return G__76709__delegate(rdr,_);
+});
+G__76709.cljs$core$IFn$_invoke$arity$variadic = G__76709__delegate;
+return G__76709;
+>>>>>>> sqlite
 })()
 ;
 });
 
+<<<<<<< HEAD
 //# sourceMappingURL=commons.js.map?rel=1525389494566
+=======
+//# sourceMappingURL=commons.js.map?rel=1525389580991
+>>>>>>> sqlite

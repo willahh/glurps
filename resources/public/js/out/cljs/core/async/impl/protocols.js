@@ -270,8 +270,13 @@ throw cljs.core.missing_protocol.call(null,"Buffer.close-buf!",b);
 });
 
 cljs.core.async.impl.protocols.add_BANG_ = (function cljs$core$async$impl$protocols$add_BANG_(var_args){
+<<<<<<< HEAD
 var G__56425 = arguments.length;
 switch (G__56425) {
+=======
+var G__76316 = arguments.length;
+switch (G__76316) {
+>>>>>>> sqlite
 case 1:
 return cljs.core.async.impl.protocols.add_BANG_.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -308,4 +313,8 @@ cljs.core.async.impl.protocols.add_BANG_.cljs$lang$maxFixedArity = 2;
 cljs.core.async.impl.protocols.UnblockingBuffer = function(){};
 
 
+<<<<<<< HEAD
 //# sourceMappingURL=protocols.js.map?rel=1525389493522
+=======
+//# sourceMappingURL=protocols.js.map?rel=1525389579939
+>>>>>>> sqlite

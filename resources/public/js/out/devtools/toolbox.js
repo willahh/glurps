@@ -12,8 +12,13 @@ goog.require('devtools.formatters.markup');
  *   via disclosure triangle. The header can be styled and you can optionally specify preferred wrapping tag (advanced).
  */
 devtools.toolbox.envelope = (function devtools$toolbox$envelope(var_args){
+<<<<<<< HEAD
 var G__55305 = arguments.length;
 switch (G__55305) {
+=======
+var G__72477 = arguments.length;
+switch (G__72477) {
+>>>>>>> sqlite
 case 1:
 return devtools.toolbox.envelope.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -49,7 +54,11 @@ return devtools.toolbox.envelope.call(null,obj,header,style,new cljs.core.Keywor
 });
 
 devtools.toolbox.envelope.cljs$core$IFn$_invoke$arity$4 = (function (obj,header,style,tag){
+<<<<<<< HEAD
 if(typeof devtools.toolbox.t_devtools$toolbox55306 !== 'undefined'){
+=======
+if(typeof devtools.toolbox.t_devtools$toolbox72478 !== 'undefined'){
+>>>>>>> sqlite
 } else {
 
 /**
@@ -58,11 +67,16 @@ if(typeof devtools.toolbox.t_devtools$toolbox55306 !== 'undefined'){
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
+<<<<<<< HEAD
 devtools.toolbox.t_devtools$toolbox55306 = (function (obj,header,style,tag,meta55307){
+=======
+devtools.toolbox.t_devtools$toolbox72478 = (function (obj,header,style,tag,meta72479){
+>>>>>>> sqlite
 this.obj = obj;
 this.header = header;
 this.style = style;
 this.tag = tag;
+<<<<<<< HEAD
 this.meta55307 = meta55307;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
@@ -82,23 +96,53 @@ return self__.meta55307;
 devtools.toolbox.t_devtools$toolbox55306.prototype.devtools$protocols$IFormat$ = cljs.core.PROTOCOL_SENTINEL;
 
 devtools.toolbox.t_devtools$toolbox55306.prototype.devtools$protocols$IFormat$_header$arity$1 = (function (_){
+=======
+this.meta72479 = meta72479;
+this.cljs$lang$protocol_mask$partition0$ = 393216;
+this.cljs$lang$protocol_mask$partition1$ = 0;
+});
+devtools.toolbox.t_devtools$toolbox72478.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_72480,meta72479__$1){
+var self__ = this;
+var _72480__$1 = this;
+return (new devtools.toolbox.t_devtools$toolbox72478(self__.obj,self__.header,self__.style,self__.tag,meta72479__$1));
+});
+
+devtools.toolbox.t_devtools$toolbox72478.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_72480){
+var self__ = this;
+var _72480__$1 = this;
+return self__.meta72479;
+});
+
+devtools.toolbox.t_devtools$toolbox72478.prototype.devtools$protocols$IFormat$ = cljs.core.PROTOCOL_SENTINEL;
+
+devtools.toolbox.t_devtools$toolbox72478.prototype.devtools$protocols$IFormat$_header$arity$1 = (function (_){
+>>>>>>> sqlite
 var self__ = this;
 var ___$1 = this;
 return devtools.formatters.templating.render_markup.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [self__.tag,self__.style], null),((cljs.core.fn_QMARK_.call(null,self__.header))?self__.header.call(null,self__.obj):self__.header)], null));
 });
 
+<<<<<<< HEAD
 devtools.toolbox.t_devtools$toolbox55306.prototype.devtools$protocols$IFormat$_has_body$arity$1 = (function (_){
+=======
+devtools.toolbox.t_devtools$toolbox72478.prototype.devtools$protocols$IFormat$_has_body$arity$1 = (function (_){
+>>>>>>> sqlite
 var self__ = this;
 var ___$1 = this;
 return true;
 });
 
+<<<<<<< HEAD
 devtools.toolbox.t_devtools$toolbox55306.prototype.devtools$protocols$IFormat$_body$arity$1 = (function (_){
+=======
+devtools.toolbox.t_devtools$toolbox72478.prototype.devtools$protocols$IFormat$_body$arity$1 = (function (_){
+>>>>>>> sqlite
 var self__ = this;
 var ___$1 = this;
 return devtools.formatters.templating.render_markup.call(null,devtools.formatters.markup._LT_body_GT_.call(null,devtools.formatters.markup._LT_standard_body_reference_GT_.call(null,self__.obj)));
 });
 
+<<<<<<< HEAD
 devtools.toolbox.t_devtools$toolbox55306.getBasis = (function (){
 return new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"obj","obj",-1672671807,null),new cljs.core.Symbol(null,"header","header",1759972661,null),new cljs.core.Symbol(null,"style","style",1143888791,null),new cljs.core.Symbol(null,"tag","tag",350170304,null),new cljs.core.Symbol(null,"meta55307","meta55307",1974009252,null)], null);
 });
@@ -116,11 +160,34 @@ return cljs.core._write.call(null,writer__4162__auto__,"devtools.toolbox/t_devto
  */
 devtools.toolbox.__GT_t_devtools$toolbox55306 = (function devtools$toolbox$__GT_t_devtools$toolbox55306(obj__$1,header__$1,style__$1,tag__$1,meta55307){
 return (new devtools.toolbox.t_devtools$toolbox55306(obj__$1,header__$1,style__$1,tag__$1,meta55307));
+=======
+devtools.toolbox.t_devtools$toolbox72478.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"obj","obj",-1672671807,null),new cljs.core.Symbol(null,"header","header",1759972661,null),new cljs.core.Symbol(null,"style","style",1143888791,null),new cljs.core.Symbol(null,"tag","tag",350170304,null),new cljs.core.Symbol(null,"meta72479","meta72479",1245893841,null)], null);
+});
+
+devtools.toolbox.t_devtools$toolbox72478.cljs$lang$type = true;
+
+devtools.toolbox.t_devtools$toolbox72478.cljs$lang$ctorStr = "devtools.toolbox/t_devtools$toolbox72478";
+
+devtools.toolbox.t_devtools$toolbox72478.cljs$lang$ctorPrWriter = (function (this__4161__auto__,writer__4162__auto__,opt__4163__auto__){
+return cljs.core._write.call(null,writer__4162__auto__,"devtools.toolbox/t_devtools$toolbox72478");
+});
+
+/**
+ * Positional factory function for devtools.toolbox/t_devtools$toolbox72478.
+ */
+devtools.toolbox.__GT_t_devtools$toolbox72478 = (function devtools$toolbox$__GT_t_devtools$toolbox72478(obj__$1,header__$1,style__$1,tag__$1,meta72479){
+return (new devtools.toolbox.t_devtools$toolbox72478(obj__$1,header__$1,style__$1,tag__$1,meta72479));
+>>>>>>> sqlite
 });
 
 }
 
+<<<<<<< HEAD
 return (new devtools.toolbox.t_devtools$toolbox55306(obj,header,style,tag,cljs.core.PersistentArrayMap.EMPTY));
+=======
+return (new devtools.toolbox.t_devtools$toolbox72478(obj,header,style,tag,cljs.core.PersistentArrayMap.EMPTY));
+>>>>>>> sqlite
 });
 
 devtools.toolbox.envelope.cljs$lang$maxFixedArity = 4;
@@ -141,4 +208,8 @@ devtools.toolbox.force_format = (function devtools$toolbox$force_format(obj){
 return devtools.formatters.templating.render_markup.call(null,devtools.formatters.markup._LT_surrogate_GT_.call(null,obj));
 });
 
+<<<<<<< HEAD
 //# sourceMappingURL=toolbox.js.map?rel=1525389490950
+=======
+//# sourceMappingURL=toolbox.js.map?rel=1525389572503
+>>>>>>> sqlite

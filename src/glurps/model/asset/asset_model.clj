@@ -1,4 +1,4 @@
-(ns glurps.model.user.asset-model)
+(ns glurps.model.asset.asset-model)
 
 (def fields '(^Integer id
               ^Integer active
@@ -26,8 +26,6 @@
 
 (defn get-fields []
   (into [] (map #(str %)) fields))
-
-(def table-name "asset")
 
 (defn make
   [{:keys [id active date_create date_update type file_name size width height title description]}]

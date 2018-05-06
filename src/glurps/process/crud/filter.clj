@@ -1,17 +1,7 @@
 (ns glurps.process.crud.filter
   (:require [glurps.process.html.html :as html-helper]
+            [glurps.component.form.select :as select]
             [glurps.process.field.field :as field]))
-
-(defn- get-select [field-name options]
-  (let [selected-option (first (filter #(= (:value %) (:name %)) options))]
-    [:div {:class "ui selection dropdown"}
-     [:input {:type "hidden" :name field-name :value (:value selected-option)}]
-     [:i {:class "dropdown icon"}]
-     [:div {:class "text"} (:label selected-option)]
-     [:div {:class "menu"}
-      (for [option options]
-        [:div (conj {:class "item" :data-value (:name option)}
-                    (when (= (:name option) (:value option)) {:selected "true"})) (:label option)])]]))
 
 (defn- get-select-option-html [name value label]
   [:option (conj {:value name} 
@@ -30,7 +20,7 @@
                         (when (= name value) {:checked true}
                               {:checked "true"})) label]])
 
-(defn get-html [columns params filter-fields]
+(defn get-html [columns params]
   [:form {:class "ui basic modal" :action "" :method "post"}
    [:div.content
     [:table {:class "ui definition table"}
@@ -50,27 +40,27 @@
       [:tr 
        [:td "Order by"]
        [:td 
-        (get-select "order" [{:name "id" :value (:order params) :label "Id"}
-                             {:name "name" :value (:order params) :label "Name"}])]]
+        (select/select-html "order" [{:name "id" :value (:order params) :label "Id"}
+                                     {:name "name" :value (:order params) :label "Name"}])]]
       [:tr 
        [:td "Asc"]
        [:td 
-        (get-select "asc" [{:name "1" :value (:asc params) :label "Asc"}
-                           {:name "0" :value (:asc params) :label "Desc"}])]
+        (select/select-html "asc" [{:name "1" :value (:asc params) :label "Asc"}
+                                   {:name "0" :value (:asc params) :label "Desc"}])]
        ]
       [:tr 
        [:td "Page"]
        [:td 
-        (get-select "page" 
-                    (for [i  (into [] (range 1 10))]
-                      {:name (str i) :value (:page params) :label (str "Page" i)}))]
+        (select/select-html "page" 
+                            (for [i  (into [] (range 1 10))]
+                              {:name (str i) :value (:page params) :label (str "Page" i)}))]
        ]
       [:tr 
        [:td "Row per page"]
        [:td 
-        (get-select "limit" 
-                    (for [i ["2" "5" "10" "25" "50" "100" "250" "500"]]
-                      {:name i :value (:limit params) :label i}))]
+        (select/select-html "limit" 
+                            (for [i ["2" "5" "10" "25" "50" "100" "250" "500"]]
+                              {:name i :value (:limit params) :label i}))]
        ]]]
     ]
    [:div.actions

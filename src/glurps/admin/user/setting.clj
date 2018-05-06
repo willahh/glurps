@@ -4,23 +4,21 @@
 
 (def list-conf
   {:path "/admin/user"
-   :module_name "user"
-   :title "User list"
-   :columns ["id"
-             "login"
-             "email"
-             "first_name"
-             "last_name"
-             "date_create"
-             "date_update"] 
-   :filter-fields [{:key "asc" :name "Sort by"}
-                   {:key "order" :name "Order by"}]
-   :field-html-display {:picture field-image/get-html}})
-
-(def field-id "id")
-
-(def default-params {:columns ["id" "login" "email" "date_create" "date_update"]
-                     :order "id"
-                     :asc "1"
-                     :page "1"
-                     :limit "25"})
+   :module-name "user"
+   :field-id "id"
+   :field-label "email"
+   :field-image ""
+   :fields [{:name "id" :type "integer"}
+            {:name "group_name" :type "string"}
+            {:name "login" :type "string"}
+            {:name "email" :type "string"}
+            {:name "first_name" :type "string"}
+            {:name "last_name" :type "string"}
+            {:name "date_create" :type "string"}
+            {:name "date_update" :type "string"}] 
+   :filter-fields ["id" "login"]
+   :default-params {:columns ["id" "group_name" "login" "email" "date_create" "date_update"]
+                    :order "id"
+                    :asc "1"
+                    :page "1"
+                    :limit "25"}})

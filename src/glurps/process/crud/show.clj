@@ -1,11 +1,14 @@
 (ns glurps.process.crud.show
-  (:require [glurps.admin.main :as main]
+  (:require [wlh.utils :as utils]
+            [glurps.admin.main :as main]
             [glurps.process.field.field :as field]))
 
-(defn get-html [columns record fields]
-  [:table {:class "table showTable" :style "border: 1px solid #000; width: auto;"}
+(defn get-html [fields record]
+  [:table {:class "ui definition table"}
    [:tbody
-    (for [column columns]
-      [:tr
-       [:td {:width 50} column]
-       [:td (field/get-field-html2 column record fields true)]])]])
+    (for [field fields]
+      (let [visible (utils/some-field-test? (:show field))]
+        (when visible
+          [:tr
+           [:td {:width 50} (:name field)]
+           [:td (field/get-field-html field record fields true)]])))]])

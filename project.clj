@@ -21,7 +21,9 @@
                  [ring-anti-forgery "0.3.0"]
                  [org.clojure/clojurescript "1.10.238"]
                  [reagent "0.8.0"]
-                 [hiccups "0.3.0"]]
+                 [hiccups "0.3.0"]
+                 [cljs-ajax "0.7.3"]
+                 [jayq "2.5.5"]]
   :main ^:skip-aot glurps.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
@@ -35,8 +37,8 @@
   
   :plugins [[lein-ring "0.9.7"]
             [lein-figwheel "0.5.15"]]
-  :ring {:handler glurps.client.routes/app
-         :init glurps.client.routes/init}
+  :ring {:handler glurps.routes/app
+         :init glurps.routes/init}
   
   ;; Clojurescript config
   :clean-targets ^{:protect false}

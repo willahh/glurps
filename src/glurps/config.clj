@@ -1,7 +1,7 @@
 (ns glurps.config
   (:require [clojure.edn :as edn]))
 
-(def conf-path "src/glurps/config.edn")
+(def conf-path "src/glurps/config/config.edn")
 
 (defn load-config
   "Given a filename, load & return a config file"
