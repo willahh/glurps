@@ -11,7 +11,7 @@
 
 (defn insert [params]
   (crud-update/handle-insert
-   setting/list-conf params "../../user" user-model/make user-dao/insert))
+   setting/list-conf (:fields setting/list-conf) params "../../user" user-model/make user-dao/insert))
 
 (defn update [params]
   (crud-update/handle-update

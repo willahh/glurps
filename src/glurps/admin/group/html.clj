@@ -16,17 +16,14 @@
                               group-dao/get-list
                               group-dao/get-list-disable))
 
-
 (defn show-html [id]
   (let [record (group-dao/find-by-id id)
-        records (:fields setting/list-conf)]
+        fields (:fields setting/list-conf)]
     (main/admin-page-html-wrapper
      setting/list-conf
      main/module-type-show
      [:div
-      [:div (crud-show/get-html records
-                                record
-                                (:fields setting/list-conf))]
+      [:div (crud-show/get-html fields record)]
       (let [records (user-dao/find-user-list-from-group-id {:active 1} (Integer. id) 0 10)]         
         [:div 
          [:h2 "Users"]

@@ -14,25 +14,18 @@
                               user-dao/get-list
                               user-dao/get-list-disable))
 
-(list-html {:params {:fav 1}})
-(user-dao/get-list (merge {:active 1} {}) 0 100)
-
 (defn show-html [id]
   (let [record (user-dao/find-by-id id)]
     (main/admin-page-html-wrapper
      setting/list-conf
      main/module-type-show
-     (crud-show/get-html (:fields setting/list-conf)
-                         record
-                         (:fields setting/list-conf))
+     (crud-show/get-html (:fields setting/list-conf) record)
      [record])))
 
 (defn update-html [id]
   (main/get-html
    (let [record (user-dao/find-by-id id)]
-     (crud-show/get-html (:columns setting/list-conf)
-                         record
-                         (:fields setting/list-conf)))))
+     (crud-show/get-html (:columns setting/list-conf) record))))
 
 (defn update-html [id]
   (let [record (user-dao/find-by-id id)]

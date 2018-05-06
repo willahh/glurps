@@ -53,11 +53,13 @@
    [:a {:href (str "/admin/" module-name "/update/" (:id record)) :class "btn" :title "Edit"} "<i class=\"material-icons\">mode_edit</i>"]
    [:a {:href (str "/admin/" module-name "/duplicate/" (:id record)) :class "btn" :title "Duplicate"} "<i class=\"material-icons\">content_copy</i>"]
    (if (= (:fav record) 1)
-     [:a {:href (str "/admin/" module-name "/unfav/" (:id record)) :class "btn" :title "Add to favorite"} "<i class=\"material-icons\">favorite</i>"]
-     [:a {:href (str "/admin/" module-name "/fav/" (:id record)) :class "btn" :title "Remove from favorite"} "<i class=\"material-icons\">favorite_border</i>"])
+     [:a {:href (str "/admin/" module-name "/unfav/" (:id record)) :class "btn" :title "Remove to favorite"} "<i class=\"material-icons\">favorite</i>"]
+     [:a {:href (str "/admin/" module-name "/fav/" (:id record)) :class "btn" :title "Add to favorite"} "<i class=\"material-icons\">favorite_border</i>"])
    (if (= (:active record) 1)
      [:a {:href (str "/admin/" module-name "/disable/" (:id record)) :class "btn" :title "Disable"} "<i class=\"material-icons\">clear</i>"]
-     [:a {:href (str "/admin/" module-name "/enable/" (:id record)) :class "btn" :title "Enable"} "<i class=\"material-icons\">undo</i>"])])
+     [:span
+      [:a {:href (str "/admin/" module-name "/enable/" (:id record)) :class "btn" :title "Enable"} "<i class=\"material-icons\">undo</i>"]
+      [:a {:href (str "/admin/" module-name "/delete/" (:id record)) :class "btn" :title "Delete"} "<i class=\"material-icons\">delete</i>"]])])
 
 (defn get-empty-result-html []
   [:div {:style "text-align: center;"}
@@ -102,7 +104,7 @@
          [:td [:input {:type "checkbox"}]]
          (for [field fields]
            [:td
-            (field/get-field-html2 field record fields true)])
+            (field/get-field-html field record fields true)])
          [:td
           (when list-action-html-fn
             (list-action-html-fn module-name record))]])]]))

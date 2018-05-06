@@ -5,20 +5,18 @@
             [glurps.model.group.group-model :as group-model]
             [glurps.model.group.group-dao :as group-dao]))
 
-(defn delete [id]
-  (group-dao/delete id)
-  (response/redirect "../../group"))
-
 (defn insert [params]
   (crud-update/handle-insert
-   setting/list-conf params "../../group" group-model/make group-dao/insert)
-  (response/redirect "../../group"))
-
-(crud-update/handle-insert setting/list-conf {:id "3" :name "test" :active "1"} "../../group" group-model/make group-dao/insert)
+   setting/list-conf (:fields setting/list-conf) params "../../group" group-model/make group-dao/insert)
+  (response/redirect "../group"))
 
 (defn update [params]
   (crud-update/handle-update
    setting/list-conf params "../../group" group-model/make group-dao/update!))
+
+(defn delete [id]
+  (group-dao/delete id)
+  (response/redirect "../../group"))
 
 (defn enable [id]
   (group-dao/enable id)

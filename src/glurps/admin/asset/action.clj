@@ -10,8 +10,8 @@
   (response/redirect "../../asset"))
 
 (defn insert [params]
-  (crud-update/handle-insert
-   setting/list-conf params "../../asset" asset-model/make asset-dao/insert))
+  (crud-update/handle-insert 
+   setting/list-conf params (:fields setting/list-conf) "../../asset" asset-model/make asset-dao/insert))
 
 (defn update [params]
   (crud-update/handle-update

@@ -11,7 +11,5 @@
     (main/admin-page-html-wrapper
      setting/list-conf
      main/module-type-show
-     (crud-show/get-html (:fields setting/list-conf)
-                         record
-                         (:fields setting/list-conf))
+     (crud-show/get-html (:fields setting/list-conf) record)
      [record])))

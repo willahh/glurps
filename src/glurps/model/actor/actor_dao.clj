@@ -36,7 +36,7 @@
 
 (defn get-list-disable [params offset limit & args]
   (db/query-old (config/get :db-spec)
-                (str "SELECT * FROM \"actor\" WHERE \"active\" = '0' LIMIT " limit " OFFSET " offset)))
+                (str "SELECT * FROM \"glu_actor\" WHERE \"active\" = '0' LIMIT " limit " OFFSET " offset)))
 
 (defn insert [actor-record]
   "Takes a record actor, insert it in the database."

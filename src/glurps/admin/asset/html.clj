@@ -19,17 +19,13 @@
     (main/admin-page-html-wrapper
      setting/list-conf
      main/module-type-show
-     (crud-show/get-html (:fields setting/list-conf)
-                         record
-                         (:fields setting/list-conf))
+     (crud-show/get-html (:fields setting/list-conf) record)
      [record])))
 
 (defn update-html [id]
   (main/get-html
    (let [record (asset-dao/find-by-id id)]
-     (crud-show/get-html (:columns setting/list-conf)
-                         record
-                         (:fields setting/list-conf)))))
+     (crud-show/get-html (:columns setting/list-conf) record))))
 
 (defn update-html [id]
   (let [record (asset-dao/find-by-id id)]

@@ -6,11 +6,12 @@
   [:span
    [:a {:href (str "/admin/" module-name "/show/" (:id record)) :class "btn" :title "Info"} "<i class=\"material-icons\">info</i>"]
    [:a {:href (str "/admin/" module-name "/update/" (:id record)) :class "btn" :title "Edit"} "<i class=\"material-icons\">mode_edit</i>"]
-   [:a {:href (str "/admin/" module-name "/update/" (:id record)) :class "btn" :title "Edit users"} "<i class=\"material-icons\">mode_edit</i>"]
-   [:a {:href (str "/admin/" module-name "/duplicate/" (:id record)) :class "btn" :title "Duplicate"} "<i class=\"material-icons\">content_copy</i>"]
+   ;; [:a {:href (str "/admin/" module-name "/duplicate/" (:id record)) :class "btn" :title "Duplicate"} "<i class=\"material-icons\">content_copy</i>"]
    (if (= (:active record) 1)
      [:a {:href (str "/admin/" module-name "/disable/" (:id record)) :class "btn" :title "Disable"} "<i class=\"material-icons\">clear</i>"]
-     [:a {:href (str "/admin/" module-name "/enable/" (:id record)) :class "btn" :title "Enable"} "<i class=\"material-icons\">undo</i>"])])
+     [:span
+      [:a {:href (str "/admin/" module-name "/enable/" (:id record)) :class "btn" :title "Enable"} "<i class=\"material-icons\">undo</i>"]
+      [:a {:href (str "/admin/" module-name "/delete/" (:id record)) :class "btn" :title "Delete"} "<i class=\"material-icons\">delete</i>"]])])
 
 (def list-conf
   {:path "/admin/group"
@@ -18,8 +19,9 @@
    :field-id "id"
    :field-label "name"
    :field-image ""
-   :fields [{:name "id" :type "integer"}
-            {:name "name" :type "string"}] 
+   :fields [{:name "id" :type "integer" :list true :show false :insert false :update false :filter true}
+            {:name "active" :type "integer" :show false}
+            {:name "name" :type "string" :filter false}] 
    :filter-fields ["id" "name"]
    :default-params {:columns ["id" "name"]
                     :order "id"
