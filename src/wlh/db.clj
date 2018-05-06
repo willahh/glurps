@@ -4,17 +4,21 @@
             [honeysql.core :as sql]
             [wlh.logger :as logger]))
 
+(defn get-clause-from-params [params & clauses]
+  (conj {}
+        (when clauses (first clauses))
+        (when (:order params)
+          {:order-by [[(keyword (:order params))
+                       (if (= (:asc params) "1")
+                         :asc :desc)]]})))
+
 (defn get-sql-map-from-params [table-name params & clauses]
   "Takes a `params` map and returns a honeysql sql-map.
   `params` represents the page parameters. e.g POST, GET, parameters."
   (conj {}
         {:select [:*]}
         {:from [(keyword table-name)]}
-        (when clauses (first clauses))
-        (when (:order params)
-          {:order-by [[(keyword (:order params))
-                       (if (= (:asc params) "1")
-                         :asc :desc)]]})))
+        (get-clause-from-params params (first clauses))))
 
 (defmacro query-old [db sql-params]
   "Do a query with jdbc, log the request"
@@ -36,4 +40,6 @@
 (defn query [db sql-map offset limit]
   (let [query (sql/format (sql/build sql-map :offset offset :limit limit))]
     (logger/info (str "[db]" query))
-    (jdbc/query db query)))
+    (try (jdbc/query db query)
+         (catch Exception e
+           "a"))))

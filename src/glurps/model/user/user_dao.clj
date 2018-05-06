@@ -11,40 +11,70 @@
   "Cast boolean into an integer 1 or 0."
   (if bool 1 0))
 
+(defn- get-count [col]
+  (first (rest (first (first col)))))
+
+(defn count3 []
+  (get-count (db/query-old (config/get :db-spec)
+                           (str "SELECT COUNT(*) FROM \"" (schema :table-name) "\""))))
+
 (defn- get-clauses [params]
   "Takes a `params` map and returns a clauses vector that will be used by honeysql.
   `params` represents the page parameters. e.g POST, GET, parameters."
   (let [and (conj []
                   (when (:fav params)
-                    [:= :fav 1])
+                    [:= :user.fav 1])
                   (when (:active params)
-                    [:= :active (bool-to-int (:active params))]))
+                    [:= :user.active (bool-to-int (:active params))]))
         and-clean (into [] (filter second and))]
-    
+
     (if (= (count and-clean) 1)
       {:where (first and-clean)}
       (if (> (count and-clean) 1)
         {:where
          (into [] (cons :and and-clean))}))))
 
+
+
+;; (defn get-list [params offset limit]
+;;   (let [clause (db/get-clause-from-params params (get-clauses params))]
+;;     ))
+
 (defn get-list [params offset limit]
-  (db/query (config/get :db-spec)
-            (db/get-sql-map-from-params (:table-name schema) params (get-clauses params))
-            offset
-            limit))
+  (let [clause (db/get-clause-from-params params (get-clauses params))]
+    (db/query (config/get :db-spec)
+              (conj 
+               {:select [:user.id :user.active :user.date_create :user.login :user.password :user.first_name :user.last_name :user.email :ug.group_id [:g.name "group_name"]]
+                :from [[:glu_user :user]]}
+               clause
+               {:merge-left-join [[:glu_user_group :ug]
+                                  [:= :user.id :ug.user_id]
 
-(defn- get-count [col]
-  (first (rest (first (first col)))))
+                                  [:glu_group :g]
+                                  [:= :ug.group_id :g.id]]}) offset limit)))
 
-(defn count []
-  (get-count (db/query-old (config/get :db-spec)
-                           (str "SELECT COUNT(*) FROM \"" (schema :table-name) "\""))))
+;; (defn get-list [params offset limit]
+;;   (let [clause (db/get-clause-from-params params (get-clauses params))]
+;;     ))
+
+;; SELECT user.id, user.active, user.date_create, user.date_update, user.login, user.password, user.first_name, user.last_name, user.email, ug.group_id, g.name
+;; FROM glu_user user
+;; LEFT JOIN glu_user_group ug on user.id = ug.user_id
+;; LEFT JOIN glu_group g on ug.group_id = g.id
+;; LIMIT 50
+
+
+
+
+
+
+
 (defn find-by-id [id]
   (first (db/query-old (config/get :db-spec) (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"id\" = '" id "'"))))
 
 (defn get-list-disable [params offset limit & args]
   (db/query-old (config/get :db-spec)
-                (str "SELECT * FROM \"actor\" WHERE \"active\" = '0' LIMIT " limit " OFFSET " offset)))
+                (str "SELECT * FROM \"glu_user\" WHERE \"active\" = '0' LIMIT " limit " OFFSET " offset)))
 
 (defn insert [actor-record]
   "Takes a record actor, insert it in the database."
@@ -79,9 +109,8 @@
 
 (defn find-user-list-from-group-id [params group-id offset limit]
   (let [sql-map (db/get-sql-map-from-params (:table-name schema) params (get-clauses params))]
-    (db/query (config/get :db-spec)
-              {:select [ :* ],
-               :from [ :glu_user ]
-               :join [:glu_user_group [:= :glu_user.id :glu_user_group.user_id]]}
-              offset
-              limit)))
+    (filter #(= (:group_id %) group-id)
+            (db/query (config/get :db-spec)
+                      (conj sql-map {:join [:glu_user_group [:= :glu_user.id :user_id]]})
+                      offset
+                      limit))))

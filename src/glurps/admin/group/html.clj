@@ -26,15 +26,16 @@
       [:div (crud-show/get-html records
                                 record
                                 (:fields setting/list-conf))]
-      [:div 
-       [:h2 "Users"]
-       (let [records (user-dao/find-user-list-from-group-id {} 1 0 10)]         
+      (let [records (user-dao/find-user-list-from-group-id {:active 1} (Integer. id) 0 10)]         
+        [:div 
+         [:h2 "Users"]
          (crud-list/get-html (:fields user-setting/list-conf)
                              records
                              "login"
                              1
                              setting/list-conf
-                             nil))]]
+                             "user"
+                             (:list-action-html-fn setting/list-conf))])]
      [record])))
 
 (defn update-html [id]

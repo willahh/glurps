@@ -11,20 +11,22 @@
 
 (defn insert [params]
   (crud-update/handle-insert
-   setting/list-conf params "../../group" group-model/make group-dao/insert))
+   setting/list-conf params "../../group" group-model/make group-dao/insert)
+  (response/redirect "../../group"))
+
+(crud-update/handle-insert setting/list-conf {:id "3" :name "test" :active "1"} "../../group" group-model/make group-dao/insert)
 
 (defn update [params]
   (crud-update/handle-update
    setting/list-conf params "../../group" group-model/make group-dao/update!))
 
 (defn enable [id]
-  (Thread/sleep 2000)
   (group-dao/enable id)
   (response/redirect "../../group"))
 
 (defn disable [id]
   (group-dao/disable id)
-  (response/redirect "../../group/trash"))
+  (response/redirect "../../group"))
 
 (defn duplicate [id]
   (response/redirect "../../group"))

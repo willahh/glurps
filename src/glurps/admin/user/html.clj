@@ -10,9 +10,12 @@
   (crud-list/get-html-wrapper session params
                               setting/list-conf
                               disable?
-                              (user-dao/count)
+                              (user-dao/count3)
                               user-dao/get-list
                               user-dao/get-list-disable))
+
+;; (list-html {:params {}})
+(user-dao/get-list (merge {:active 1} {}) 0 100)
 
 (defn show-html [id]
   (let [record (user-dao/find-by-id id)]

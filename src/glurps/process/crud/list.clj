@@ -79,7 +79,14 @@
           [:span {:style "vertical-align: middle;"} "<i class='material-icons'>arrow_upward</i>"]))
       [:span {:class "val"} field-name]]]))
 
-(defn get-html [fields records field-order field-asc list-conf list-action-html-fn]
+
+;; (def records [{:email "wravel@gmail.com",:date_update "",:first_name "William",:password "maybethisshouldbecrypted",:login "wravel",:group_id 1,:active 1,:id 1,:last_name "Ravel",:user_id 1,:date_create "ah",:id_2 1} [:email "john@yo.com",:date_update "",:first_name "John",:password "",:login "john",:group_id 1,:active 1,:id 2,:last_name "Doe",:user_id 2,:date_create "",:id_2 2]]) 
+;; (def fields [{:email "aaa" :type "string"}])
+
+;; (map (fn [record]
+;;        {:a "a"}) records)
+
+(defn get-html [fields records field-order field-asc list-conf module-name list-action-html-fn]
   (if (= 0 (count records))
     (get-empty-result-html)
     [:table {:class "ui celled striped table"}
@@ -90,7 +97,7 @@
          [:th (get-column-html field field-order field-asc)])
        [:th "actions"]]]
      [:tbody
-      (for [record records]          
+      (for [record records]
         [:tr
          [:td [:input {:type "checkbox"}]]
          (for [field fields]
@@ -98,7 +105,7 @@
             (field/get-field-html2 field record fields true)])
          [:td
           (when list-action-html-fn
-            (list-action-html-fn (:module-name list-conf) record))]])]]))
+            (list-action-html-fn module-name record))]])]]))
 
 (defn get-html-thumb [field-id columns records field-order field-asc list-conf]
   (if (= 0 (count records))
@@ -109,31 +116,6 @@
                                :title (:name record)
                                :meta (:age record)}) records)]
       (card/cards-html card-records))))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 (defn- map-fields-to-column [fields]
   (into [] (map #(:name %) fields)))
@@ -148,8 +130,6 @@
 (defn columns-to-fields [columns fields]
   (filter (fn [field]
             (in? columns (:name field))) fields))
-
-;; (columns-to-fields ["last_name" "login"] (:fields user-setting/list-conf))
 
 (defn get-html-wrapper [session params list-conf disable? count get-list get-list-disable]
   (let [field-id (:field-id list-conf)
@@ -193,6 +173,7 @@
                  field-order
                  field-asc
                  list-conf
+                 (:module-name list-conf)
                  list-action-html-fn)
        ;; (crud-list/get-list-option-html path offset limit count)
        ]])))

@@ -32,7 +32,7 @@
             (db/get-sql-map-from-params (:table-name schema) params (get-clauses params))
             offset
             limit))
-(get-list {} 1 1)
+
 (defn- get-count [col]
   (first (rest (first (first col)))))
 
@@ -44,14 +44,14 @@
 
 (defn get-list-disable [params offset limit & args]
   (db/query-old (config/get :db-spec)
-                (str "SELECT * FROM \"actor\" WHERE \"active\" = '0' LIMIT " limit " OFFSET " offset)))
+                (str "SELECT * FROM \"glu_group\" WHERE \"active\" = '0' LIMIT " limit " OFFSET " offset)))
 
-(defn insert [actor-record]
+(defn insert [record]
   "Takes a record actor, insert it in the database."
   (db/insert (config/get :db-spec)
              (:table-name schema)
              (:cols schema)
-             (into {} actor-record)))
+             (into {} record)))
 
 (defn update! [set-map where-clause]
   (db/update! (config/get :db-spec) (schema :table-name) set-map where-clause))
