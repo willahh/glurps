@@ -5,7 +5,7 @@
 ** DONE List sort asc desc
 ** TODO Save crud params into session
 ** TODO Put database requests into a vector and display requests states
-** TODO List order asc desc
+** DONE List order asc desc
 ** TODO List filter sub form
 ** TODO List layout configuration
 *** TODO Columns to display "id", "order", "..."
@@ -26,13 +26,16 @@
 ** TODO Order up
 ** TODO Order down
 ** TODO List in update mode where all fields are in update mode
+* TODO SQL Closure table
+  http://dirtsimple.org/2010/11/simplest-way-to-do-tree-based-queries.html
+  https://coderwall.com/p/lixing/closure-tables-for-browsing-trees-in-sql
 * TODO Todo example app
   https://github.com/arevkov/clojure-web-app
 * TODO CRUD - Show
 ** TODO Next / previous
-* TODO Administration
-** TODO User CRUD
-** TODO Group CRUD
+* TODO Admin modules
+** DONE User CRUD
+** DONE Group CRUD
 ** TODO Role CRUD
 ** TODO Authentification
 ** TODO Email service
@@ -43,22 +46,25 @@
 * TODO REST API
   Tests can be made through Postman application
 * TODO Locales file
+** TODO Locales fr en file
 * TODO Service worker
-  Implements a javascript service worker in admin to display some user
-  information in live.
-  Examples :
-    - User do an insert from a form, click to submit :
-      - Process is made in background
-      - User is redirected on the list
-      - .. when finished, a dialog appear to display the process informations and
-      a button to reload the page
-* TODO Locales fr en file
+** TODO Events panel with service worker
+** TODO JS SW
+   Implements a javascript service worker in admin to display some user
+   information in live.
+   Examples :
+     - User do an insert from a form, click to submit :
+       - Process is made in background
+       - User is redirected on the list
+       - .. when finished, a dialog appear to display the process informations and
+       a button to reload the page
+
 * DONE Get POST form works
-* TODO Page admin/log : Add filter from level or type
 * TODO Logger
+** TODO Page admin/log : Add filter from level or type
 ** TODO Use cache - future is good but should not be called on every calls,
    Check for the use of channels with core.async
 ** TODO Generate one file per day
 ** TODO Implements clojure.java.io stream
-* TODO Events panel with service worker
+
 * TODO Database connnector -> mysql or graphdb
