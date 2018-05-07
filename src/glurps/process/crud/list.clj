@@ -157,25 +157,24 @@
         records (if disable?
                   (get-list-disable params offset limit)
                   (get-list (merge {:active 1} params) offset limit))]
-    (main/get-html
+    [:div 
+     [:div session]
+     [:h2 (:title list-conf)]
      [:div 
-      [:div session]
-      [:h2 (:title list-conf)]
-      [:div 
-       [:div (str "debug params:" (pr-str params))]
-       [:div (str "debug session:" session)]
-       ]
-      [:div 
-       (crud-nav/get-html list-conf disable?)
-       (crud-filter/get-html columns
-                             (merge (:default-params list-conf) params))
-       ;; (crud-list/get-list-option-html path offset limit count)
-       (get-html (columns-to-fields visible-columns (:fields list-conf))
-                 records
-                 field-order
-                 field-asc
-                 list-conf
-                 (:module-name list-conf)
-                 list-action-html-fn)
-       ;; (crud-list/get-list-option-html path offset limit count)
-       ]])))
+      [:div (str "debug params:" (pr-str params))]
+      [:div (str "debug session:" session)]
+      ]
+     [:div 
+      (crud-nav/get-html list-conf disable?)
+      (crud-filter/get-html columns
+                            (merge (:default-params list-conf) params))
+      ;; (crud-list/get-list-option-html path offset limit count)
+      (get-html (columns-to-fields visible-columns (:fields list-conf))
+                records
+                field-order
+                field-asc
+                list-conf
+                (:module-name list-conf)
+                list-action-html-fn)
+      ;; (crud-list/get-list-option-html path offset limit count)
+      ]]))

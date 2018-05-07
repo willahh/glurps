@@ -7,12 +7,15 @@
             [glurps.model.user.user-dao :as user-dao]))
 
 (defn list-html [{:keys [params session] :as query} & {:keys [disable?]}]
-  (crud-list/get-html-wrapper session params
-                              setting/list-conf
-                              disable?
-                              (user-dao/count3)
-                              user-dao/get-list
-                              user-dao/get-list-disable))
+  (main/admin-page-html-wrapper
+   setting/list-conf
+   main/module-type-show
+   (crud-list/get-html-wrapper session params
+                               setting/list-conf
+                               disable?
+                               (user-dao/count3)
+                               user-dao/get-list
+                               user-dao/get-list-disable)))
 
 (defn show-html [id]
   (let [record (user-dao/find-by-id id)]
@@ -21,11 +24,6 @@
      main/module-type-show
      (crud-show/get-html (:fields setting/list-conf) record)
      [record])))
-
-(defn update-html [id]
-  (main/get-html
-   (let [record (user-dao/find-by-id id)]
-     (crud-show/get-html (:columns setting/list-conf) record))))
 
 (defn update-html [id]
   (let [record (user-dao/find-by-id id)]

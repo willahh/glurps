@@ -1,5 +1,6 @@
 (ns glurps.admin.main
   (:require [glurps.config :as config]
+            [glurps.component.tree.tree :as tree]
             [hiccup.page :as page]
             [hiccup.core :as core]))
 
@@ -63,6 +64,9 @@
    [:i {:class "right chevron icon divider"}]
    [:a.section "List"]])
 
+(defn main-tree-html []
+  (tree/html))
+
 (defn get-html [hiccup-html]
   (page/html5 (get-head)
               [:body
@@ -86,6 +90,10 @@
               [:body
                [:div (get-page-header)]
                [:div {:class "ui container"}
-                (breadcrumb-html)
-                (get-page-title module-conf module-type records)
-                html]]))
+                [:div {:class "ui grid"}
+                 [:div {:class "four wide column"}
+                  (main-tree-html)]
+                 [:div {:class "twelve wide column"}
+                  (breadcrumb-html)
+                  (get-page-title module-conf module-type records)
+                  html]]]]))
