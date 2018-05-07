@@ -7,12 +7,15 @@
             [glurps.model.asset.asset-dao :as asset-dao]))
 
 (defn list-html [{:keys [params session] :as query} & {:keys [disable?]}]
-  (crud-list/get-html-wrapper session params
-                              setting/list-conf
-                              disable?
-                              (asset-dao/count)
-                              asset-dao/get-list
-                              asset-dao/get-list-disable))
+  (main/admin-page-html-wrapper
+   setting/list-conf
+   main/module-type-show
+   (crud-list/get-html-wrapper session params
+                               setting/list-conf
+                               disable?
+                               (asset-dao/count)
+                               asset-dao/get-list
+                               asset-dao/get-list-disable)))
 
 (defn show-html [id]
   (let [record (asset-dao/find-by-id id)]

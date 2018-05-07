@@ -9,12 +9,15 @@
             [glurps.model.user.user-dao :as user-dao]))
 
 (defn list-html [{:keys [params session] :as query} & {:keys [disable?]}]
-  (crud-list/get-html-wrapper session params
-                              setting/list-conf
-                              disable?
-                              (group-dao/count)
-                              group-dao/get-list
-                              group-dao/get-list-disable))
+  (main/admin-page-html-wrapper
+   setting/list-conf
+   main/module-type-show
+   (crud-list/get-html-wrapper session params
+                               setting/list-conf
+                               disable?
+                               (group-dao/count)
+                               group-dao/get-list
+                               group-dao/get-list-disable)))
 
 (defn show-html [id]
   (let [record (group-dao/find-by-id id)
