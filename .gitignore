@@ -29,3 +29,4 @@ src/glurps/config.edn
 /resources/orientdb/config/
 /resources/orientdb/www
 /resources/orientdb/databases/OSystem/
+.cljs_rhino_repl/
