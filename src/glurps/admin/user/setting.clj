@@ -1,25 +1,32 @@
 (ns glurps.admin.user.setting
-  (:require [glurps.process.field.image :as field-image]
-            [glurps.process.field.field :as field]))
+  (:require [glurps.process.db.properties :as properties]))
 
 (def list-conf
   {:path "/admin/user"
    :module-name "user"
-   :field-id "id"
-   :field-label "email"
+   :db-class "User"
+   :field-id "_rid"
+   :field-label "name"
    :field-image ""
-   :fields [{:name "id" :type "integer" :update false}
-            {:name "group_name" :type "string"}
-            {:name "login" :type "string"}
-            {:name "email" :type "string"}
-            {:name "first_name" :type "string"}
-            {:name "last_name" :type "string"}
-            {:name "date_create" :type "string"}
-            {:name "date_update" :type "string"}] 
-   :filter-fields ["id" "login"]
-   :default-params {:columns ["id" "group_name" "login" "email" "date_create" "date_update"]
+   :search-field-title :name
+   :search-field-descr :descr
+   :search-field-image :image
+   :option-thumb false
+   :option-columns true
+   :fields [{:name "_rid" :properties properties/string :type "integer" :list true :show true :insert false :update false :filter true}
+            {:name "CreateDate" :properties properties/datetime :type "string" :filter true :insert false :update false}
+            {:name "UpdateDate" :properties properties/datetime :type "string" :filter true :insert false :update false}
+            
+            
+            {:name "name" :properties properties/string :type "string" :filter false}
+            {:name "last_name" :properties properties/string :type "string" :filter false}
+            {:name "login" :properties properties/string :type "string" :filter false}
+            {:name "password" :properties properties/string :type "string" :filter false}]
+   :default-params {:columns ["_rid" "name" "last_name" "login" "CreateDate" "UpdateDate"]
                     :order "id"
                     :asc "1"
-                    :disable false
+                    :enable true
                     :page "1"
-                    :limit "25"}})
+                    :limit "25"}
+   :row-action [{:name "show" :url "/admin/user/show/{{id}}" :label "show" :title "Info" :icon "info"}
+                {:name "edit" :url "/admin/user/show/{{id}}" :label "show" :title "Info" :icon "info"}]})

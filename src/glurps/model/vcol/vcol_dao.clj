@@ -1,10 +1,9 @@
-(ns glurps.model.country.country-dao
+(ns glurps.model.vcol.vcol-dao
   (:require [glurps.config :as config]
             [wlh.logger :as logger]
             [wlh.db-orientdb :as db-orientdb]))
 
-;; TODO Extends vcol-dao via protocol or whatever (need some reads)
-(def schema {:class-name "Country"})
+(def schema {:class-name "Col"})
 
 (defn get-list [params offset limit]
   (db-orientdb/query 
@@ -37,7 +36,7 @@
   (update! (merge (find-by-id id) record-content) id))
 
 (defn insert [record-content]
-  (logger/info "[db]country insert" record-content)
+  (logger/info "[db]vcol insert" record-content)
   (db-orientdb/create-record (:class-name schema)
                              (conj record-content {:CreateDate (new java.util.Date)
                                                    :UpdateDate (new java.util.Date)})))

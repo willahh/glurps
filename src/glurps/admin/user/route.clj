@@ -1,54 +1,64 @@
 (ns glurps.admin.user.route
   (:require [compojure.core :refer [defroutes ANY GET POST]]
+            [glurps.admin.user.setting :as user-setting]
+            [glurps.admin.user.helper :as user-helper]
+            [glurps.admin.user.setting :as setting]
             [glurps.admin.user.html :as html]
             [glurps.admin.user.action :as action]))
 
 (defroutes admin-user-route
-  ;; List / show / update / insert
   (GET "/admin/user"
-       request
-       (html/list-html request))
+       {session :session params :params}
+       (let [params (conj params {:enable true})]
+         (user-helper/handle-route session params html/list-html)))
   (POST "/admin/user"
-        request
-        (html/list-html request)) 
+        {session :session params :params}
+        (let [params (conj params {:enable true})]
+          (user-helper/handle-route session params html/list-html)))
   (GET "/admin/user/trash"
-       request
-       (html/list-html request :disable? true)) 
+       {session :session params :params}
+       (let [params (conj params {:enable false})]
+         (user-helper/handle-route session params html/list-html)))
   (POST "/admin/user/trash"
-        request
-        (html/list-html request :disable? true)) 
-  (GET "/admin/user/show/:id" 
-       [id]
-       (html/show-html id))
-  (GET "/admin/user/update/:id"
-       [id]
-       (html/update-html id))
-  (POST "/admin/user/update/:id"
-        {params :params}
-        (action/update params))
+        {session :session params :params}
+        (let [params (conj params {:enable false})]
+          (user-helper/handle-route session params html/list-html)))
+  (GET "/admin/user/show/:id"
+       {session :session params :params}
+       (let [params params]
+         (user-helper/handle-route session params html/show-html)))
   (GET "/admin/user/insert"
-       [id]
-       (html/insert-html id))
+       {session :session params :params}
+       (let [params params]
+         (user-helper/handle-route session params html/insert-html)))
+  (GET "/admin/user/update/:id"
+       {session :session params :params}
+       (let [params params]
+         (user-helper/handle-route session params html/update-html)))
   (POST "/admin/user/insert"
-        {params :params}
-        (action/insert params))
-  
-  ;; Actions
+        {session :session params :params}
+        (let [default-params (:default-params user-setting/list-conf)
+              state (user-helper/map-page-params session params default-params)]
+          (action/insert session params state html/insert-html)))
+  (POST "/admin/user/update/:id"
+        {session :session params :params}
+        (let [default-params (:default-params user-setting/list-conf)
+              state (user-helper/map-page-params session params default-params)]
+          (action/update! session params state html/update-html)))
   (GET "/admin/user/fav/:id"
        [id]
-       (action/fav id))
+       (action/action-batch id {:fav true} "../../user"))
   (GET "/admin/user/unfav/:id"
        [id]
-       (action/unfav id))
+       (action/action-batch id {:fav false} "../../user"))
   (GET "/admin/user/duplicate"
-       []
-       (action/duplicate))
+       [])
   (GET "/admin/user/delete/:id" 
        [id]
        (action/delete id))
   (GET "/admin/user/disable/:id" 
        [id]
-       (action/disable id))
+       (action/action-batch id {:enable false} "../../user"))
   (GET "/admin/user/enable/:id" 
        [id]
-       (action/enable id)))
+       (action/action-batch id {:enable true} "../../user/trash")))

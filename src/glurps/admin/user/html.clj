@@ -1,44 +1,81 @@
 (ns glurps.admin.user.html
-  (:require [glurps.admin.user.setting :as setting]
+  (:require [clojure.string :as str]
+            [glurps.admin.user.setting :as setting]
+            [glurps.admin.user.setting :as user-setting]
             [glurps.admin.main :as main]
             [glurps.process.crud.show :as crud-show]
             [glurps.process.crud.update :as crud-update]
             [glurps.process.crud.list :as crud-list]
+            [glurps.model.user.user-dao :as user-dao]
             [glurps.model.user.user-dao :as user-dao]))
 
-(defn list-html [{:keys [params session] :as query} & {:keys [disable?]}]
-  (main/admin-page-html-wrapper
+(defn list-action-html-fn [field-id module-name record]
+  (let [id (clojure.string/replace ((keyword field-id) record) "#" "")]
+    [:span
+     [:a {:href (str "/admin/" module-name "/show/" id) :class "btn" :title "Info"} "<i class=\"material-icons\">info</i>"]
+     [:a {:href (str "/admin/" module-name "/update/" id) :class "btn" :title "Edit"} "<i class=\"material-icons\">mode_edit</i>"]
+     (if (:fav record)
+       [:a {:href (str "/admin/" module-name "/unfav/" id) :class "btn" :title "Remove to favorite"} "<i class=\"material-icons\">favorite</i>"]
+       [:a {:href (str "/admin/" module-name "/fav/" id) :class "btn" :title "Add to favorite"} "<i class=\"material-icons\">favorite_border</i>"])
+     (if (:enable record)
+       [:a {:href (str "/admin/" module-name "/disable/" id) :class "btn" :title "Disable"} "<i class=\"material-icons\">clear</i>"]
+       [:span
+        [:a {:href (str "/admin/" module-name "/enable/" id) :class "btn" :title "Restore"} "<i class=\"material-icons\">undo</i>"]
+        [:a {:href (str "/admin/" module-name "/delete/" id) :class "btn" :title "Delete"} "<i class=\"material-icons\">delete</i>"]])]))
+
+(defn list-html 
+  [session params state]
+  (main/admin-page-html-wrapper 
    session
    params
-   (crud-list/get-html-wrapper session 
+   (crud-list/get-html-wrapper session
                                params
-                               {}
+                               state
                                setting/list-conf
-                               (user-dao/count3)
+                               (user-dao/enable-count)
                                user-dao/get-list
-                               0
-                               crud-list/get-action-html)))
+                               (user-dao/disable-count)
+                               list-action-html-fn)))
 
-(defn show-html [id]
-  (let [record (user-dao/find-by-id id)]
+(defn show-html 
+  [session params state]
+  (let [id (:id params)
+        record (user-dao/find-by-id id)
+        fields (:fields setting/list-conf)]
     (main/admin-page-html-wrapper
-     {}
-     {}
-     (crud-show/get-html (:fields setting/list-conf) record))))
+     session
+     params
+     (crud-show/get-html fields record))))
 
-(defn update-html [id]
-  (let [record (user-dao/find-by-id id)]
+(defn update-html
+  [session params state]
+  (let [id-list (clojure.string/split (:id params) #"-")
+        records (let [records (map (fn [id]
+                                     (user-dao/find-by-id id)) id-list)]
+                  records)]
     (main/admin-page-html-wrapper
-     {}
-     {}
-     (crud-update/get-html setting/list-conf
-                           record
-                           (:fields setting/list-conf)))))
+     session
+     params
+     (crud-update/get-html-multiple
+      session
+      params
+      state
+      setting/list-conf
+      records
+      (:fields setting/list-conf)
+      (count id-list)))))
 
-(defn insert-html [id]
+(defn insert-html
+  [session params state]
   (main/admin-page-html-wrapper
-   {}
-   {}
-   (crud-update/get-html setting/list-conf
-                         nil
-                         (:fields setting/list-conf))))
+   session
+   params   
+   (crud-update/get-html-multiple
+    session
+    params
+    state
+    setting/list-conf
+    nil
+    (:fields setting/list-conf)
+    (if (:count params) 
+      (Integer. (:count params)) 1))))

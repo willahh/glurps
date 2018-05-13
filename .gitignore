@@ -25,14 +25,14 @@ src/glurps/config.edn
 /resources/public/js/out
 /resources/orientdb/benchmarks/
 /resources/orientdb/bin/
-
 /resources/orientdb/databases/glurps/luceneIndexes/
-
 /resources/orientdb/log/
 /resources/orientdb/plugins/
 /resources/orientdb/config/
 /resources/orientdb/www
 /resources/orientdb/databases/OSystem/
-
+/resources/orientdb/databases/PanamaPapers/
+/resources/orientdb/databases/Tolkien-Arda/
+/resources/orientdb/databases/demodb/
 .cljs_rhino_repl/
 
