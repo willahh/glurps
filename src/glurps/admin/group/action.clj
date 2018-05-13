@@ -73,7 +73,7 @@
 
 ;; (for [id [""]] id)
 
-(defn delete [id-list]
+(defn delete [id]
   (group-dao/delete id)
   (response/redirect "../../group/trash"))
 

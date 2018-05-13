@@ -28,3 +28,4 @@ src/glurps/config.edn
 /resources/orientdb/plugins/
 /resources/orientdb/config/
 /resources/orientdb/www
+/resources/orientdb/databases/OSystem/

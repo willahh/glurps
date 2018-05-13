@@ -74,5 +74,8 @@
     [:div {:class "or"}]
     [:button {:class "ui positive button" :type "submit"} "Save"]]])
 
+(defn get-html [list-conf record fields]
+  [:div "deprecated"])
+
 ;; (into [:div] [[:div "a"] [:div "b"] [:div "c"] ])
 ;; (get-html-multiple {} {} {} {} {} {})
