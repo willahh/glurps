@@ -21,3 +21,10 @@ src/glurps/config.edn
 .cljs_rhino_repl
 .cljs_rhino_repl/*
 /resources/public/js/out
+/resources/orientdb/benchmarks/
+/resources/orientdb/bin/
+/resources/orientdb/databases/glurps/luceneIndexes/
+/resources/orientdb/log/
+/resources/orientdb/plugins/
+/resources/orientdb/config/
+/resources/orientdb/www
