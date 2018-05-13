@@ -5,7 +5,8 @@
             [glurps.process.field.field :as field]
             [glurps.process.crud.update :as crud-update]
             [glurps.model.group.group-model :as group-model]
-            [glurps.model.group.group-dao :as group-dao]))
+            [glurps.model.group.group-dao :as group-dao]
+            [wlh.logger :as logger]))
 
 (defn map-params-to-record-content [params fields]
   (into {} (map (fn [m]
@@ -66,32 +67,35 @@
        :body (html-defn session (assoc params :error-message @error-message) state)
        :session session})))
 
-;; (update! {} {} {} nil)
-;; (update! {} {:count "3", :name ["a" "b" "c"] :descr ["desca" "descrb" "descrc"]} {} nil)
-;; (update! {} {:count "2", :_rid ["36:9" "35:9"], :name ["df" "g"], :id "36:9-35:9"} {} nil)
-
-
-;; (for [id [""]] id)
-
 (defn delete [id]
-  (group-dao/delete id)
+  (let [id-list (clojure.string/split id #"-")]
+    (doseq [id id-list]
+      (group-dao/delete id)))
   (response/redirect "../../group/trash"))
 
 (defn enable [id]
-  (group-dao/enable id)
+  (let [id-list (clojure.string/split id #"-")]
+    (doseq [id id-list]
+      (group-dao/enable id)))
   (response/redirect "../../group/trash"))
 
 (defn disable [id]
-  (group-dao/disable id)
+  (let [id-list (clojure.string/split id #"-")]
+    (doseq [id id-list]
+      (group-dao/disable id)))
   (response/redirect "../../group"))
 
 (defn duplicate [id]
   (response/redirect "../../group"))
 
 (defn fav [id]
-  (group-dao/fav id)
+  (let [id-list (clojure.string/split id #"-")]
+    (doseq [id id-list]
+      (group-dao/fav id)))
   (response/redirect "../../group"))
 
 (defn unfav [id]
-  (group-dao/unfav id)
+  (let [id-list (clojure.string/split id #"-")]
+    (doseq [id id-list]
+      (group-dao/unfav id)))
   (response/redirect "../../group"))

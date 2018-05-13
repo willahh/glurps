@@ -4,8 +4,6 @@
             [glurps.process.crud.list :as crud-list]
             [glurps.model.search.search-dao :as search-dao]))
 
-[{:email "wravel@gmail.com", :first_name "William", :_rid "#26:0", :update_date nil, :password "pwd", :name "nametest", :create_date #inst "2018-05-14T22:05:00.000-00:00", :login "wravel", :_class "User", :last_name "Ravel", :_version 2}]
-
 (defn list-html [session params]
   (main/admin-page-html-wrapper
    session
@@ -21,9 +19,7 @@
         [:span.item {:style "position: relative;"}
          [:span {:class "floating ui teal label"} count]
          [:span "Results"]]
-        
         [:div.sub.header
-         
          (str "Query: " (:q params))]]]
       [:div (main/search-html (:q params))]
       [:div.ui.divided.items

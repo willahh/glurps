@@ -9,7 +9,11 @@
      [:div {:class "menu" :style "min-width: 20em;"}
       (for [option options]
         [:div (conj {:class "item" :data-value (:name option) :data-name (:name option)}
-                    (when (= (:name option) (:value option))
-                      {:selected "true"})
+                    ;; (when (= (:name option) (:value option))
+                    ;;   {:selected "true"})
                     (when (:on-click option) 
-                      {:onclick (:on-click option)})) (:label option)])]]))
+                      {:onclick (:on-click option)}))
+         (when (:icon option) 
+           (:icon option))
+         (:label option)
+         ])]]))

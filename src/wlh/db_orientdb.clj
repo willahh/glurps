@@ -34,8 +34,6 @@
              ["and"])
            b])))
 
-
-
 (defn clause-from-params [params]
   (apply str
          (flatten 
@@ -47,24 +45,26 @@
                         (if (= (:asc params) "1")
                           ["asc"] ["desc"])))))))
 
-
 (defn query [query]
   (logger/info (str "[db]" query))
   (odbp/query-command connection query))
 
 (defn find-record [class-name id]
+  (logger/info (str "[db]find-record" class-name " " id))
   (first (odbp/query-command connection (str "select from " class-name " where @rid = " id))))
 
 (defn update-record [class-name rid record-content]
-  (logger/info (str "[db] update-record" class-name " " rid " " record-content))
+  (logger/info (str "[db]update-record" class-name " " rid " " record-content))
   (odbp/record-update
    connection rid (conj {:_class class-name} record-content)))
 
 (defn create-record [class-name record-content]
+  (logger/info (str "[db]create-record" class-name " " record-content))
   (odbp/record-create connection (conj {:_class class-name
                                         :enable true} record-content)))
 
 (defn delete-record [id]
+  (logger/info (str "[db]delete-record" id))
   (odbp/record-delete connection (str "#" id)))
 
 

@@ -73,8 +73,7 @@
 
 ;; (clojure.string/split "36:9-35:9" #"-")
 ;; (clojure.string/split "36:9" #"-")
-
-(update-html {} {:id "36:9-35:9"} {})
+;; (update-html {} {:id "36:9-35:9"} {})
 
 (defn insert-html [session params state]
   (main/admin-page-html-wrapper

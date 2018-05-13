@@ -54,10 +54,6 @@
          (handle-route session params html/update-html)))
   
   ;; Action
-  ;; (POST "/admin/group/insert"
-  ;;       {session :session params :params}
-  ;;       (pr-str params))
-
   (POST "/admin/group/insert"
         {session :session params :params}
         (let [default-params (:default-params group-setting/list-conf)
@@ -86,3 +82,7 @@
   (GET "/admin/group/enable/:id" 
        [id]
        (action/enable id)))
+
+
+;; (delete "34:6-37:5")
+;; (action/delete "41:5")

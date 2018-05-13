@@ -25,9 +25,12 @@
 (defn get-bulk-action-html []
   [:div 
    (select/select-html "bulk" 1 [{:name "id" :value 1 :label "Action"}
-                                 {:name "edit" :value 2 :label "Edit" :on-click "document.location.href='/admin/group/update/' + get_selected_id();"}
-                                 {:name "trash" :value 3 :label "Trash"}
-                                 {:name "add-multiple" :value 4 :label "Add multiple"}])])
+                                 {:name "edit" :value 2 :label "Edit" :on-click "document.location.href='/admin/group/update/' + get_selected_id();" :icon [:i.edit.icon]}
+                                 {:name "trash" :value 3 :label "Trash" :on-click "document.location.href='/admin/group/disable/' + get_selected_id();" :icon [:i.trash.icon]}
+                                 {:name "restore" :value 3 :label "Restore" :on-click "document.location.href='/admin/group/enable/' + get_selected_id();" :icon [:i.undo.icon]}
+                                 {:name "delete" :value 3 :label "Delete" :on-click "document.location.href='/admin/group/delete/' + get_selected_id();" :icon [:i.delete.icon]}
+                                 {:name "fav" :value 4 :label "Fav" :on-click "document.location.href='/admin/group/fav/' + get_selected_id();" :icon [:i.heart.outline.icon]}
+                                 {:name "unfav" :value 4 :label "Unfav" :on-click "document.location.href='/admin/group/unfav/' + get_selected_id();" :icon [:i.heart.icon]}])])
 
 (defn get-pagination-offset [page limit count]
   "Get pagination offset from page number, limit and table rows count."
@@ -52,74 +55,76 @@
        [:a {:class (str "item" (when (= page end-list) " active")) :href (str path "?page=" page-count)} page-count]])))
 
 (defn get-list-option-html [params path offset limit total]
-  [:div.ui.grid.middle.aligned
-   [:div.ui.form
-    [:div.inline.fields
-     [:span.field "Active filters"]
-     [:a.ui.button.link.small "Order by : id"]
-     ;; [:span.field 
-     ;;  "id"
-     ;;  ;; (select/select-html "order" (:order params) [{:name "id" :value (:order params) :label "Id"
-     ;;  ;;                                               :selected (= "id" (str (:order params)))}
-     ;;  ;;                                              {:name "name" :value (:order params) :label "Name"
-     ;;  ;;                                               :selected (= "name" (str (:order params)))}])
-     ;;  ]
-     [:a.ui.button.link.small "Order: asc"]
-     [:div.ui.inline.multiple.dropdown
-      [:input
-       {:name "filters", :type "hidden"}]
-      [:span.text
-       "Filter Posts"]
-      [:div.menu
-       [:div.ui.icon.search.input
-        [:i.search.icon]
+  [:div {:class "row"}
+   [:div {:class "column"}
+    [:div.ui.grid.middle.aligned
+     [:div.ui.form
+      [:div.inline.fields
+       [:span.field "Active filters"]
+       [:a.ui.button.link.small "Order by : id"]
+       ;; [:span.field 
+       ;;  "id"
+       ;;  ;; (select/select-html "order" (:order params) [{:name "id" :value (:order params) :label "Id"
+       ;;  ;;                                               :selected (= "id" (str (:order params)))}
+       ;;  ;;                                              {:name "name" :value (:order params) :label "Name"
+       ;;  ;;                                               :selected (= "name" (str (:order params)))}])
+       ;;  ]
+       [:a.ui.button.link.small "Order: asc"]
+       [:div.ui.inline.multiple.dropdown
         [:input
-         {:placeholder "Search tags...", :type "text"}]]
-       [:div.divider]
-       [:div.header
-        [:i.tags.icon]
-        "\n      Tag Label\n    "]
-       [:div.scrolling.menu
-        [:div.item
-         {:data-value "important"}
-         [:div.ui.red.empty.circular.label]
-         "\n        Important\n      "]
-        [:div.item
-         {:data-value "announcement"}
-         [:div.ui.blue.empty.circular.label]
-         "\n        Announcement\n      "]
-        [:div.item
-         {:data-value "cannotfix"}
-         [:div.ui.black.empty.circular.label]
-         "\n        Cannot Fix\n      "]
-        [:div.item
-         {:data-value "news"}
-         [:div.ui.purple.empty.circular.label]
-         "\n        News\n      "]
-        [:div.item
-         {:data-value "enhancement"}
-         [:div.ui.orange.empty.circular.label]
-         "\n        Enhancement\n      "]
-        [:div.item
-         {:data-value "off-topic"}
-         [:div.ui.yellow.empty.circular.label]
-         "\n        Off Topic\n      "]
-        [:div.item
-         {:data-value "interesting"}
-         [:div.ui.pink.empty.circular.label]
-         "\n        Interesting\n      "]
-        [:div.item
-         {:data-value "discussion"}
-         [:div.ui.green.empty.circular.label]
-         "\n        Discussion\n      "]]]]
-     ;; [:span.field 
-     ;;  "Asc"
-     ;;  ;; (select/select-html "asc" (:asc params) [{:name "1" :value (:asc params) :label "Asc"
-     ;;  ;;                                           :selected (= "1" (str (:asc params)))}
-     ;;  ;;                                          {:name "0" :value (:asc params) :label "Desc"
-     ;;  ;;                                           :selected (= "0" (str (:asc params)))}])
-     ;;  ]
-     ]]])
+         {:name "filters", :type "hidden"}]
+        [:span.text
+         "Filter Posts"]
+        [:div.menu
+         [:div.ui.icon.search.input
+          [:i.search.icon]
+          [:input
+           {:placeholder "Search tags...", :type "text"}]]
+         [:div.divider]
+         [:div.header
+          [:i.tags.icon]
+          "\n      Tag Label\n    "]
+         [:div.scrolling.menu
+          [:div.item
+           {:data-value "important"}
+           [:div.ui.red.empty.circular.label]
+           "\n        Important\n      "]
+          [:div.item
+           {:data-value "announcement"}
+           [:div.ui.blue.empty.circular.label]
+           "\n        Announcement\n      "]
+          [:div.item
+           {:data-value "cannotfix"}
+           [:div.ui.black.empty.circular.label]
+           "\n        Cannot Fix\n      "]
+          [:div.item
+           {:data-value "news"}
+           [:div.ui.purple.empty.circular.label]
+           "\n        News\n      "]
+          [:div.item
+           {:data-value "enhancement"}
+           [:div.ui.orange.empty.circular.label]
+           "\n        Enhancement\n      "]
+          [:div.item
+           {:data-value "off-topic"}
+           [:div.ui.yellow.empty.circular.label]
+           "\n        Off Topic\n      "]
+          [:div.item
+           {:data-value "interesting"}
+           [:div.ui.pink.empty.circular.label]
+           "\n        Interesting\n      "]
+          [:div.item
+           {:data-value "discussion"}
+           [:div.ui.green.empty.circular.label]
+           "\n        Discussion\n      "]]]]
+       ;; [:span.field 
+       ;;  "Asc"
+       ;;  ;; (select/select-html "asc" (:asc params) [{:name "1" :value (:asc params) :label "Asc"
+       ;;  ;;                                           :selected (= "1" (str (:asc params)))}
+       ;;  ;;                                          {:name "0" :value (:asc params) :label "Desc"
+       ;;  ;;                                           :selected (= "0" (str (:asc params)))}])
+       ;;  ]
+       ]]]]])
 
 (defn get-action-html [field-id module-name record]
   (let [id ((keyword (str/replace field-id "#" "")) record)]
@@ -162,7 +167,7 @@
     [:table.ui.celled.striped.table.list-table
      [:thead
       [:tr
-       [:th [:input {:type "checkbox"}]]
+       [:th [:input {:type "checkbox"  :onclick "toggle_check();"}]]
        (for [field fields]
          [:th (get-column-html field field-order field-asc)])
        [:th "actions"]]]
@@ -215,6 +220,23 @@
    [:textarea#message
     {:style "width: 100%", :rows "10"}]])
 
+(defn filter-option-html [state list-conf page offset limit count]
+  [:div.row
+   [:div.column
+    [:div.ui.grid
+     (get-bulk-action-html)
+     (pagination-html (:path list-conf) page offset limit count)
+     
+     [:form {:class "left floated" :method "get" :action ""}
+      [:input {:type "hidden" :name "page" :value 1}]
+      (select/select-html "limit" (:limit state)
+                          (for [i ["2" "5" "10" "25" "50" "100" "250" "500"]]
+                            {:name i 
+                             :value (:limit state) :label i}))
+      "Per page"
+      [:button {:class "ui button"} "ok"]]
+     [:div (main/search-html (:q state))]]]])
+
 (defn get-html-wrapper [session params state list-conf count get-list disable-count]
   (let [field-id (:field-id list-conf)
         path (:path list-conf)
@@ -242,22 +264,8 @@
         [:div.ui.olive.horizontal.label count] "Results"]]
       [:div {:class "twelve wide column right aligned"}
        (crud-nav/get-html list-conf enable disable-count)]]
-     [:div {:class "row"}
-      [:div {:class "column"}
-       (get-list-option-html state (:path list-conf) offset limit count)]]
-     [:div.row
-      [:div.column
-       [:div.ui.grid
-        (get-bulk-action-html)
-        (pagination-html (:path list-conf) page offset limit count)
-        [:form {:class "left floated" :method "get" :action ""}
-         [:input {:type "hidden" :name "page" :value 1}]
-         (select/select-html "limit" (:limit state)
-                             (for [i ["2" "5" "10" "25" "50" "100" "250" "500"]]
-                               {:name i 
-                                :value (:limit state) :label i}))
-         "Per page"
-         [:button {:class "ui button"} "ok"]]]]]
+     (get-list-option-html state (:path list-conf) offset limit count)
+     (filter-option-html state list-conf page offset limit count)     
      [:div.row
       [:div.column
        (get-html (columns-to-fields visible-columns (:fields list-conf))
@@ -267,6 +275,7 @@
                  list-conf
                  (:module-name list-conf)
                  list-action-html-fn)]]
+     (filter-option-html state list-conf page offset limit count)
      [:div.row [:div.column
                 [:div (str "params: " (pr-str params))]
                 [:div (str "default params: " (:default-params list-conf))]
