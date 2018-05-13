@@ -22,15 +22,15 @@
     [:a {:class "btn" :href "/admin/actor"} "List"]
     [:a {:class "btn" :href "/admin/actor/trash"} "Trash"]))
 
-(defn get-bulk-action-html []
+(defn get-bulk-action-html [module-path]
   [:div 
    (select/select-html "bulk" 1 [{:name "id" :value 1 :label "Action"}
-                                 {:name "edit" :value 2 :label "Edit" :on-click "document.location.href='/admin/group/update/' + get_selected_id();" :icon [:i.edit.icon]}
-                                 {:name "trash" :value 3 :label "Trash" :on-click "document.location.href='/admin/group/disable/' + get_selected_id();" :icon [:i.trash.icon]}
-                                 {:name "restore" :value 3 :label "Restore" :on-click "document.location.href='/admin/group/enable/' + get_selected_id();" :icon [:i.undo.icon]}
-                                 {:name "delete" :value 3 :label "Delete" :on-click "document.location.href='/admin/group/delete/' + get_selected_id();" :icon [:i.delete.icon]}
-                                 {:name "fav" :value 4 :label "Fav" :on-click "document.location.href='/admin/group/fav/' + get_selected_id();" :icon [:i.heart.outline.icon]}
-                                 {:name "unfav" :value 4 :label "Unfav" :on-click "document.location.href='/admin/group/unfav/' + get_selected_id();" :icon [:i.heart.icon]}])])
+                                 {:name "edit" :value 2 :label "Edit" :on-click (str "document.location.href='" module-path "/update/' + get_selected_id();") :icon [:i.edit.icon]}
+                                 {:name "trash" :value 3 :label "Trash" :on-click (str "document.location.href='" module-path "/disable/' + get_selected_id();") :icon [:i.trash.icon]}
+                                 {:name "restore" :value 3 :label "Restore" :on-click (str "document.location.href='" module-path "/enable/' + get_selected_id();") :icon [:i.undo.icon]}
+                                 {:name "delete" :value 3 :label "Delete" :on-click (str "document.location.href='" module-path "/delete/' + get_selected_id();") :icon [:i.delete.icon]}
+                                 {:name "fav" :value 4 :label "Fav" :on-click (str "document.location.href='" module-path "/fav/' + get_selected_id();") :icon [:i.heart.outline.icon]}
+                                 {:name "unfav" :value 4 :label "Unfav" :on-click (str "document.location.href='" module-path "/unfav/' + get_selected_id();") :icon [:i.heart.icon]}])])
 
 (defn get-pagination-offset [page limit count]
   "Get pagination offset from page number, limit and table rows count."
@@ -224,7 +224,7 @@
   [:div.row
    [:div.column
     [:div.ui.grid
-     (get-bulk-action-html)
+     (get-bulk-action-html (:path list-conf))
      (pagination-html (:path list-conf) page offset limit count)
      
      [:form {:class "left floated" :method "get" :action ""}
