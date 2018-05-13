@@ -47,34 +47,35 @@
 
 (defn get-html-multiple [session params state list-conf records fields count]
   [:div
-   [:div.column
-    (when (> count 1 )
-      [:div.ui.pointing.secondary.menu
-       (for [i (range count)]
-         [:a {:class (str "item" (when (= i 0) " active")) :data-tab i} (inc i)])])
-    (let [html (atom [])] 
-      (dotimes [i count] 
-        (swap! html conj                 
-               (let [record (nth records i)
-                     id-name (:field-id list-conf)
-                     id ((keyword id-name) record)]                  
-                 [:div {:class (str "ui tab segment" (when (= i 0) " active")) :data-tab i}
-                  (when id 
-                    [:input {:type "hidden" :name (str id-name "[]") :value (clojure.string/replace id "#" "")}])
-                  [:table {:class "ui definition table"}
-                   [:tbody
-                    (for [field fields]
-                      (let [visible (utils/some-field-test? (:update field))]
-                        (when visible
-                          [:tr 
-                           [:td {:width 50} (:name field)]
-                           [:td (field/get-field-html field record fields false)]])))]]
-                  ])))
-      (into [:div] @html))    
-    [:script "$('.menu .item').tab();"]]   
+   
    [:form {:class "ui form" :action "" :method "POST"}
     [:input {:type "hidden" :name "count" :value count}]
     [:div {:style "padding: 20px 0;"} (:error-message params)]    
+    [:div.column
+     (when (> count 1 )
+       [:div.ui.pointing.secondary.menu
+        (for [i (range count)]
+          [:a {:class (str "item" (when (= i 0) " active")) :data-tab i} (inc i)])])
+     (let [html (atom [])] 
+       (dotimes [i count] 
+         (swap! html conj                 
+                (let [record (nth records i)
+                      id-name (:field-id list-conf)
+                      id ((keyword id-name) record)]                  
+                  [:div {:class (str "ui tab segment" (when (= i 0) " active")) :data-tab i}
+                   (when id 
+                     [:input {:type "hidden" :name (str id-name "[]") :value (clojure.string/replace id "#" "")}])
+                   [:table {:class "ui definition table"}
+                    [:tbody
+                     (for [field fields]
+                       (let [visible (utils/some-field-test? (:update field))]
+                         (when visible
+                           [:tr 
+                            [:td {:width 50} (:name field)]
+                            [:td (field/get-field-html field record fields false)]])))]]
+                   ])))
+       (into [:div] @html))    
+     [:script "$('.menu .item').tab();"]]
     [:div {:class "ui buttons sticky"}
      [:a {:class "ui button" :href (:path list-conf)} "Cancel"]
      [:div {:class "or"}]

@@ -4,8 +4,7 @@
             [glurps.admin.group.html :as html]
             [glurps.admin.group.helper :as group-helper]
             [glurps.process.field.field :as field]
-            [glurps.process.crud.update :as crud-update]
-            [glurps.model.group.group-model :as group-model]
+            [glurps.process.crud.update :as crud-update]            
             [glurps.model.group.group-dao :as group-dao]
             [wlh.logger :as logger]))
 
@@ -27,6 +26,7 @@
        :session session})))
 
 (defn update! [session params state html-defn]
+  (logger/info "update!" session params state html-defn)
   (let [success (atom true)
         error-message (atom "")
         count (if (:count params)
@@ -50,10 +50,17 @@
        :session session})))
 
 (defn action-batch [id field-content redirect-url]
-  (let [id-list (clojure.string/split id #"-")]
+  (let [id-list (clojure.string/split id #"-")
+        success (atom true)
+        error-message (atom "")]
     (doseq [id id-list]
-      (group-dao/update-record-properties field-content id)))
-  (response/redirect redirect-url))
+      (try (group-dao/update-record-properties field-content id)
+           (catch Exception e
+             (reset! success false)
+             (reset! error-message e))))
+    (if @success
+      (response/redirect redirect-url)
+      (str "error: " error-message))))
 
 (defn delete [id]
   (let [id-list (clojure.string/split id #"-")]

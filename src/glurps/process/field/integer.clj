@@ -6,4 +6,4 @@
   value)
 
 (defn get-update-html [field-name record value]
-  [:input {:type "number" :name field-name :id field-name :value value}])
+  [:input {:type "number" :name (str field-name "[]") :id field-name :value value}])

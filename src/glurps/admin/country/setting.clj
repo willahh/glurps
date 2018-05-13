@@ -16,7 +16,7 @@
    :fields [{:name "_rid" :properties properties/string :type "integer" :list true :show true :insert false :update false :filter true}
             {:name "name" :properties properties/string :type "string" :filter false}
             {:name "nicename" :properties properties/string :type "string" :filter false}
-            {:name "numcode" :properties properties/string :type "string" :filter false}
+            {:name "numcode" :properties properties/string :type "integer" :filter false}
             {:name "phonecode" :properties properties/string :type "string" :filter false}
             {:name "CreateDate" :properties properties/datetime :type "string" :filter true :insert false :update false}
             {:name "UpdateDate" :properties properties/datetime :type "string" :filter true :insert false :update false}]

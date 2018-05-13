@@ -1,8 +1,10 @@
 (ns glurps.admin.group.helper
   (:require [glurps.admin.group.setting :as setting]
-            [glurps.process.field.field :as field]))
+            [glurps.process.field.field :as field]
+            [wlh.logger :as logger]))
 
 (defn map-page-params [session params default-params]
+  (logger/info "map-page-params -" "session:" session " params: " params)
   (into {} (map (fn [m]
                   (let [k (first m)
                         v (cond (some? (k params)) (k params)

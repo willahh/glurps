@@ -1,7 +1,7 @@
 (ns glurps.model.country.country-dao
   (:require [glurps.config :as config]
-            [wlh.db-orientdb :as db-orientdb]
-            [glurps.model.country.country-model :as country-model]))
+            [wlh.logger :as logger]
+            [wlh.db-orientdb :as db-orientdb]))
 
 (def schema {:class-name "Country"})
 
@@ -36,6 +36,7 @@
   (update! (merge (find-by-id id) record-content) id))
 
 (defn insert [record-content]
+  (logger/info "[db]country insert" record-content)
   (db-orientdb/create-record (:class-name schema)
                              (conj record-content {:CreateDate (new java.util.Date)
                                                    :UpdateDate (new java.util.Date)})))

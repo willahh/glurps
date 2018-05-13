@@ -1,7 +1,6 @@
 (ns glurps.model.group.group-dao
   (:require [glurps.config :as config]
-            [wlh.db-orientdb :as db-orientdb]
-            [glurps.model.group.group-model :as group-model]))
+            [wlh.db-orientdb :as db-orientdb]))
 
 (def schema {:class-name "Group"})
 

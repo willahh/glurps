@@ -30,6 +30,8 @@
   (into {} (map (fn [m]
                   (when (not= (first m) :count)
                     (let [k (keyword (first m))
-                          v (nth (first (rest m)) i)]
+                          ;; v (nth (first (rest m)) i)
+                          v (try (nth (first (rest m)) i)
+                                 (catch Exception e nil))]
                       {k v})))
                 params)))

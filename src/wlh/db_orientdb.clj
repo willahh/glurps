@@ -54,9 +54,20 @@
   (first (odbp/query-command connection (str "select from " class-name " where @rid = " id))))
 
 (defn update-record [class-name rid record-content]
-  (logger/info (str "[db]update-record" class-name " " rid " " record-content))
+  (logger/info (str "[db]update-record " class-name " " rid " " record-content))
   (odbp/record-update
    connection rid (conj {:_class class-name} record-content)))
+
+;; (update-record
+;;  "Country"
+;;  "#51:31"
+;;  {:_version 1,
+;;   :_rid "#51:31", 
+;;   :_class "Country", 
+;;   :enable true, 
+;;   :CreateDate #inst "2018-05-13T15:15:42.160-00:00",
+;;   :UpdateDate #inst "2018-05-13T15:26:05.954-00:00", 
+;;   :fav true})
 
 (defn create-record [class-name record-content]
   (logger/info (str "[db]create-record" class-name " " record-content))

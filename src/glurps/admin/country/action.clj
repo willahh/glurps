@@ -4,8 +4,7 @@
             [glurps.admin.country.html :as html]
             [glurps.admin.country.helper :as country-helper]
             [glurps.process.field.field :as field]
-            [glurps.process.crud.update :as crud-update]
-            [glurps.model.country.country-model :as country-model]
+            [glurps.process.crud.update :as crud-update]            
             [glurps.model.country.country-dao :as country-dao]
             [wlh.logger :as logger]))
 
@@ -27,6 +26,7 @@
        :session session})))
 
 (defn update! [session params state html-defn]
+  (logger/info "update!" "session: " session " params: " params " state: " state)
   (let [success (atom true)
         error-message (atom "")
         count (if (:count params)
