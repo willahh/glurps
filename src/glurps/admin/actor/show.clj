@@ -9,7 +9,6 @@
 (defn get-html [id]
   (let [record (actor-dao/find-by-id id)]
     (main/admin-page-html-wrapper
-     setting/list-conf
-     main/module-type-show
-     (crud-show/get-html (:fields setting/list-conf) record)
-     [record])))
+     {}
+     {}
+     (crud-show/get-html (:fields setting/list-conf) record))))

@@ -40,18 +40,19 @@
       [:tr 
        [:td "Order by"]
        [:td 
-        (select/select-html "order" [{:name "id" :value (:order params) :label "Id"}
-                                     {:name "name" :value (:order params) :label "Name"}])]]
+        (select/select-html "order" (:order params) [{:name "id" :value (:order params) :label "Id"}
+                                                     {:name "name" :value (:order params) :label "Name"}])]]
       [:tr 
        [:td "Asc"]
        [:td 
-        (select/select-html "asc" [{:name "1" :value (:asc params) :label "Asc"}
-                                   {:name "0" :value (:asc params) :label "Desc"}])]
+        (select/select-html "asc" (:asc params)
+                            [{:name "1" :value (:asc params) :label "Asc"}
+                             {:name "0" :value (:asc params) :label "Desc"}])]
        ]
       [:tr 
        [:td "Page"]
        [:td 
-        (select/select-html "page" 
+        (select/select-html "page" 2
                             (for [i  (into [] (range 1 10))]
                               {:name (str i) :value (:page params) :label (str "Page" i)}))]
        ]
@@ -59,6 +60,7 @@
        [:td "Row per page"]
        [:td 
         (select/select-html "limit" 
+                            (:limit params)
                             (for [i ["2" "5" "10" "25" "50" "100" "250" "500"]]
                               {:name i :value (:limit params) :label i}))]
        ]]]

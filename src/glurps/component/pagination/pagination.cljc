@@ -14,10 +14,10 @@
    [:div {:class "item"}
     (pagination-html)]
    [:div {:class "item"}
-    (select/select-html "limit" [{:name "2" :value "2" :label "2"}
-                                 {:name "10" :value "10" :label "10"}
-                                 {:name "25" :value "25" :label "25"}]
+    (select/select-html "2" "limit" [{:name "2" :value "2" :label "2"}
+                                     {:name "10" :value "10" :label "10"}
+                                     {:name "25" :value "25" :label "25"}]
                         {:width 100})]
    [:div {:class "item"}
-    (select/select-html "page" [{:name "1" :value "1" :label "Page 1"}
-                                {:name "2" :value "2" :label "Page 2"}])]])
+    (select/select-html "1" "page" [{:name "1" :value "1" :label "Page 1"}
+                                    {:name "2" :value "2" :label "Page 2"}])]])

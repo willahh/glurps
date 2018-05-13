@@ -9,6 +9,13 @@
 
 (defn get-html [{:keys [params session] :as query} & {:keys [disable?]}]
   (main/admin-page-html-wrapper
-   setting/list-conf
-   main/module-type-show
-   (crud-list/get-html-wrapper session params setting/list-conf disable? (actor-dao/count) actor-dao/get-list actor-dao/get-list-disable)))
+   session
+   params
+   (crud-list/get-html-wrapper
+    session
+    params
+    {}
+    setting/list-conf
+    (actor-dao/count)
+    actor-dao/get-list
+    0)))

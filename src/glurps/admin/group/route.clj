@@ -1,39 +1,73 @@
 (ns glurps.admin.group.route
   (:require [compojure.core :refer [defroutes ANY GET POST]]
+            [glurps.admin.group.setting :as group-setting]
+            [glurps.process.crud.update :as crud-update-temp-debug]
+            [glurps.admin.group.setting :as setting]
             [glurps.admin.group.html :as html]
             [glurps.admin.group.action :as action]))
 
+(defn map-page-params [session params default-params]
+  (into {} (map (fn [m]
+                  (let [k (first m)
+                        v (cond (some? (k params)) (k params)
+                                (some? (k session)) (k session)
+                                (some? (k default-params)) (k default-params))] 
+                    {(keyword k) v})) default-params)))
+
+(defn handle-route [session params body-defn]
+  (let [default-params (:default-params group-setting/list-conf)
+        state (map-page-params session params default-params)
+        session (merge session state)]
+    {:headers {"Content-Type" "text/html"}
+     :body (body-defn session params state)
+     :session session}))
+
 (defroutes admin-group-route
-  ;; List / show / update / insert
+  ;; List insert show update
   (GET "/admin/group"
-       request
-       (html/list-html request))
+       {session :session params :params}
+       (let [params (conj params {:enable true})]
+         (handle-route session params html/list-html)))
   (POST "/admin/group"
-        request
-        (html/list-html request)) 
+        {session :session params :params}
+        (let [params (conj params {:enable true})]
+          (handle-route session params html/list-html)))
   (GET "/admin/group/trash"
-       request
-       (html/list-html request :disable? true)) 
+       {session :session params :params}
+       (let [params (conj params {:enable false})]
+         (handle-route session params html/list-html)))
   (POST "/admin/group/trash"
-        request
-        (html/list-html request :disable? true)) 
-  (GET "/admin/group/show/:id" 
-       [id]
-       (html/show-html id))
-  (GET "/admin/group/update/:id"
-       [id]
-       (html/update-html id))
-  (POST "/admin/group/update/:id"
-        {params :params}
-        (action/update params))
+        {session :session params :params}
+        (let [params (conj params {:enable false})]
+          (handle-route session params html/list-html)))
+  (GET "/admin/group/show/:id"
+       {session :session params :params}
+       (let [params params]
+         (handle-route session params html/show-html)))
   (GET "/admin/group/insert"
-       [id]
-       (html/insert-html id))
-  (POST "/admin/group/insert"
-        {params :params}
-        (action/insert params))
+       {session :session params :params}
+       (let [params params]
+         (handle-route session params html/insert-html)))
+  (GET "/admin/group/update/:id"
+       {session :session params :params}
+       (let [params params]
+         (handle-route session params html/update-html)))
   
-  ;; Actions
+  ;; Action
+  ;; (POST "/admin/group/insert"
+  ;;       {session :session params :params}
+  ;;       (pr-str params))
+
+  (POST "/admin/group/insert"
+        {session :session params :params}
+        (let [default-params (:default-params group-setting/list-conf)
+              state (map-page-params session params default-params)]
+          (action/insert session params state html/insert-html)))
+  (POST "/admin/group/update/:id"
+        {session :session params :params}
+        (let [default-params (:default-params group-setting/list-conf)
+              state (map-page-params session params default-params)]
+          (action/update! session params state html/update-html)))
   (GET "/admin/group/fav/:id"
        [id]
        (action/fav id))

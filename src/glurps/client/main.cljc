@@ -15,8 +15,8 @@
 (defn head []
   [:head
    [:title "Glurp!"]
-   [:link {:type "text/css", :href "https://fonts.googleapis.com/icon?family=Material+Icons" :rel "stylesheet"}]
-   [:script {:type "text/javascript", :src "https://code.jquery.com/jquery-3.1.1.min.js"}]
+   [:link {:type "text/css", :href "/lib/material_icon.css" :rel "stylesheet"}]
+   [:script {:type "text/javascript", :src "/lib/jquery-3.1.1.min.js"}]
    [:script {:type "text/javascript", :src "/semantic/dist/semantic.min.js"}]
    [:script {:type "text/javascript", :src "/js/main.js"}]
    [:link {:type "text/css", :href "/semantic/dist/semantic.min.css" :rel "stylesheet"}]

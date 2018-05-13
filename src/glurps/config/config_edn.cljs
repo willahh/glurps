@@ -10,5 +10,9 @@
            :db-spec {:classname "org.sqlite.JDBC"
                      :subprotocol "sqlite"
                      :subname "/Users/willahh/www/projects/clojure/glurps/resources/databases/allocine.db"}
+           :odb-spec {:host "localhost"
+                      :port 2424
+                      :log-file "log/clj_odbp.log"
+                      :log-level :fatal}
            :db-name "/Users/willahh/www/projects/clojure/glurps/resources/databases/allocine.db"
-           :database-manager-url "http://localhost/projects/clojure/glurps/resources/databases/?sqlite=&username=root&db=allocine.db"})
+           :database-manager-url "http://localhost:2480/studio/index.html#/database/glurps/browse"})

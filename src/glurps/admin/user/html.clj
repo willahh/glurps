@@ -8,35 +8,36 @@
 
 (defn list-html [{:keys [params session] :as query} & {:keys [disable?]}]
   (main/admin-page-html-wrapper
-   setting/list-conf
-   main/module-type-show
-   (crud-list/get-html-wrapper session params
+   session
+   params
+   (crud-list/get-html-wrapper session 
+                               params
+                               {}
                                setting/list-conf
-                               disable?
                                (user-dao/count3)
                                user-dao/get-list
-                               user-dao/get-list-disable)))
+                               0)))
 
 (defn show-html [id]
   (let [record (user-dao/find-by-id id)]
     (main/admin-page-html-wrapper
-     setting/list-conf
-     main/module-type-show
-     (crud-show/get-html (:fields setting/list-conf) record)
-     [record])))
+     {}
+     {}
+     (crud-show/get-html (:fields setting/list-conf) record))))
 
 (defn update-html [id]
   (let [record (user-dao/find-by-id id)]
     (main/admin-page-html-wrapper
-     setting/list-conf
-     main/module-type-edit
-     (crud-update/get-html record
-                           (:fields setting/list-conf))
-     [record])))
+     {}
+     {}
+     (crud-update/get-html setting/list-conf
+                           record
+                           (:fields setting/list-conf)))))
 
 (defn insert-html [id]
   (main/admin-page-html-wrapper
-   setting/list-conf
-   main/module-type-edit
-   (crud-update/get-html nil
+   {}
+   {}
+   (crud-update/get-html setting/list-conf
+                         nil
                          (:fields setting/list-conf))))

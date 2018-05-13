@@ -4,13 +4,16 @@
             [compojure.route :as route]
             [compojure.core :as compojure]
             [compojure.handler :as handler]
+            [ring.middleware.json :refer [wrap-json-response]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [glurps.admin.index :as admin-list]
-            [glurps.api.api :refer [api-route]]
+            [glurps.api.api :refer [api-route api-route-json]]
             [glurps.admin.actor.route :refer [admin-actor-route]]
             [glurps.admin.user.route :refer [admin-user-route]]
             [glurps.admin.group.route :refer [admin-group-route]]
             [glurps.admin.asset.route :refer [admin-asset-route]]
+            [glurps.admin.search.route :refer [admin-search-route]]
+            [glurps.admin.login.route :refer [admin-login-route]]
             [glurps.client.module.asset.route :refer [client-asset-route]]
             [glurps.client.views.home :as home]
             [glurps.client.views.sheet :as sheet]
@@ -49,24 +52,27 @@
        []
        (logs/get-html))
   (GET "/admin"
-       []
-       (admin-list/get-html)))
+       [params session]
+       (admin-list/get-html params session)))
 
-(defn init []
-  (println "Application is starting"))
+;; (defn init []
+;;   (println "Application is starting"))
 
-(def app
+;; (def app
+(defonce app
   (-> 
    (routes
-    app-routes
+    ;; app-routes
+    #'app-routes
     api-route
+    (wrap-json-response api-route-json)
     admin-actor-route
     admin-user-route
     admin-group-route
     admin-asset-route
+    admin-search-route
+    admin-login-route
     client-asset-route)
    (wrap-defaults
     (-> site-defaults
-        (assoc-in [:security :anti-forgery] false)
-        (assoc-in [:session :store] (cookie-store {:key "BuD3KgdAXhDHrJXu"}))
-        (assoc-in [:session :cookie-name] "example-app-sessions")))))
+        (assoc-in [:security :anti-forgery] false)))))

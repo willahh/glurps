@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-{"version":3,"file":"\/Users\/willahh\/www\/projects\/clojure\/glurps\/resources\/public\/js\/out\/devtools\/context.js","sources":["context.cljs?rel=1525389484731"],"lineCount":11,"mappings":";AAAA;;AAGA,4BAAA,5BAAgBA;AAAhB,AACEC;;AAEF,+BAAA,\/BAAgBC;AAAhB,AACE,OAAW,AAACF","names":["devtools.context\/get-root","goog\/global","devtools.context\/get-console"]}
-=======
-{"version":3,"file":"\/Users\/willahh\/www\/projects\/clojure\/glurps\/resources\/public\/js\/out\/devtools\/context.js","sources":["context.cljs?rel=1525389563776"],"lineCount":11,"mappings":";AAAA;;AAGA,4BAAA,5BAAgBA;AAAhB,AACEC;;AAEF,+BAAA,\/BAAgBC;AAAhB,AACE,OAAW,AAACF","names":["devtools.context\/get-root","goog\/global","devtools.context\/get-console"]}
->>>>>>> sqlite

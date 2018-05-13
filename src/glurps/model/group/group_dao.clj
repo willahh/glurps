@@ -1,78 +1,56 @@
 (ns glurps.model.group.group-dao
   (:require [glurps.config :as config]
-            [wlh.db :as db]
+            [wlh.db-orientdb :as db-orientdb]
             [glurps.model.group.group-model :as group-model]))
 
-(def schema
-  {:table-name "glu_group"
-   :cols (group-model/get-fields)})
-
-(defn- bool-to-int [bool]
-  "Cast boolean into an integer 1 or 0."
-  (if bool 1 0))
-
-(defn- get-clauses [params]
-  "Takes a `params` map and returns a clauses vector that will be used by honeysql.
-  `params` represents the page parameters. e.g POST, GET, parameters."
-  (let [and (conj []
-                  (when (:fav params)
-                    [:= :fav 1])
-                  (when (:active params)
-                    [:= :active (bool-to-int (:active params))]))
-        and-clean (into [] (filter second and))]
-    
-    (if (= (count and-clean) 1)
-      {:where (first and-clean)}
-      (if (> (count and-clean) 1)
-        {:where
-         (into [] (cons :and and-clean))}))))
+(def schema {:class-name "Group"})
 
 (defn get-list [params offset limit]
-  (db/query (config/get :db-spec)
-            (db/get-sql-map-from-params (:table-name schema) params (get-clauses params))
-            offset
-            limit))
+  (db-orientdb/query 
+   (let [clause (db-orientdb/clause-from-params params)]
+     (str "select * from " (:class-name schema) " " clause " limit " limit " offset " offset))))
 
-(defn- get-count [col]
-  (first (rest (first (first col)))))
+(defn count! []
+  (:count (first (db-orientdb/query 
+                  (str "select count(*) from " (:class-name schema))))))
 
-(defn count []
-  (get-count (db/query-old (config/get :db-spec)
-                           (str "SELECT COUNT(*) FROM \"" (schema :table-name) "\""))))
+(defn disable-count []
+  (:count (first 
+           (db-orientdb/query
+            (str "select count(*) from " (:class-name schema)`" where enable = false")))))
+
+(defn enable-count []
+  (:count (first 
+           (db-orientdb/query
+            (str "select count(*) from " (:class-name schema)`" where enable = true")))))
+
 (defn find-by-id [id]
-  (first (db/query-old (config/get :db-spec) (str "SELECT * FROM \"" (schema :table-name) "\" WHERE \"id\" = '" id "'"))))
+  (db-orientdb/find-record (:class-name schema) id))
 
-(defn get-list-disable [params offset limit & args]
-  (db/query-old (config/get :db-spec)
-                (str "SELECT * FROM \"glu_group\" WHERE \"active\" = '0' LIMIT " limit " OFFSET " offset)))
+(defn- update! [record-content id]
+  (let [rid (str "#" id)]
+    (db-orientdb/update-record (:class-name schema)
+                               rid (conj record-content {:UpdateDate (new java.util.Date)}))))
 
-(defn insert [record]
-  "Takes a record actor, insert it in the database."
-  (db/insert (config/get :db-spec)
-             (:table-name schema)
-             (:cols schema)
-             (into {} record)))
+(defn update-record-properties [record-content id]
+  (update! (merge (find-by-id id) record-content) id))
 
-(defn update! [set-map where-clause]
-  (db/update! (config/get :db-spec) (schema :table-name) set-map where-clause))
+(defn insert [record-content]
+  (db-orientdb/create-record (:class-name schema)
+                             (conj record-content {:CreateDate (new java.util.Date)
+                                                   :UpdateDate (new java.util.Date)})))
 
 (defn delete [id]
-  (db/delete (config/get :db-spec) (schema :table-name) id))
+  (db-orientdb/delete-record id))
 
 (defn enable [id]
-  (db/update! (config/get :db-spec) (schema :table-name) 
-              {:active 1} [(str "id = " id)]))
+  (update-record-properties {:enable true} id))
 
 (defn disable [id]
-  (db/update! (config/get :db-spec) (schema :table-name) 
-              {:active 0} [(str "id = " id)]))
+  (update-record-properties {:enable false} id))
 
 (defn fav [id]
-  "Set record to favorite"
-  (db/update! (config/get :db-spec) (schema :table-name) 
-              {:fav 1} [(str "id = " id)]))
+  (update-record-properties {:fav true} id))
 
 (defn unfav [id]
-  "Unset record to favorite"
-  (db/update! (config/get :db-spec) (schema :table-name) 
-              {:fav 0} [(str "id = " id)]))
+  (update-record-properties {:fav false} id))

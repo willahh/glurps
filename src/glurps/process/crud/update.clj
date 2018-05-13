@@ -30,32 +30,49 @@
 (defn try-update [fields id raw-data make-model-fn dao-update-fn]
   "Try to update raw-data into database. Do a validation before."
   (do (validation/check-fields fields raw-data)
-      (let [record (make-model-fn raw-data)]
-        (dao-update-fn (into {} (filter second record))
-                       [(str "id = " id)]))))
+      (let [record (into {} (filter second (make-model-fn raw-data)))]
+        (dao-update-fn record id))))
 
-(defn handle-insert [list-conf fields params redirect-url make-model-fn dao-update-fn]
-  (let [raw-data (map-params-to-raw-data fields params)]
-    (try-insert fields
-                raw-data make-model-fn dao-update-fn)
+(defn handle-insert [list-conf fields params redirect-url make-model-fn dao-insert-fn]
+  (let [record-content params]
+    (dao-insert-fn record-content)
     (response/redirect redirect-url)))
 
 (defn handle-update [list-conf params redirect-url make-model-fn dao-update-fn]
-  (let [raw-data (map-params-to-raw-data (:fields list-conf) params)]
-    (try-update (:fields list-conf) (:id params) raw-data make-model-fn dao-update-fn)
+  (let [record-content params
+        field-id (keyword (:field-id list-conf))
+        id (field-id params)]
+    (dao-update-fn record-content id)
     (response/redirect redirect-url)))
 
-(defn get-html [record fields]
+(defn get-html-multiple [session params state list-conf records fields count]
   [:form {:class "ui form" :action "" :method "POST"}
-   [:table {:class "ui definition table"}
-    [:tbody
-     (for [field fields]
-       (let [visible (utils/some-field-test? (:show field))]
-         (when visible
-           [:tr 
-            [:td {:width 50} (:name field)]
-            [:td (field/get-field-html field record fields false)]])))]]
+   [:input {:type "hidden" :name "count" :value count}]
+   [:div {:style "padding: 20px 0;"} (:error-message params)]
+   ;; [:div {:style "padding: 20px; 0;"} (pr-str "id: " id "id-name: " id-name "record: " record)]
+   (let [html (atom [])] 
+     (dotimes [i count] 
+       (swap! html conj                 
+              (let [record (nth records i)
+                    id-name (:field-id list-conf)
+                    id ((keyword id-name) record)]                  
+                [:div 
+                 (when id 
+                   [:input {:type "hidden" :name (str id-name "[]") :value (clojure.string/replace id "#" "")}])
+                 [:table {:class "ui definition table"}
+                  [:tbody
+                   (for [field fields]
+                     (let [visible (utils/some-field-test? (:update field))]
+                       (when visible
+                         [:tr 
+                          [:td {:width 50} (:name field)]
+                          [:td (field/get-field-html field record fields false)]])))]]
+                 ])))
+     (into [:div] @html))
    [:div {:class "ui buttons sticky"}
-    [:a {:class "ui button" :href "../"} "Cancel"]
+    [:a {:class "ui button" :href (:path list-conf)} "Cancel"]
     [:div {:class "or"}]
     [:button {:class "ui positive button" :type "submit"} "Save"]]])
+
+;; (into [:div] [[:div "a"] [:div "b"] [:div "c"] ])
+;; (get-html-multiple {} {} {} {} {} {})

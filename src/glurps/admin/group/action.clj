@@ -1,26 +1,85 @@
 (ns glurps.admin.group.action
   (:require [ring.util.response :as response]
             [glurps.admin.group.setting :as setting]
+            [glurps.admin.group.html :as html]
+            [glurps.process.field.field :as field]
             [glurps.process.crud.update :as crud-update]
             [glurps.model.group.group-model :as group-model]
             [glurps.model.group.group-dao :as group-dao]))
 
-(defn insert [params]
-  (crud-update/handle-insert
-   setting/list-conf (:fields setting/list-conf) params "../../group" group-model/make group-dao/insert)
-  (response/redirect "../group"))
+(defn map-params-to-record-content [params fields]
+  (into {} (map (fn [m]
+                  (let [k (keyword (:name m))
+                        v (k params)
+                        type (:type m)]
+                    (when v {k (field/format-value-for-insert type v)})))
+                fields)))
 
-(defn update [params]
-  (crud-update/handle-update
-   setting/list-conf params "../../group" group-model/make group-dao/update!))
+(defn record-content-from-records-content [params i]
+  (into {} (map (fn [m]
+                  (when (not= (first m) :count)
+                    (let [k (keyword (first m))
+                          v (nth (first (rest m)) i)]
+                      {k v})))
+                params)))
 
-(defn delete [id]
+(defn insert [session params state html-defn]
+  (let [success (atom true)
+        error-message (atom "")
+        count (Integer. (:count params))]
+    (dotimes [i count]
+      (when (= @success true)
+        (let [record-content (record-content-from-records-content params i)]
+          (try (group-dao/insert record-content)
+               (catch Exception e
+                 (reset! success false)
+                 (reset! error-message e))))))
+    (if @success
+      (response/redirect "../group")
+      {:headers {"Content-Type" "text/html"}
+       :body (html-defn session (assoc params :error-message @error-message) state)
+       :session session})))
+
+;; (insert {} {:count "3", :name ["a" "b" "c"] :descr ["desca" "descrb" "descrc"]} {} nil)
+;; (insert {} {:count "1", :name ["a"] :descr ["desca"]} {} nil)
+
+(defn update! [session params state html-defn]
+  (let [success (atom true)
+        error-message (atom "")
+        count (if (:count params)
+                (Integer. (:count params))
+                1)]
+    (dotimes [i count]
+      (when (= @success true)
+        (let [record-content
+              (map-params-to-record-content (record-content-from-records-content params i)
+                                            (:fields setting/list-conf))
+              field-id (keyword (:field-id setting/list-conf))
+              id (nth (field-id params) i)]
+          (try (group-dao/update-record-properties record-content id)
+               (catch Exception e
+                 (reset! success false)
+                 (reset! error-message e))))))
+    (if @success
+      (response/redirect "../../group")
+      {:headers {"Content-Type" "text/html"}
+       :body (html-defn session (assoc params :error-message @error-message) state)
+       :session session})))
+
+;; (update! {} {} {} nil)
+;; (update! {} {:count "3", :name ["a" "b" "c"] :descr ["desca" "descrb" "descrc"]} {} nil)
+;; (update! {} {:count "2", :_rid ["36:9" "35:9"], :name ["df" "g"], :id "36:9-35:9"} {} nil)
+
+
+;; (for [id [""]] id)
+
+(defn delete [id-list]
   (group-dao/delete id)
-  (response/redirect "../../group"))
+  (response/redirect "../../group/trash"))
 
 (defn enable [id]
   (group-dao/enable id)
-  (response/redirect "../../group"))
+  (response/redirect "../../group/trash"))
 
 (defn disable [id]
   (group-dao/disable id)

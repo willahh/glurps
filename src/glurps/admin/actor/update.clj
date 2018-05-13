@@ -13,18 +13,20 @@
 (defn get-html [id]
   (let [actor-record (actor-dao/find-by-id id)]
     (main/admin-page-html-wrapper
-     setting/list-conf
-     main/module-type-edit
-     (crud-update/get-html actor-record
-                           (:fields setting/list-conf))
-     [actor-record])))
+     {}
+     {}
+     (crud-update/get-html setting/list-conf
+                           actor-record
+                           (:fields setting/list-conf)))))
 
 (defn get-html-insert [id]
   (main/admin-page-html-wrapper
-   setting/list-conf
-   main/module-type-edit
+   {}
+   {}
    [:div (pr-str id)
-    (crud-update/get-html nil (:fields setting/list-conf))]))
+    (crud-update/get-html setting/list-conf
+                          nil
+                          (:fields setting/list-conf))]))
 
 (defn try-insert [raw-data]
   "Try to insert raw-data into database. Do a validation before."
@@ -42,17 +44,17 @@
                            [(str "id = " id)]))))
 
 (defn handle-insert [params]
-  (main/get-html
-   (let [raw-data
-         {:alloid (Integer. (params :alloid))
-          :name (params :name)
-          :job (params :job)
-          :nationality (params :nationality)
-          :age (Integer. (params :age))
-          :birthdate (params :birthdate)
-          :picture (params :picture)}]
-     [:div (pr-str raw-data)
-      (try-insert raw-data)])))
+  (let [raw-data
+        {:alloid (Integer. (params :alloid))
+         :name (params :name)
+         :job (params :job)
+         :nationality (params :nationality)
+         :age (Integer. (params :age))
+         :birthdate (params :birthdate)
+         :picture (params :picture)}]
+    [:div (pr-str raw-data)
+     (try-insert raw-data)
+     (response/redirect "../../actor")]))
 
 (defn handle-update [params]
   (let [raw-data
@@ -68,4 +70,4 @@
 
 (defn handle-delete [actor-id]
   (actor-dao/delete actor-id)
-  (main/get-html [:div "ok"]))
+  (response/redirect "../../actor"))

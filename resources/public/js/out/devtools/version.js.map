@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-{"version":3,"file":"\/Users\/willahh\/www\/projects\/clojure\/glurps\/resources\/public\/js\/out\/devtools\/version.js","sources":["version.cljs?rel=1525389485784"],"lineCount":9,"mappings":";AAAA;;AAGA,AAAKA,mCAAgB;AAErB,uCAAA,vCAAMC;AAAN,AACED","names":["devtools.version\/current-version","devtools.version\/get-current-version"]}
-=======
-{"version":3,"file":"\/Users\/willahh\/www\/projects\/clojure\/glurps\/resources\/public\/js\/out\/devtools\/version.js","sources":["version.cljs?rel=1525389564996"],"lineCount":9,"mappings":";AAAA;;AAGA,AAAKA,mCAAgB;AAErB,uCAAA,vCAAMC;AAAN,AACED","names":["devtools.version\/current-version","devtools.version\/get-current-version"]}
->>>>>>> sqlite

@@ -1,16 +1,14 @@
 (ns glurps.model.group.group-model)
 
-(def fields '(^Integer id
-              ^Integer active
+(def fields '(^Integer _rid
               ^String name))
 
-(defrecord Group [^Integer id
-                  ^Integer active
+(defrecord Group [^Integer _rid
                   ^String name])
 
 (defn get-fields []
   (into [] (map #(str %)) fields))
 
 (defn make
-  [{:keys [id active name]}]
-  (->Group id active name))
+  [{:keys [_rid name]}]
+  (->Group _rid name))

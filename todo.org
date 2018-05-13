@@ -1,13 +1,15 @@
+
 #+TITLE+ Glurps
 * TODO CRUD - List
 ** DONE Trash
-** IN PROGRESS List pagination
+** DONE List pagination
 ** DONE List sort asc desc
 ** TODO Save crud params into session
+** TODO Draggable columns
 ** TODO Put database requests into a vector and display requests states
 ** DONE List order asc desc
 ** TODO List filter sub form
-** TODO List layout configuration
+** DONE List layout configuration
 *** TODO Columns to display "id", "order", "..."
 ** TODO List import xml
 ** TODO List import json
@@ -20,15 +22,26 @@
 ** TODO List delete multiple
 ** TODO List enable multiple
 ** TODO List / Thumb switch
-** TODO Image gallery
 ** DONE Fav true/false
 ** TODO Clone
 ** TODO Order up
 ** TODO Order down
 ** TODO List in update mode where all fields are in update mode
-* TODO SQL Closure table
-  http://dirtsimple.org/2010/11/simplest-way-to-do-tree-based-queries.html
-  https://coderwall.com/p/lixing/closure-tables-for-browsing-trees-in-sql
+* DONE Search module
+* TODO Implement OAuth https://github.com/mattrepl/clj-oauth
+* TODO Table commentaires dispo pour touts les éléments
+* TODO Liste de données https://www.data.gouv.fr/fr/topics/culture/
+* TODO Download Sample database https://github.com/datacharmer/test_db
+* TODO Liste utilisateurs connectés
+* TODO Add usage meta data (row is used in ...)
+* DONE Liste de Locales https://semantic-ui.com/elements/flag.html
+* TODO Table state transverse
+* TODO Table TAG transverse
+* TODO Table completion
+* TODO Crud gallery
+* TODO Admin Home page -> Add full search features, relations viewer etc
+* TODO Admin - Country
+* TODO Implement OrientDB
 * TODO Todo example app
   https://github.com/arevkov/clojure-web-app
 * TODO CRUD - Show
@@ -41,13 +54,15 @@
 ** TODO Email service
 ** TODO Forgot password
 * TODO Implement Datomic
-* TODO https
-  https://stackoverflow.com/a/28034335/8000017
 * TODO REST API
   Tests can be made through Postman application
+   --------> OrientDB can do that automaticaly
 * TODO Locales file
 ** TODO Locales fr en file
 * TODO Service worker
+** TODO https 
+   https://stackoverflow.com/a/28034335/8000017
+** TODO https://serviceworke.rs/message-relay_demo.html
 ** TODO Events panel with service worker
 ** TODO JS SW
    Implements a javascript service worker in admin to display some user
@@ -58,13 +73,13 @@
        - User is redirected on the list
        - .. when finished, a dialog appear to display the process informations and
        a button to reload the page
-
+       
 * DONE Get POST form works
+* DONE Orient db driver ---------> https://github.com/eduardoejp/clj-orient
+      --> Obsolète
 * TODO Logger
 ** TODO Page admin/log : Add filter from level or type
 ** TODO Use cache - future is good but should not be called on every calls,
    Check for the use of channels with core.async
 ** TODO Generate one file per day
 ** TODO Implements clojure.java.io stream
-
-* TODO Database connnector -> mysql or graphdb
