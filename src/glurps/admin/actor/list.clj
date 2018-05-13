@@ -18,4 +18,5 @@
     setting/list-conf
     (actor-dao/count)
     actor-dao/get-list
-    0)))
+    0
+    crud-list/get-action-html)))

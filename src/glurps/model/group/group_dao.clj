@@ -1,7 +1,6 @@
 (ns glurps.model.group.group-dao
   (:require [glurps.config :as config]
             [wlh.db-orientdb :as db-orientdb]
-            [wlh.logger :as logger]
             [glurps.model.group.group-model :as group-model]))
 
 (def schema {:class-name "Group"})
@@ -42,17 +41,4 @@
                                                    :UpdateDate (new java.util.Date)})))
 
 (defn delete [id]
-  (logger/info "group_dao delete:" id)
   (db-orientdb/delete-record id))
-
-(defn enable [id]
-  (update-record-properties {:enable true} id))
-
-(defn disable [id]
-  (update-record-properties {:enable false} id))
-
-(defn fav [id]
-  (update-record-properties {:fav true} id))
-
-(defn unfav [id]
-  (update-record-properties {:fav false} id))

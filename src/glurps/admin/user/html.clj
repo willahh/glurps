@@ -16,7 +16,8 @@
                                setting/list-conf
                                (user-dao/count3)
                                user-dao/get-list
-                               0)))
+                               0
+                               crud-list/get-action-html)))
 
 (defn show-html [id]
   (let [record (user-dao/find-by-id id)]

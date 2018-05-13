@@ -237,13 +237,11 @@
       [:button {:class "ui button"} "ok"]]
      [:div (main/search-html (:q state))]]]])
 
-(defn get-html-wrapper [session params state list-conf count get-list disable-count]
+(defn get-html-wrapper [session params state list-conf count get-list disable-count list-action-html-defn]
   (let [field-id (:field-id list-conf)
         path (:path list-conf)
         columns (map-fields-to-column (:fields list-conf))
-        list-action-html-fn (if (:list-action-html-fn list-conf)
-                              (:list-action-html-fn list-conf)
-                              get-action-html)
+        list-action-html-fn list-action-html-defn
         visible-columns (get-visible-columns (map #(:name %) (:fields list-conf))
                                              (:columns state)
                                              (:columns (:default-params list-conf)))

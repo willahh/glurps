@@ -66,7 +66,6 @@ $(function() {
     });
 });
 
-
 function get_selected_id() {
     return Array.prototype.slice.call(document.querySelectorAll('.list-table tbody input[type="checkbox"]:checked'))
         .map(function(m) {return m.value;})
@@ -74,7 +73,6 @@ function get_selected_id() {
         .replace(/^-/, '')
         .replace(/#/g, '');
 }
-
 
 function toggle_check() {
     let isChecked = $('.list-table thead input[type="checkbox"]').is(':checked');

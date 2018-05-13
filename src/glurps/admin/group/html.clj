@@ -9,7 +9,22 @@
             [glurps.model.group.group-dao :as group-dao]
             [glurps.model.user.user-dao :as user-dao]))
 
-(defn list-html [session params state]
+(defn list-action-html-fn [field-id module-name record]
+  (let [id (clojure.string/replace ((keyword field-id) record) "#" "")]
+    [:span
+     [:a {:href (str "/admin/" module-name "/show/" id) :class "btn" :title "Info"} "<i class=\"material-icons\">info</i>"]
+     [:a {:href (str "/admin/" module-name "/update/" id) :class "btn" :title "Edit"} "<i class=\"material-icons\">mode_edit</i>"]
+     (if (:fav record)
+       [:a {:href (str "/admin/" module-name "/unfav/" id) :class "btn" :title "Remove to favorite"} "<i class=\"material-icons\">favorite</i>"]
+       [:a {:href (str "/admin/" module-name "/fav/" id) :class "btn" :title "Add to favorite"} "<i class=\"material-icons\">favorite_border</i>"])
+     (if (:enable record)
+       [:a {:href (str "/admin/" module-name "/disable/" id) :class "btn" :title "Disable"} "<i class=\"material-icons\">clear</i>"]
+       [:span
+        [:a {:href (str "/admin/" module-name "/enable/" id) :class "btn" :title "Restore"} "<i class=\"material-icons\">undo</i>"]
+        [:a {:href (str "/admin/" module-name "/delete/" id) :class "btn" :title "Delete"} "<i class=\"material-icons\">delete</i>"]])]))
+
+(defn list-html 
+  [session params state]
   (main/admin-page-html-wrapper 
    session
    params
@@ -19,46 +34,25 @@
                                setting/list-conf
                                (group-dao/enable-count)
                                group-dao/get-list
-                               (group-dao/disable-count))))
+                               (group-dao/disable-count)
+                               list-action-html-fn)))
 
-(defn show-html [session params state]
+(defn show-html 
+  [session params state]
   (let [id (:id params)
         record (group-dao/find-by-id id)
         fields (:fields setting/list-conf)]
     (main/admin-page-html-wrapper
      session
      params
-     (crud-show/get-html fields record)
-     
-     
-     ;; (let [records (user-dao/find-user-list-from-group-id {:active 1} (Integer. id) 0 10)]         
-     ;;   [:div 
-     ;;    [:h2 "Users"]
-     ;;    (crud-list/get-html (filter (fn [record]
-     ;;                                  (when (not= (:name record) "group_name") record))
-     ;;                                (:fields user-setting/list-conf))
-     ;;                        records
-     ;;                        "login"
-     ;;                        1
-     ;;                        setting/list-conf
-     ;;                        "user"
-     ;;                        (:list-action-html-fn setting/list-conf))])
-     
-     )))
+     (crud-show/get-html fields record))))
 
-
-
-(let [records (map (fn [id]
-                     (group-dao/find-by-id id)) ["41:7" "#40:7"])]
-  records)
-
-
-(defn update-html [session params state]
+(defn update-html
+  [session params state]
   (let [id-list (clojure.string/split (:id params) #"-")
         records (let [records (map (fn [id]
                                      (group-dao/find-by-id id)) id-list)]
                   records)]
-    ;; records (group-dao/find-by-id id)]
     (main/admin-page-html-wrapper
      session
      params
@@ -71,11 +65,8 @@
       (:fields setting/list-conf)
       (count id-list)))))
 
-;; (clojure.string/split "36:9-35:9" #"-")
-;; (clojure.string/split "36:9" #"-")
-;; (update-html {} {:id "36:9-35:9"} {})
-
-(defn insert-html [session params state]
+(defn insert-html
+  [session params state]
   (main/admin-page-html-wrapper
    session
    params   
