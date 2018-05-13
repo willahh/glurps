@@ -13,6 +13,7 @@
                     {:label "Actor" :href "/admin/actor"}
                     {:label "Users" :href "/admin/user"}
                     {:label "Groups" :href "/admin/group"}
+                    {:label "Country" :href "/admin/country"}
                     {:label "Asset" :href "/admin/asset"}
                     {:label "DB Manager" :href (config/get :database-manager-url)}
                     {:label "logs" :href "/logs"}

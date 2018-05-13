@@ -11,6 +11,7 @@
             [glurps.admin.actor.route :refer [admin-actor-route]]
             [glurps.admin.user.route :refer [admin-user-route]]
             [glurps.admin.group.route :refer [admin-group-route]]
+            [glurps.admin.country.route :refer [admin-country-route]]
             [glurps.admin.asset.route :refer [admin-asset-route]]
             [glurps.admin.search.route :refer [admin-search-route]]
             [glurps.admin.login.route :refer [admin-login-route]]
@@ -69,6 +70,7 @@
     admin-actor-route
     admin-user-route
     admin-group-route
+    admin-country-route
     admin-asset-route
     admin-search-route
     admin-login-route
