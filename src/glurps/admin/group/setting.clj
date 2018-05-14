@@ -17,7 +17,8 @@
    :option-thumb false
    :option-columns true
    :fields [{:name "_rid" :properties properties/string :type "integer" :list true :show true :insert false :update false :filter true}
-            {:name "name" :properties properties/string :type "string" :filter false}
+            {:name "name" :properties properties/string :type "string" :filter true}
+            {:name "hasUser" :properties properties/string :type "one-to-many" :filter true}
             {:name "CreateDate" :properties properties/datetime :type "string" :filter true :insert false :update false}
             {:name "UpdateDate" :properties properties/datetime :type "string" :filter true :insert false :update false}]
    :default-params {:columns ["_rid" "name" "CreateDate" "UpdateDate"]

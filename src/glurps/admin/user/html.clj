@@ -2,12 +2,13 @@
   (:require [clojure.string :as str]
             [glurps.admin.user.setting :as setting]
             [glurps.admin.user.setting :as user-setting]
+            [glurps.admin.group.setting :as group-setting]
             [glurps.admin.main :as main]
             [glurps.process.crud.show :as crud-show]
             [glurps.process.crud.update :as crud-update]
             [glurps.process.crud.list :as crud-list]
             [glurps.model.user.user-dao :as user-dao]
-            [glurps.model.user.user-dao :as user-dao]))
+            [glurps.model.group.group-dao :as group-dao]))
 
 (defn list-action-html-fn [field-id module-name record]
   (let [id (clojure.string/replace ((keyword field-id) record) "#" "")]
@@ -45,7 +46,19 @@
     (main/admin-page-html-wrapper
      session
      params
-     (crud-show/get-html fields record))))
+     [:div
+      (crud-show/get-html fields record)
+      [:div 
+       [:h2 "Gruoups"]
+       (let [records (user-dao/find-group-from-user-id id)]         
+         (crud-list/get-html (:fields group-setting/list-conf)
+                             records
+                             "name"
+                             1
+                             setting/list-conf
+                             "group"
+                             list-action-html-fn))]
+      ])))
 
 (defn update-html
   [session params state]

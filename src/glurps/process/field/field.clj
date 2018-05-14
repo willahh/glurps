@@ -4,7 +4,8 @@
             [glurps.process.field.string :as string]
             [glurps.process.field.integer :as integer]
             [glurps.process.field.image :as image]
-            [glurps.process.field.boolean :as boolean]))
+            [glurps.process.field.boolean :as boolean]
+            [glurps.process.field.one-to-many :as one-to-many]))
 
 (defn get-field-html [field record fields read-only]
   (let [field-name (:name field)
@@ -29,7 +30,12 @@
           (= type "boolean")
           (if read-only
             (boolean/get-readonly-html field-name record value)
-            (boolean/get-update-html field-name record value)))))
+            (boolean/get-update-html field-name record value))
+
+          (= type "one-to-many")
+          (if read-only
+            (one-to-many/get-readonly-html field-name record value)
+            (one-to-many/get-update-html field-name record value)))))
 
 (defn format-value-for-insert [type value]
   (cond (= type "string")

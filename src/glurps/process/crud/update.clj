@@ -47,7 +47,6 @@
 
 (defn get-html-multiple [session params state list-conf records fields count]
   [:div
-   
    [:form {:class "ui form" :action "" :method "POST"}
     [:input {:type "hidden" :name "count" :value count}]
     [:div {:style "padding: 20px 0;"} (:error-message params)]    
@@ -72,7 +71,102 @@
                          (when visible
                            [:tr 
                             [:td {:width 50} (:name field)]
-                            [:td (field/get-field-html field record fields false)]])))]]
+                            [:td (field/get-field-html field record fields false)]])))
+                     
+                     
+                     ;; [:tr
+                     ;;  [:td "Users"]
+                     ;;  [:td 
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     ;;   [:div.ui.fluid.multiple.search.selection.dropdown
+                     ;;    [:input
+                     ;;     {:name "tags", :type "hidden"}]
+                     ;;    [:i.dropdown.icon]
+                     ;;    [:div.default.text
+                     ;;     "TODO"]
+                     ;;    [:div.menu
+                     ;;     [:div.item
+                     ;;      {:data-value "angular"}
+                     ;;      "Angular"]
+                     ;;     [:div.item
+                     ;;      {:data-value "css"}
+                     ;;      "CSS"]
+                     ;;     [:div.item
+                     ;;      {:data-value "design"}
+                     ;;      "Graphic Design"]
+                     ;;     [:div.item
+                     ;;      {:data-value "ember"}
+                     ;;      "Ember"]
+                     ;;     [:div.item
+                     ;;      {:data-value "html"}
+                     ;;      "HTML"]
+                     ;;     [:div.item
+                     ;;      {:data-value "ia"}
+                     ;;      "Information Architecture"]
+                     ;;     [:div.item
+                     ;;      {:data-value "javascript"}
+                     ;;      "Javascript"]
+                     ;;     [:div.item
+                     ;;      {:data-value "mech"}
+                     ;;      "Mechanical Engineering"]
+                     ;;     [:div.item
+                     ;;      {:data-value "meteor"}
+                     ;;      "Meteor"]
+                     ;;     [:div.item
+                     ;;      {:data-value "node"}
+                     ;;      "NodeJS"]
+                     ;;     [:div.item
+                     ;;      {:data-value "plumbing"}
+                     ;;      "Plumbing"]
+                     ;;     [:div.item
+                     ;;      {:data-value "python"}
+                     ;;      "Python"]
+                     ;;     [:div.item
+                     ;;      {:data-value "rails"}
+                     ;;      "Rails"]
+                     ;;     [:div.item
+                     ;;      {:data-value "react"}
+                     ;;      "React"]
+                     ;;     [:div.item
+                     ;;      {:data-value "repair"}
+                     ;;      "Kitchen Repair"]
+                     ;;     [:div.item
+                     ;;      {:data-value "ruby"}
+                     ;;      "Ruby"]
+                     ;;     [:div.item
+                     ;;      {:data-value "ui"}
+                     ;;      "UI Design"]
+                     ;;     [:div.item
+                     ;;      {:data-value "ux"}
+                     ;;      "User Experience"]]]
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     ;;   ]]
+                     
+                     ]]
                    ])))
        (into [:div] @html))    
      [:script "$('.menu .item').tab();"]]

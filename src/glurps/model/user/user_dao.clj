@@ -41,3 +41,9 @@
 
 (defn delete [id]
   (db-orientdb/delete-record id))
+
+
+
+
+(defn find-group-from-user-id [id]
+  (db-orientdb/query (str "SELECT EXPAND( BOTH( 'hasUser' ) ) FROM " (:class-name schema) " WHERE @rid = " id)))

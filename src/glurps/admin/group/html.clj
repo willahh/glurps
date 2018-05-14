@@ -45,7 +45,18 @@
     (main/admin-page-html-wrapper
      session
      params
-     (crud-show/get-html fields record))))
+     [:div 
+      (crud-show/get-html fields record)
+      [:div 
+       [:h2 "Users"]
+       (let [records (group-dao/find-user-from-group-id id)]         
+         (crud-list/get-html (:fields user-setting/list-conf)
+                             records
+                             "login"
+                             1
+                             setting/list-conf
+                             "user"
+                             list-action-html-fn))]])))
 
 (defn update-html
   [session params state]

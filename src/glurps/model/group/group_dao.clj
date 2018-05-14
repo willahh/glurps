@@ -4,6 +4,8 @@
 
 (def schema {:class-name "Group"})
 
+
+;; Toute cette partie devra etre dans une partie abstraite et etendu ----------
 (defn get-list [params offset limit]
   (db-orientdb/query 
    (let [clause (db-orientdb/clause-from-params params)]
@@ -41,3 +43,8 @@
 
 (defn delete [id]
   (db-orientdb/delete-record id))
+;; ---------------------------------------------------
+
+
+(defn find-user-from-group-id [id]
+  (db-orientdb/query (str "SELECT EXPAND( BOTH( 'hasUser' ) ) FROM " (:class-name schema) " WHERE @rid = " id)))
