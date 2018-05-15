@@ -9,8 +9,13 @@
 Start the server:
 lein ring server
 
-Start the Orientdb server:
-from resources/orientdb ./server.sh
+
+Start the Arangodb server:
+arangodbsh
+password : ""
+
+DB Manager:
+http://127.0.0.1:8529/_db/glurps/_admin/aardvark/index.html
 
 
 -React front auto update browser when changes
