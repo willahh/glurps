@@ -8,17 +8,14 @@
                 :user "root"
                 :password "root"}))
 
-;; CREATE TABLE `glurps`.`glu_user`
-;; ( `user_id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) NOT NULL , `create_date` DATETIME NOT NULL , `update_date` DATETIME NOT NULL , PRIMARY KEY (`user_id`)) ENGINE = InnoDB;
-
-;; CREATE TABLE `glurps`.`group3` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
-
-(defn create-table [name columns]
-  (j/db-do-commands db 
-                    (clojure.string/lower-case 
-                     (j/create-table-ddl name columns
-                                         {:table-spec "ENGINE=InnoDB"
-                                          :entities clojure.string/upper-case}))))
+(defn create-table [table]
+  (let [name (:name table)
+        columns (:columns table)]
+    (j/db-do-commands db 
+                      (clojure.string/lower-case 
+                       (j/create-table-ddl name columns
+                                           {:table-spec "ENGINE=InnoDB"
+                                            :entities clojure.string/upper-case})))))
 
 (defn drop-table [name]
   (j/db-do-commands db (j/drop-table-ddl name)))
@@ -34,27 +31,31 @@
                           :name [(keyword v)]
                           :type [v]
                           :null (if-not v [:not :null])
-                          :primary (when v [:primary])
+                          :primary (when v [:primary :key])
                           :auto_increment (when v [:auto_increment])
                           :default (when v [:default v])
                           nil)))) col))))
 
-(defn def-glu-table [name columns]
+(defmacro def-glu-table [name columns]
   {:name name
    :columns (into []
                   (map map-column-to-jdbc-column columns))})
 
-(let [table (def-glu-table "glu_group"
-              [{:name "group_id" :type "int" :null false :primary true :auto_increment true}
-               {:name "name" :type "varchar(255)" :null false}
-               {:name "create_date" :type "datetime" :null false}
-               {:name "update_date" :type "datetime" :null false}
-               {:name "active" :type "boolean" :default "1"}])] 
-  (create-table (:name table) (:columns table)))
 
+(def-glu-table "glu_group" [{:name "group_id" :type "int" :null false :primary true :auto_increment true}
+                            {:name "name" :type "varchar(255)" :null false}
+                            {:name "create_date" :type "datetime" :null false}
+                            {:name "update_date" :type "datetime" :null false}
+                            {:name "active" :type "boolean" :default "1"}])
 
-(j/db-do-commands db table-group)
-(j/db-do-commands db (j/drop-table-ddl "glu_group"))
+(def-glu-table "glu_user" [{:name "user_id" :type "int" :null false :primary true :auto_increment true}
+                           {:name "name" :type "varchar(255)" :null false}
+                           {:name "create_date" :type "datetime" :null false}
+                           {:name "update_date" :type "datetime" :null false}
+                           {:name "active" :type "boolean" :default "1"}])
+
+(create-table group-table)
+(create-table user-table)
 
 (defentity glu-group
   (table :glu_group)
