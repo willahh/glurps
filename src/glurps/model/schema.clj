@@ -23,15 +23,34 @@
 (defn drop-table [name]
   (j/db-do-commands db (j/drop-table-ddl name)))
 
-(def glu-group {:name "glu_group"
-                :columns [[:group_id "int" :not :null :primary :key :auto_increment]
-                          [:name "varchar(255)" :not :null]
-                          [:create_date "datetime" :not :null]
-                          [:update_date "datetime" :not :null]
-                          [:active "boolean" :not :null :default "1"]
-                          [:fav "boolean" :default "1"]]})
+(defn map-column-to-jdbc-column [col]
+  (into []
+        (flatten
+         (map (fn [a]
+                (let [k (first a)
+                      v (first (rest a))]
+                  (conj []
+                        (case k
+                          :name [(keyword v)]
+                          :type [v]
+                          :null (if-not v [:not :null])
+                          :primary (when v [:primary])
+                          :auto_increment (when v [:auto_increment])
+                          :default (when v [:default v])
+                          nil)))) col))))
 
-(create-table (:name glu-group) (:columns glu-group))
+(defn def-glu-table [name columns]
+  {:name name
+   :columns (into []
+                  (map map-column-to-jdbc-column columns))})
+
+(let [table (def-glu-table "glu_group"
+              [{:name "group_id" :type "int" :null false :primary true :auto_increment true}
+               {:name "name" :type "varchar(255)" :null false}
+               {:name "create_date" :type "datetime" :null false}
+               {:name "update_date" :type "datetime" :null false}
+               {:name "active" :type "boolean" :default "1"}])] 
+  (create-table (:name table) (:columns table)))
 
 
 (j/db-do-commands db table-group)
