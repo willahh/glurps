@@ -1,50 +1,14 @@
 (ns glurps.model.group.group-dao
-  (:require [glurps.config :as config]
-            [wlh.db-orientdb :as db-orientdb]))
+  (:require [glurps.config :as config]))
 
 (def schema {:class-name "Group"})
-
-
-;; Toute cette partie devra etre dans une partie abstraite et etendu ----------
-(defn get-list [params offset limit]
-  (db-orientdb/query 
-   (let [clause (db-orientdb/clause-from-params params)]
-     (str "select * from " (:class-name schema) " " clause " limit " limit " offset " offset))))
-
-(defn count! []
-  (:count (first (db-orientdb/query 
-                  (str "select count(*) from " (:class-name schema))))))
-
-(defn disable-count []
-  (:count (first 
-           (db-orientdb/query
-            (str "select count(*) from " (:class-name schema)`" where enable = false")))))
-
-(defn enable-count []
-  (:count (first 
-           (db-orientdb/query
-            (str "select count(*) from " (:class-name schema)`" where enable = true")))))
-
-(defn find-by-id [id]
-  (db-orientdb/find-record (:class-name schema) id))
-
-(defn- update! [record-content id]
-  (let [rid (str "#" id)]
-    (db-orientdb/update-record (:class-name schema)
-                               rid (conj record-content {:UpdateDate (new java.util.Date)}))))
-
-(defn update-record-properties [record-content id]
-  (update! (merge (find-by-id id) record-content) id))
-
-(defn insert [record-content]
-  (db-orientdb/create-record (:class-name schema)
-                             (conj record-content {:CreateDate (new java.util.Date)
-                                                   :UpdateDate (new java.util.Date)})))
-
-(defn delete [id]
-  (db-orientdb/delete-record id))
-;; ---------------------------------------------------
-
-
-(defn find-user-from-group-id [id]
-  (db-orientdb/query (str "SELECT EXPAND( BOTH( 'hasUser' ) ) FROM " (:class-name schema) " WHERE @rid = " id)))
+(defn get-list [params offset limit])
+(defn count! [])
+(defn disable-count [])
+(defn enable-count [])
+(defn find-by-id [id])
+(defn- update! [record-content id])
+(defn update-record-properties [record-content id])
+(defn insert [record-content])
+(defn delete [id])
+(defn find-user-from-group-id [id])

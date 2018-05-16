@@ -6,8 +6,7 @@
             [glurps.component.form.select :as select]
             [glurps.process.html.html :as html-helper]
             [glurps.process.field.field :as field]
-            [glurps.component.card.card :as card]
-            [glurps.admin.user.setting :as user-setting]))
+            [glurps.component.card.card :as card]))
 
 (defn in? 
   "True if coll contains elm."

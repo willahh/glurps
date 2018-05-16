@@ -11,7 +11,7 @@ breaks"
                            #" +$" "") #"\n" ""))
 
 (defn get-url-from-id [id]
-  (str (config/get :root-url) "/film/fichefilm_gen_cfilm=" id ".html"))
+  (str (config/getconf :root-url) "/film/fichefilm_gen_cfilm=" id ".html"))
 
 (defn str-double-to-double [str]
   (read-string (clojure.string/replace "4,2" #"," ".")))

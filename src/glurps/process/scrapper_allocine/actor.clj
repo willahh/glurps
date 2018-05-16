@@ -4,7 +4,7 @@
             [glurps.config :as config]))
 
 (defn get-url-from-id [id]
-  (str (config/get :root-url) "/personne/fichepersonne_gen_cpersonne=" id ".html"))
+  (str (config/getconf :root-url) "/personne/fichepersonne_gen_cpersonne=" id ".html"))
 
 (defn fetch-url [id]
   (let [url (get-url-from-id id)]

@@ -5,7 +5,7 @@
             [glurps.config :as config]
             [glurps.process.scrapper-allocine.movie :as scrapper-movie]))
 
-(def html-home (html/html-resource (java.net.URL. (config/get :root-url))))
+(def html-home (html/html-resource (java.net.URL. (config/getconf :root-url))))
 
 (defn extract-id-from-sheet-url [url]
   (first (rest (re-find #"=([0-9]+).html" url))))

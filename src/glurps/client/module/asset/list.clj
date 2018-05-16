@@ -3,7 +3,7 @@
 
 
 (defn html [{:keys [params session] :as query}]
-  (main/wrapper-html
+  (main/client-page-html-wrapper
    [:div {:id "app"}
     [:script {:src "/js/out/goog/base.js"}]
     [:script {:src "/js/out/cljs_deps.js"}]

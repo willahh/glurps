@@ -17,14 +17,14 @@
           nil))))
 
 (defn get-default-image-path []
-  (str (config/get :upload-path) "default.png"))
+  (str (config/getconf :upload-path) "default.png"))
 
 (defn get-image [image-name url]
-  (let [filepath (str (config/get :upload-filepath)
+  (let [filepath (str (config/getconf :upload-filepath)
                       image-name)
-        image-out (atom (str (config/get :upload-path) image-name))]
+        image-out (atom (str (config/getconf :upload-path) image-name))]
     (when-not (.exists (clojure.java.io/as-file filepath))
-      (let [image (extract-image-from-url (config/get :upload-filepath)
+      (let [image (extract-image-from-url (config/getconf :upload-filepath)
                                           url
                                           image-name)]
         (reset! image-out
@@ -34,21 +34,21 @@
 
 (defn get-html [record]
   (when record (let [image-name (str "actor_" (record :id) ".jpg")
-                     url (str (config/get :upload-filepath) image-name)]
+                     url (str (config/getconf :upload-filepath) image-name)]
                  [:img {:class "ui medium circular image"
                         :src (get-image image-name url)
                         :style "max-width: 100px; max-height: 100px;"}])))
 
 (defn get-readonly-html [field-name record value]
   (when record (let [image-name (str "actor_" (record :id) ".jpg")
-                     url (str (config/get :upload-filepath) image-name)]
+                     url (str (config/getconf :upload-filepath) image-name)]
                  [:img {:class "ui medium circular image"
                         :src (get-image image-name url)
                         :style "max-width: 100px; max-height: 100px;"}])))
 
 (defn get-update-html [field-name record value]
   (let [image-name (when record (str "actor_" (record :id) ".jpg"))
-        url (str (config/get :upload-filepath) image-name)]
+        url (str (config/getconf :upload-filepath) image-name)]
     [:div
      (when record 
        [:div [:img {:src (get-image image-name url)

@@ -8,6 +8,6 @@
   [filename]
   (edn/read-string (slurp filename)))
 
-(defn get [key]
+(defn getconf [key]
   (let [conf (load-config conf-path)]
     (conf key)))

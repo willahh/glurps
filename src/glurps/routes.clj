@@ -6,21 +6,14 @@
             [compojure.handler :as handler]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            [glurps.admin.index :as admin-list]
+            [glurps.admin.module.home.index :as admin-list]
             [glurps.api.api :refer [api-route api-route-json]]
-            [glurps.admin.actor.route :refer [admin-actor-route]]
-            [glurps.admin.user.route :refer [admin-user-route]]
-            [glurps.admin.group.route :refer [admin-group-route]]
-            [glurps.admin.country.route :refer [admin-country-route]]
-            [glurps.admin.asset.route :refer [admin-asset-route]]
-            [glurps.admin.search.route :refer [admin-search-route]]
-            [glurps.admin.login.route :refer [admin-login-route]]
-            [glurps.client.module.asset.route :refer [client-asset-route]]
-            [glurps.client.views.home :as home]
+            [glurps.admin.module.group.route :refer [admin-group-route]]
+            [glurps.admin.module.search.route :refer [admin-search-route]]
+            [glurps.admin.module.login.route :refer [admin-login-route]]
+            [glurps.client.module.home.home :as home]
             [glurps.client.views.sheet :as sheet]
-            [glurps.client.views.week :as week]
-            [glurps.client.views.logs :as logs]
-            [glurps.client.views.actor :as actor]))
+            [glurps.client.views.logs :as logs]))
 
 (use 'ring.middleware.resource
      'ring.middleware.defaults
@@ -37,18 +30,17 @@
   (route/resources "/")
   (GET "/"
        []
-       (home/get-html))
+       (home/html))
   (GET "/week"
        []
-       (week/get-html))
+       "week")
   (GET "/sheet/:id"
        [id]
        (sheet/get-html id))
   (GET "/actor"
        []
-       (actor/get-html))
-  (POST "/actor"
-        [params] (prn-str params))
+       "actor")
+  
   (GET "/logs"
        []
        (logs/get-html))
@@ -56,25 +48,15 @@
        [params session]
        (admin-list/get-html params session)))
 
-;; (defn init []
-;;   (println "Application is starting"))
-
-;; (def app
 (defonce app
   (-> 
    (routes
-    ;; app-routes
     #'app-routes
     api-route
     (wrap-json-response api-route-json)
-    admin-actor-route
-    admin-user-route
     admin-group-route
-    admin-country-route
-    admin-asset-route
     admin-search-route
-    admin-login-route
-    client-asset-route)
+    admin-login-route)
    (wrap-defaults
     (-> site-defaults
         (assoc-in [:security :anti-forgery] false)))))

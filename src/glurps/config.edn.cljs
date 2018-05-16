@@ -1,2 +1,0 @@
-(ns glurps.config.edn)
-

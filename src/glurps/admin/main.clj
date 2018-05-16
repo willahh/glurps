@@ -1,4 +1,4 @@
-(ns glurps.admin.main
+(ns glurps.admin.main 
   (:require [ring.util.response :as response]
             [glurps.config :as config]
             [glurps.component.tree.tree :as tree]
@@ -10,12 +10,8 @@
 (def module-type-edit "edit")
 
 (def main-nav-rows [{:label "Home" :href "/admin"}
-                    {:label "Actor" :href "/admin/actor"}
-                    {:label "Users" :href "/admin/user"}
                     {:label "Groups" :href "/admin/group"}
-                    {:label "Country" :href "/admin/country"}
-                    {:label "Asset" :href "/admin/asset"}
-                    {:label "DB Manager" :href (config/get :database-manager-url)}
+                    {:label "DB Manager" :href (config/getconf :database-manager-url)}
                     {:label "logs" :href "/logs"}
                     {:label "Front" :href "/"}])
 

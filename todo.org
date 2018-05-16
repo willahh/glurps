@@ -1,5 +1,6 @@
 
 #+TITLE+ Glurps
+* TODO Use https://github.com/korma/Korma
 * TODO CRUD - List
 ** DONE Trash
 ** DONE List pagination
@@ -28,7 +29,6 @@
 ** TODO Order down
 ** TODO List in update mode where all fields are in update mode
 * DONE Search module
-* TODO Implement OAuth https://github.com/mattrepl/clj-oauth
 * TODO Table commentaires dispo pour touts les éléments
 * TODO Liste de données https://www.data.gouv.fr/fr/topics/culture/
 * TODO Download Sample database https://github.com/datacharmer/test_db

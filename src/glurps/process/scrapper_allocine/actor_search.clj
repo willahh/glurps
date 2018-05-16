@@ -1,10 +1,10 @@
-glurps (ns.process.scrapper-allocine.actor-search
-        (:require [net.cgrand.enlive-html :as html]
-                  [glurps.config :as config]
-                  [clojure.string :as str]))
+(ns.process.scrapper-allocine.actor-search
+ (:require [net.cgrand.enlive-html :as html]
+           [glurps.config :as config]
+           [clojure.string :as str]))
 
 (defn get-url-from-id [actor-name]
-  (str (config/get :root-url) "/recherche/5/?q=" (str/replace actor-name " " "+")))
+  (str (config/getconf :root-url) "/recherche/5/?q=" (str/replace actor-name " " "+")))
 
 (defn fetch-url [actor-name]
   (let [url (get-url-from-id actor-name)]

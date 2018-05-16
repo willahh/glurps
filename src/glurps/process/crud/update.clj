@@ -1,9 +1,8 @@
 (ns glurps.process.crud.update
   (:require [wlh.utils :as utils]
-            [glurps.admin.user.setting :as setting]
             [ring.util.response :as response]
             [glurps.admin.main :as main]
-            [wlh.validation :as validation]
+            
             [glurps.process.field.field :as field]))
 
 (defn parse-value [value type]
@@ -19,19 +18,19 @@
                         {key (parse-value (key params) type)}))
                     fields)))
 
-(defn try-insert [fields raw-data make-model-fn dao-insert-fn]
-  "Try to insert raw-data into database. Do a validation before."
-  (try 
-    (do (validation/check-fields fields raw-data)
-        (let [record (make-model-fn raw-data)]
-          (dao-insert-fn record)))
-    (catch Exception e e)))
+;; (defn try-insert [fields raw-data make-model-fn dao-insert-fn]
+;;   "Try to insert raw-data into database. Do a validation before."
+;;   (try 
+;;     (do (validation/check-fields fields raw-data)
+;;         (let [record (make-model-fn raw-data)]
+;;           (dao-insert-fn record)))
+;;     (catch Exception e e)))
 
-(defn try-update [fields id raw-data make-model-fn dao-update-fn]
-  "Try to update raw-data into database. Do a validation before."
-  (do (validation/check-fields fields raw-data)
-      (let [record (into {} (filter second (make-model-fn raw-data)))]
-        (dao-update-fn record id))))
+;; (defn try-update [fields id raw-data make-model-fn dao-update-fn]
+;;   "Try to update raw-data into database. Do a validation before."
+;;   (do (validation/check-fields fields raw-data)
+;;       (let [record (into {} (filter second (make-model-fn raw-data)))]
+;;         (dao-update-fn record id))))
 
 (defn handle-insert [list-conf fields params redirect-url make-model-fn dao-insert-fn]
   (let [record-content params]
