@@ -12,11 +12,9 @@
                  [ring/ring-json "0.4.0"]
                  [compojure "1.6.0"]
                  [hiccup "1.0.5"]
-                 ;; [hiccups "0.3.0"]
                  [hickory "0.7.1"]
                  [org.clojure/java.jdbc "0.7.6"]
                  [korma "0.4.3"]
-                 ;; [enlive "1.1.6"]
                  [clj-http "3.8.0"]                 
                  [prone "1.5.1"]
                  
