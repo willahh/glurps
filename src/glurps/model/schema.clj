@@ -1,12 +1,20 @@
 (ns glurps.model.schema
   (:use korma.db
         korma.core)
-  (:require [clojure.java.jdbc :as j]))
+  (:require [clojure.java.jdbc :as j]
+            [clojure.spec.alpha :as s]))
 
-(def db (mysql {:host "localhost"
-                :db "glurps"
-                :user "root"
-                :password "root"}))
+(defn merge-vector-of-map [v1 v2]
+  "Merge two vectors of map.
+  Note: this is bad implemented but i don't know how
+  do better for now."
+  (let [cnt (count v2)
+        result (atom [])]
+    (dotimes [i cnt]
+      (let [m1 (when (< i (count v1)) (nth v1 i))
+            m2 (nth v2 i)]
+        (swap! result conj (merge m1 m2))))
+    @result))
 
 (defn create-table [table]
   (let [name (:name table)
@@ -36,48 +44,90 @@
                           :default (when v [:default v])
                           nil)))) col))))
 
-(defmacro def-glu-table [name columns & {:keys [extend]}]
-  {:name name
-   :columns columns
-   :jdbc-columns (into []
-                       (map map-column-to-jdbc-column columns))})
+(defn def-glu-table [name columns & {:keys [extend]}]
+  (let [abstract-columns (when extend (:columns extend))
+        abstract-jdbc-columns (when abstract-columns
+                                (map map-column-to-jdbc-column abstract-columns))
+        columns (merge-vector-of-map abstract-columns columns)
+        target-jdbc-columns (map map-column-to-jdbc-column columns)        
+        jdbc-columns (into []
+                           (if abstract-jdbc-columns 
+                             (apply merge abstract-jdbc-columns target-jdbc-columns)
+                             target-jdbc-columns))] 
+    
+    {:name name
+     :columns columns
+     :jdbc-columns jdbc-columns
+     :fields (into [] (map #(first %) jdbc-columns))}))
 
 (defn map-columns-to-entity-fields [glu-table]
   (map #(keyword (:name %)) (:columns glu-table)))
 
+
+
+;; -------------------------------------------------
+;; Define the db
+(def db (mysql {:host "localhost"
+                :db "glurps"
+                :user "root"
+                :password "root"}))
+
+(defdb glurps db)
+
+
+;; -- Define tables -----------------------------------------------
 (def abstract-col-table
-  (def-glu-table "glu_abstract_col"
-    [{:name "create_date" :type "datetime" :null false}
-     {:name "update_date" :type "datetime" :null false}
-     {:name "active" :type "boolean" :default "1"}]))
+  (def-glu-table "glu_abstract_col" [{:name "create_date" :type "datetime" :null false}
+                                     {:name "update_date" :type "datetime" :null false}
+                                     {:name "active" :type "boolean" :default "1"}
+                                     {:name "fav" :type "boolean" :default "0"}]))
 
-
-;; ---------------------------------------
-
-;; #:person{:first "Han"
-;;          :last "Solo"
-;;          :ship #:ship{:name "Millenium Falcon"
-;;                       :model "YT-1300f light freighter"}}
-
-
-;; :person/ship
-
-;; #:group{:name "test"}
-
-;; {:group/name "test2"}
-
-;; :group/name
-
-
-;; {:person/first "Han"
-;;  :person/last "Solo"
-;;  :person/ship {:ship/name "Millenium Falcon"
-;;                :ship/model "YT-1300f light freighter"}}
+(def group-table 
+  (def-glu-table "glu_group" [{:name "group_id" :type "int" :null false :primary true :auto_increment true}
+                              {:name "name" :type "varchar(255)" :null false}]
+    :extend abstract-col-table))
 
 
 
+;; -- Define entities -----------------------------------------------
+(defentity glu-group
+  (table :glu_group)
+  (database glurps)
+  (entity-fields (:fields group-table)))
+
+;; Create tables
+(create-table group-table)
 
 
+;; Define some specs
+;; (s/def ::group_id int?)
+;; (s/def ::name string?)
+;; (s/def ::create_date inst?)
+;; (s/def ::update_date inst?)
+;; (s/def ::group (s/keys :req [::name ::create_date ::update_date]))
+
+;; (s/explain-str ::group
+;;                {::name ""
+;;                 ::create_date (new java.util.Date)
+;;                 ::update_date (new java.util.Date)})
+
+;; (defrecord Group [name create_date update_date])
+;; (s/explain-str ::group (->Group "yo" (new java.util.Date) (new java.util.Date)))
+
+
+
+
+;; Do some inset
+(insert glu-group (values {:name "test"
+                           :create_date (new java.util.Date)
+                           :update_date (new java.util.Date)}))
+
+;; Do some select
+(select glu-group)
+
+
+
+;; -- User entity/spec -----------------------------------------------
 (def user-table 
   (def-glu-table "glu_user" [{:name "user_id" :type "int" :null false :primary true :auto_increment true}
                              {:name "name" :type "varchar(255)" :null false}
@@ -86,26 +136,3 @@
                              {:name "active" :type "boolean" :default "1"}]))
 
 (create-table user-table)
-
-(def group-table 
-  (def-glu-table "glu_group" [{:name "group_id" :type "int" :null false :primary true :auto_increment true}
-                              {:name "name" :type "varchar(255)" :null false}
-                              {:name "create_date" :type "datetime" :null false}
-                              {:name "update_date" :type "datetime" :null false}
-                              {:name "active" :type "boolean" :default "1"}]
-    :extend abstract-col-table))
-(create-table group-table)
-
-(defentity glu-group
-  (database db)
-  (table (keyword (:name group-table)))
-  ;; (entity-fields (map-columns-to-entity-fields group-table))
-  (entity-fields :group_id :name :create_date :update_date :active))
-
-(map-columns-to-entity-fields group-table)
-
-(insert glu-group (values {:name "test"
-                           :create_date (new java.util.Date)
-                           :update_date (new java.util.Date)}))
-
-(select glu-group)
