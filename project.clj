@@ -22,7 +22,8 @@
                  [reagent "0.8.0"]
                  [cljs-ajax "0.7.3"]
                  [jayq "2.5.5"]
-                 [mysql-java "5.1.21"]]
+                 [mysql-java "5.1.21"]
+                 [enlive "1.1.6"]]
   :main ^:skip-aot glurps.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}

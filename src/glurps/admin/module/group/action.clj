@@ -15,7 +15,7 @@
     (dotimes [i count]
       (when (= @success true)
         (let [record-content (group-helper/record-content-from-records-content params i)]
-          (try (group-dao/insert record-content)
+          (try (group-dao/insert! record-content)
                (catch Exception e
                  (reset! success false)
                  (reset! error-message e))))))
@@ -65,7 +65,7 @@
 (defn delete [id]
   (let [id-list (clojure.string/split id #"-")]
     (doseq [id id-list]
-      (group-dao/delete id)))
+      (group-dao/delete! id)))
   (response/redirect "../../group/trash"))
 
 (defn duplicate [id]
