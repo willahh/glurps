@@ -25,12 +25,16 @@
                              {:name "update_date" :type "datetime" :null false}
                              {:name "active" :type "boolean" :default "1"}]))
 
-;; -- Define entities -----------------------------------------------
-(defentity glu-group
-  (table :glu_group)
-  (database glurps)
-  (entity-fields (:fields group-table)))
 
+
+;; Create / drop tables ----------------------------
+;; (drop-table db glu-group)
+;; (create-table db user-table)
+;; (create-table db group-table)
+
+
+
+;; -- Define entities -----------------------------------------------
 (defentity glu-group
   (table :glu_group)
   (database glurps)
@@ -40,13 +44,6 @@
 ;;   (table :glu_group)
 ;;   (database glurps)
 ;;   (entity-fields `@~(into () (:fields group-table))))
-
-;; Create tables ----------------------------
-;; (create-table db user-table)
-;; (create-table db group-table)
-
-
-
 
 
 
@@ -71,7 +68,7 @@
                            :create_date (new java.util.Date)
                            :update_date (new java.util.Date)}))
 
-;; Some select
+;; Some test
 (select-from-params glu-group {})
 (select-from-params glu-group {:fav "on"})
 (select-from-params glu-group {:fav "on" :active "on" :order "group_id" :asc "0" :limit 2 :offset 0})
