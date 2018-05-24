@@ -25,12 +25,16 @@
                              {:name "update_date" :type "datetime" :null false}
                              {:name "active" :type "boolean" :default "1"}]))
 
-;; -- Define entities -----------------------------------------------
-(defentity glu-group
-  (table :glu_group)
-  (database glurps)
-  (entity-fields (:fields group-table)))
 
+
+;; Create / drop tables ----------------------------
+;; (drop-table db glu-group)
+;; (create-table db user-table)
+;; (create-table db group-table)
+
+
+
+;; -- Define entities -----------------------------------------------
 (defentity glu-group
   (table :glu_group)
   (database glurps)
@@ -40,13 +44,6 @@
 ;;   (table :glu_group)
 ;;   (database glurps)
 ;;   (entity-fields `@~(into () (:fields group-table))))
-
-;; Create tables ----------------------------
-;; (create-table db user-table)
-;; (create-table db group-table)
-
-
-
 
 
 
@@ -71,7 +68,7 @@
                            :create_date (new java.util.Date)
                            :update_date (new java.util.Date)}))
 
-;; Some select
+;; Some test
 (select-from-params glu-group {})
 (select-from-params glu-group {:fav "on"})
 (select-from-params glu-group {:fav "on" :active "on" :order "group_id" :asc "0" :limit 2 :offset 0})
@@ -85,86 +82,3 @@
         (order :name :DESC)
         (limit 3)
         (offset 0))
-
-
-
-
-
-
-
-
-;; (defmulti convert class)
-
-;; (defmethod convert clojure.lang.Keyword [data]
-;;   (convert (name data)))
-
-;; (defmethod convert java.lang.String [data]
-;;   (str "\"" data "\""))
-
-;; (defmethod convert nil [data]
-;;   "null")
-
-;; (defmethod convert :default [data]
-;;   13   (str data))
-
-
-;; (convert "a")
-;; (convert a)
-;; (convert nil)
-;; (convert )
-
-;; (defprotocol P
-;;   (foo [x])
-;;   (bar-me [x] [x y]))
-
-;; (deftype Foo [a b c]
-;;   P
-;;   (foo [x] a)
-;;   (bar-me [x] b)
-;;   (bar-me [x y] (+ c y)))
-
-;; ;; (bar-me (Foo. 1 2 3) 42)
-
-;; (bar-me (Foo. 1 2 3) 42)
-;; (bar-me (Foo. 1 2 3) 12)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-;; (deftype Employee [name id]
-;;   Object
-;;   (equals [a b] (= (.id a) (.id b)))
-;;   (hashCode [this] (.hashCode (.id this)))
-;;   (toString [this] (.name this)))
-
-;; (def vince (Employee. "Vince" 42))
-
-;; (def vincent (Employee. "Vincent" 42))
-
-;; (def tony (Employee. "Tony" 2))
-
-;; (into #{} [vince vincent tony])
-
-
-
-
-
-
-
-
-
-
-
-
