@@ -41,7 +41,6 @@
 * TODO Crud gallery
 * TODO Admin Home page -> Add full search features, relations viewer etc
 * TODO Admin - Country
-* TODO Implement OrientDB
 * TODO Todo example app
   https://github.com/arevkov/clojure-web-app
 * TODO CRUD - Show
@@ -53,7 +52,6 @@
 ** TODO Authentification
 ** TODO Email service
 ** TODO Forgot password
-* TODO Implement Datomic
 * TODO REST API
   Tests can be made through Postman application
    --------> OrientDB can do that automaticaly

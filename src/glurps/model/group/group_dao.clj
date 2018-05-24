@@ -12,7 +12,7 @@
 
 (defn get-list [params offset limit]
   (select-from-params schema/glu-group params))
-
+(get-list {:page 1 :limit 2} 1 2)
 (defn count! []
   10)
 
