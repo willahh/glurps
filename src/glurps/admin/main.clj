@@ -102,7 +102,7 @@
 
 (defn get-page-title [module-conf module-type & records]
   (let [module-name (clojure.string/capitalize (:module-name module-conf))
-        record (if (and records (first records)) (first (first (first records))))
+        record (if (and records (first records)) (first (first records)))
         title (case module-type
                 "list" (str module-name " list")
                 "show" (str module-name " show"

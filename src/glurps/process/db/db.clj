@@ -43,7 +43,7 @@
 (defn- map-columns-to-entity-fields [glu-table]
   (map #(keyword (:name %)) (:columns glu-table)))
 
-(defn- params-to-korma [params]
+(defn params-to-korma [params]
   (let [where-clause (list 'where {:fav "on"})
         order (when (:order params)
                 (reverse (conj '()
@@ -61,6 +61,7 @@
                            order
                            limit
                            offset)))))
+
 (defn create-table [db table]
   (let [name (:name table)
         columns (:jdbc-columns table)]

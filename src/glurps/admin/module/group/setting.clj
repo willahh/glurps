@@ -8,7 +8,7 @@
   {:path "/admin/group"
    :module-name "group"
    :db-class "Group"
-   :field-id "_rid"
+   :field-id "group_id"
    :field-label "name"
    :field-image ""
    :search-field-title :name

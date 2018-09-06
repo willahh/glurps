@@ -4,7 +4,8 @@
         glurps.process.db.db)
   (:require [clojure.java.jdbc :as j]
             [clojure.spec.alpha :as s]
-            [glurps.model.abstract-dao :as abstract-dao]))
+            ;; [glurps.model.abstract-dao :as abstract-dao]
+            ))
 
 ;; -- Define tables -----------------------------------------------
 (def abstract-col-table
@@ -75,6 +76,9 @@
 (select-from-params glu-group {:fav "on" :active "on" :order "name"})
 (select-from-params glu-group {:fav "on" :active "on" :order "group_id" :asc "1"})
 (select-from-params glu-group {:fav "on" :active "on" :order "name" :asc "1" :limit 2 :offset 1})
+(select-from-params glu-group {:fav "on" :active "on" :order "create_date" :asc "1" :limit 2 :offset 1})
+(select-from-params glu-group {:fav "on" :active "on" :order "name" :asc "1" :limit 2 :offset 1})
+
 (select glu-group)
 (select glu-group
         (where {:active true

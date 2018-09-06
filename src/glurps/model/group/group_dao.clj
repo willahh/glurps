@@ -1,41 +1,38 @@
 (ns glurps.model.group.group-dao
-  (:use korma.db
-        korma.core
-        glurps.process.db.db)
-  (:require [glurps.config :as config]
-            [glurps.model.abstract-dao :as abstract-dao]
-            [glurps.model.schema :as schema]))
+  (:use [korma.core])
+  (:require 
+   [glurps.model.schema :as schema]
+   [glurps.process.db.db :as db :refer [select-from-params]]))
 
-;; (abstract-dao/AbstractDAO)
-;; (extend-protocol abstract-dao)
-;; (get-list {} 1 2)
+(defn get-list [params p-offset p-limit]
+  (select-from-params schema/glu-group (merge params {:offset p-offset :limit p-limit})))
 
-(defn get-list [params offset limit]
-  (select-from-params schema/glu-group params))
-(get-list {:page 1 :limit 2} 1 2)
 (defn count! []
-  10)
+  (count (select schema/glu-group)))
 
 (defn disable-count []
-  20)
+  (count (select schema/glu-group
+                 (where {:active false}))))
 
 (defn enable-count []
-  1)
+  (count (select schema/glu-group
+                 (where {:active true}))))
 
 (defn find-by-id [id]
-  nil)
-
-(defn- update! [record-content id]
-  nil)
+  (select schema/glu-group
+        (where {:group_id id})))
 
 (defn update-record-properties [record-content id]
-  nil)
+  (update schema/glu-group
+          (set-fields record-content)
+          (where {:group_id id})))
 
 (defn insert! [record-content]
-  nil)
+  (insert schema/glu-group
+          (values record-content)))
 
 (defn delete! [id]
-  nil)
+  (delete schema/glu-group (where {:group_id id})))
 
 (defn find-user-from-group-id [id]
   nil)
