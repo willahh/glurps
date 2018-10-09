@@ -1,6 +1,5 @@
 (ns glurps.client.module.asset.list
-  (:require [reagent.core :as r]
-            [glurps.client.main :as main]
+  (:require [glurps.client.main :as main]
             [glurps.component.card.card :as card]
             [glurps.component.form.select :as select]
             [glurps.component.pagination.pagination :as pagination]

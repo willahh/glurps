@@ -16,12 +16,18 @@
    :search-field-image :image
    :option-thumb false
    :option-columns true
-   :fields [{:name "_rid" :properties properties/string :type "integer" :list true :show true :insert false :update false :filter true}
+   :table [{:name "group_id" :type "int" :null false :primary true :auto_increment true}
+           {:name "name" :type "varchar(255)" :null false}
+           {:name "hasUser" :type "boolean" :null false}
+           {:name "create_date" :type "datetime" :null false}
+           {:name "update_date" :type "datetime" :null false}]
+   :fields [{:name "group_id" :properties properties/string :type "integer" :list true :show true :insert false :update false :filter true}
             {:name "name" :properties properties/string :type "string" :filter true}
-            {:name "hasUser" :properties properties/string :type "one-to-many" :filter true}
-            {:name "CreateDate" :properties properties/datetime :type "string" :filter true :insert false :update false}
-            {:name "UpdateDate" :properties properties/datetime :type "string" :filter true :insert false :update false}]
-   :default-params {:columns ["_rid" "name" "CreateDate" "UpdateDate"]
+            ;; {:name "hasUser" :properties properties/string :type "one-to-many" :filter true}
+            {:name "hasUser" :properties properties/string :type "boolean" :filter true}
+            {:name "create_date" :properties properties/datetime :type "string" :filter true :insert false :update false}
+            {:name "update_date" :properties properties/datetime :type "string" :filter true :insert false :update false}]
+   :default-params {:columns ["group_id" "name" "create_date" "update_date"]
                     :order "id"
                     :asc "1"
                     :enable true

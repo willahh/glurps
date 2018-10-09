@@ -3,9 +3,6 @@
             [ring.middleware.json :refer [wrap-json-response]]
             [compojure.core :refer [defroutes ANY GET POST]]))
 
-;; TODO voir le poste http://blog.ippon.fr/2017/10/25/temp-slug-957/ pour une
-;; intégration détaillée d'une api rest.
-;; TODO, il faudra intégrer des routes avec les actions GET POST PUT DELETE etc
 (defn get-actors [params]
   (let [offset (if (:page params)
                  (- (Integer. (:page params)) 1)

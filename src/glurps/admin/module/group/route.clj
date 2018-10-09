@@ -62,3 +62,7 @@
   (GET "/admin/group/enable/:id" 
        [id]
        (action/action-batch id {:enable true} "../../group/trash")))
+
+;; (group-helper/handle-route {} {:id 1} html/show-html)
+;; (group-helper/handle-route {} {:id 1} html/insert-html)
+;; (action/insert {} {:id 1 :count 1} {} html/insert-html)

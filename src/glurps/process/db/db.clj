@@ -40,9 +40,6 @@
                           :default (when v [:default v])
                           nil)))) col))))
 
-(defn- map-columns-to-entity-fields [glu-table]
-  (map #(keyword (:name %)) (:columns glu-table)))
-
 (defn params-to-korma [params]
   (let [where-clause (list 'where {:fav "on"})
         order (when (:order params)
@@ -90,5 +87,24 @@
      :jdbc-columns jdbc-columns
      :fields (into [] (map #(first %) jdbc-columns))}))
 
-(defmacro select-from-params [table query]
-  `(select ~table ~@(params-to-korma query)))
+(defn create-table [table]
+  (let [name (:name table)
+        columns (:columns table)]
+    (j/db-do-commands db 
+                      (clojure.string/lower-case 
+                       (j/create-table-ddl name columns
+                                           {:table-spec "ENGINE=InnoDB"
+                                            :entities clojure.string/upper-case})))))
+
+
+(create-table group-table)
+
+
+;; (defmacro select-from-params [table query]
+;;   `(select ~table ~@(params-to-korma query)))
+
+
+;; (defn select-from-params [db params]
+;;   (eval `(-> (select* (deref db))
+;;              ~@(params-to-korma params)
+;;              exec)))

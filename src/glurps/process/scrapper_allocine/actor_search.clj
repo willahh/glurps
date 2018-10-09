@@ -1,4 +1,4 @@
-(ns.process.scrapper-allocine.actor-search
+(ns glurps.process.scrapper-allocine.actor-search
  (:require [net.cgrand.enlive-html :as html]
            [glurps.config :as config]
            [clojure.string :as str]))

@@ -250,7 +250,8 @@
         field-order (:order state)
         field-asc (Integer. (:asc state))
         offset (get-pagination-offset page limit count)
-        records (get-list state offset limit)]
+        merged-params (merge params state)
+        records (get-list merged-params)]
     [:div.ui.stackable.grid
      [:div.row.column.two {:style "padding-top: 0;"}
       [:div {:class "four wide column"}
@@ -275,6 +276,7 @@
      (filter-option-html state list-conf page offset limit count)
      [:div.row [:div.column
                 [:div (str "params: " (pr-str params))]
+                [:div (str "merged-params: " (pr-str merged-params))]
                 [:div (str "default params: " (:default-params list-conf))]
                 [:div (str "session: " session)]
                 [:div (str "state:: " state)]
